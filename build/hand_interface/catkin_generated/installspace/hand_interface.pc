@@ -1,0 +1,8 @@
+prefix=/home/wilson/farmHand_ws/install
+
+Name: hand_interface
+Description: Description of hand_interface
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
