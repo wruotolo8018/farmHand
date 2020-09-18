@@ -5,8 +5,8 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
-subdirs("hand_interface")
 subdirs("master_state_machine")
+subdirs("hand_interface")
 subdirs("universal_robot/universal_robot")
 subdirs("universal_robot/universal_robots")
 subdirs("universal_robot/ur_description")

@@ -7,8 +7,7 @@ from std_msgs.msg import String, Int16
 import serial
 import time
 import numpy as np
-from tae_psoc.msg import SensorPacket, cmdToPsoc, Sensor_Fast, Sensor_Indiv
-from basic_sensor_interface.msg import tendon_sns, joint_sns
+#from basic_sensor_interface.msg import tendon_sns, joint_sns
 
 # state definitions
 MOVE_TO_POSE_1 = 2
