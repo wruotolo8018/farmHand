@@ -29,7 +29,7 @@ def motor_talker():
 if __name__ == '__main__':
     try:
         # Setup serial connection
-        com = serial.Serial('/dev/ttyACM1',baudrate=115200)
+        com = serial.Serial('/dev/ttyACM0',baudrate=115200)
         time.sleep(0.5) # Not sure this is necessary but seems to stabilize comms some
         motor_talker()
         

@@ -16,31 +16,45 @@ void closeSequence();
 void openSequence();
 
 void setup() {
-  // Setup all the pwm pins according to current configuration
-  pwmArray[1] = 10;   pwmArray[2] = 11;   pwmArray[3] = 9 ;
-  pwmArray[7] = 13;   pwmArray[8] = 12;   pwmArray[9]= 2 ;
-
-  pwmArray[4] = 8 ;   pwmArray[5]  = 6 ;   pwmArray[6] = 7 ;
-  pwmArray[10]= 5 ;   pwmArray[11] = 4 ;   pwmArray[12]= 3 ;
+  
+  // Finger 1
+  pwmArray[1] = 5;   pwmArray[2] = 9;  
 
   // Setup all the digital direction setting pins according to current configuration  
-  // Finger 1
-  for (int i = 22; i<53; i++) {
+  for (int i = 0; i<13; i++) {
     pinMode(i, OUTPUT);
   }
+
+  // Finger 1
+  digArray1[1]  = 3;   digArray2[1]  = 4;
+  digArray1[2]  = 7;   digArray2[2]  = 8;
+
   
-  digArray1[1]  = 50;   digArray2[1]  = 48;
-  digArray1[2]  = 46;   digArray2[2]  = 44;
-  digArray1[3]  = 51;   digArray2[3]  = 49;  
-  // Thumb
-  digArray1[7]  = 42;   digArray2[7]  = 40;  
-  digArray1[8]  = 38;   digArray2[8]  = 36;
-  digArray1[9]  = 28;   digArray2[9]  = 30;
-  
-  // Finger 2
-  digArray1[4]  = 47;   digArray2[4]  = 45; // Working
-  digArray1[5]  = 25;   digArray2[5]  = 27; // Working
-  digArray1[6]  = 31;   digArray2[6]  = 29; // Working
+//  // Setup all the pwm pins according to current configuration
+//  pwmArray[1] = 10;   pwmArray[2] = 11;   pwmArray[3] = 9 ;
+//  pwmArray[7] = 13;   pwmArray[8] = 12;   pwmArray[9]= 2 ;
+//
+//  pwmArray[4] = 8 ;   pwmArray[5]  = 6 ;   pwmArray[6] = 7 ;
+//  pwmArray[10]= 5 ;   pwmArray[11] = 4 ;   pwmArray[12]= 3 ;
+//
+//  // Setup all the digital direction setting pins according to current configuration  
+//  // Finger 1
+//  for (int i = 22; i<53; i++) {
+//    pinMode(i, OUTPUT);
+//  }
+//  
+//  digArray1[1]  = 50;   digArray2[1]  = 48;
+//  digArray1[2]  = 46;   digArray2[2]  = 44;
+//  digArray1[3]  = 51;   digArray2[3]  = 49;  
+//  // Thumb
+//  digArray1[7]  = 42;   digArray2[7]  = 40;  
+//  digArray1[8]  = 38;   digArray2[8]  = 36;
+//  digArray1[9]  = 28;   digArray2[9]  = 30;
+//  
+//  // Finger 2
+//  digArray1[4]  = 47;   digArray2[4]  = 45; // Working
+//  digArray1[5]  = 25;   digArray2[5]  = 27; // Working
+//  digArray1[6]  = 31;   digArray2[6]  = 29; // Working
 
   // Start serial comms going at a chosen baud rate
   Serial.begin(115200);
@@ -122,6 +136,7 @@ void openSequence(){
   runMotor(8, 0, 50);
   runMotor(9, 1, 50);
 }
+
 void runMotor(int motorSelect, int dir, int pwmVal) {
   analogWrite(pwmArray[motorSelect], pwmVal);
   if (dir == 0) {

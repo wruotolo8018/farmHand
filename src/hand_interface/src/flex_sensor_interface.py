@@ -93,14 +93,13 @@ def basic_sensor_serial():
                 #print("Hype Tendon Val: " + str(calibrated_vals[5]))
                 #print(" ")
                 
-                
                 # Fill out flex data msg type with calibrated values
                 cur_flex_data.prox1 = calibrated_vals[0]
                 cur_flex_data.dist1 = calibrated_vals[1]
-                cur_flex_data.prox2 = calibrated_vals[3]
-                cur_flex_data.dist2 = calibrated_vals[4]
-                cur_flex_data.prox3 = calibrated_vals[6]
-                cur_flex_data.dist3 = calibrated_vals[7]
+                cur_flex_data.prox2 = calibrated_vals[2]
+                cur_flex_data.dist2 = calibrated_vals[3]
+                cur_flex_data.prox3 = calibrated_vals[4]
+                cur_flex_data.dist3 = calibrated_vals[5]
                 
             # publish sensor data
             flex_sense_pub.publish(cur_flex_data)
