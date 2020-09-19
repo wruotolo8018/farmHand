@@ -9,6 +9,9 @@ int pwmArray[7];
 int digArray1[7];
 int digArray2[7];
 
+// General Variables
+int num_motors = 2;
+
 // Function prototypes
 void runMotor(int motorSelect, int dir, int pwmVal);
 void stopAll();
@@ -16,37 +19,25 @@ void stopAll();
 void setup() {
   // Setup all the pwm pins according to current configuration
 
-  // Finger 1
-  pwmArray[1] = 11;   pwmArray[2] = 10;   
-  
-  
-//  pwmArray[3] = 9 ;
-//  pwmArray[7] = 13;   pwmArray[8] = 12;   pwmArray[9]= 2 ;
-//
-//  pwmArray[4] = 8 ;   pwmArray[5]  = 6 ;   pwmArray[6] = 7 ;
-//  pwmArray[10]= 5 ;   pwmArray[11] = 4 ;   pwmArray[12]= 3 ;
-
   // Setup all the digital direction setting pins according to current configuration  
   for (int i = 22; i<53; i++) {
     pinMode(i, OUTPUT);
   }
-  
-  // Finger 1
-  digArray1[1]  = 0;   digArray2[1]  = 1;
-  digArray1[2]  = 2;   digArray2[2]  = 3;
 
-  
-//  digArray1[3]  = 51;   digArray2[3]  = 49;  
-//  
-//  // Thumb
-//  digArray1[7]  = 42;   digArray2[7]  = 40;  
-//  digArray1[8]  = 38;   digArray2[8]  = 36;
-//  digArray1[9]  = 28;   digArray2[9]  = 30;
-//  
-//  // Finger 2
-//  digArray1[4]  = 47;   digArray2[4]  = 45;
-//  digArray1[5]  = 25;   digArray2[5]  = 27;
-//  digArray1[6]  = 31;   digArray2[6]  = 29; 
+  // Finger 1
+  pwmArray[1] = 2;   pwmArray[2] = 3;   
+  digArray1[1]  = 24;   digArray2[1]  = 26;
+  digArray1[2]  = 30;   digArray2[2]  = 32;
+
+  // Finger 2
+  pwmArray[3] = 11;   pwmArray[4] = 10;   
+  digArray1[3]  = 0;   digArray2[3]  = 1;
+  digArray1[4]  = 2;   digArray2[4]  = 3;
+
+  // Finger 3
+  pwmArray[5] = 11;   pwmArray[6] = 10;   
+  digArray1[5]  = 0;   digArray2[5]  = 1;
+  digArray1[6]  = 2;   digArray2[6]  = 3;
 
   // Start serial comms going at a chosen baud rate
   Serial.begin(115200);
@@ -90,7 +81,7 @@ void loop() {
       }
 
       // Iterate through motors and set direction and pwm from associated arrays
-      for (int i = 1; i<=6; i++) {
+      for (int i = 1; i<=num_motors; i++) {
         int hundoPWM = pwmValArray[i];
         if (hundoPWM > 50) { 
           mappedPWM = map(hundoPWM, 50, 99, 0, 255);
@@ -141,7 +132,7 @@ void runMotor(int motorSelect, int dir, int pwmVal) {
 }
 
 void stopAll() {
-  for (int i = 1; i<=6; i++) {
+  for (int i = 1; i<=num_motors; i++) {
     runMotor(i,0,0); 
   }
   Serial.println("\nStopping All Motors");
