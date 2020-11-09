@@ -35,8 +35,8 @@ void setup() {
 
   // Finger 3
   pwmArray[5] = 4;   pwmArray[6] = 5;   
-  digArray1[5]  = 37;   digArray2[5]  = 39;
-  digArray1[6]  = 41;   digArray2[6]  = 43;
+  digArray1[5]  = 41;   digArray2[5]  = 43;
+  digArray1[6]  = 37;   digArray2[6]  = 39;
 
   // Finger 4
   pwmArray[7] = 6;   pwmArray[8] = 7;   
