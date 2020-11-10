@@ -107,10 +107,10 @@
 (setf (get ur_msgs::SetSpeedSliderFractionRequest :md5sum-) "172aeb6c49379a44cf68480fa5bfad3c")
 (setf (get ur_msgs::SetSpeedSliderFractionRequest :datatype-) "ur_msgs/SetSpeedSliderFractionRequest")
 (setf (get ur_msgs::SetSpeedSliderFractionRequest :definition-)
-      "
-
-
-
+      "# Set the speed slider on the teach pendant to the specified value.
+#
+# Values for 'speed_slider_fraction' must be from [0; 1.0]; values outside this
+# valid range will result in an error being returned to the caller.
 
 float64 speed_slider_fraction
 ---
@@ -121,10 +121,10 @@ bool success
 (setf (get ur_msgs::SetSpeedSliderFractionResponse :md5sum-) "172aeb6c49379a44cf68480fa5bfad3c")
 (setf (get ur_msgs::SetSpeedSliderFractionResponse :datatype-) "ur_msgs/SetSpeedSliderFractionResponse")
 (setf (get ur_msgs::SetSpeedSliderFractionResponse :definition-)
-      "
-
-
-
+      "# Set the speed slider on the teach pendant to the specified value.
+#
+# Values for 'speed_slider_fraction' must be from [0; 1.0]; values outside this
+# valid range will result in an error being returned to the caller.
 
 float64 speed_slider_fraction
 ---

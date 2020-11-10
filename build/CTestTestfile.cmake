@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/wilson/farmHand_ws/src
-# Build directory: /home/wilson/farmHand_ws/build
+# Source directory: /home/bdml/farmHand/src
+# Build directory: /home/bdml/farmHand/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
@@ -15,6 +15,7 @@ subdirs("universal_robot/ur_msgs")
 subdirs("universal_robot/ur_bringup")
 subdirs("universal_robot/ur_driver")
 subdirs("ur5_demo")
+subdirs("ur5_manip")
 subdirs("universal_robot/ur_e_gazebo")
 subdirs("universal_robot/ur_gazebo")
 subdirs("universal_robot/ur_kinematics")

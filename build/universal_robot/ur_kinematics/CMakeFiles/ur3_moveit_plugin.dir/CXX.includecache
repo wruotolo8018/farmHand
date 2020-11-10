@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/wilson/farmHand_ws/src/universal_robot/ur_kinematics/include/ur_kinematics/ur_kin.h
+/home/bdml/farmHand/src/universal_robot/ur_kinematics/include/ur_kinematics/ur_kin.h
 
-/home/wilson/farmHand_ws/src/universal_robot/ur_kinematics/include/ur_kinematics/ur_moveit_plugin.h
+/home/bdml/farmHand/src/universal_robot/ur_kinematics/include/ur_kinematics/ur_moveit_plugin.h
 ros/ros.h
 -
 random_numbers/random_numbers.h
@@ -42,7 +42,7 @@ moveit/robot_model/robot_model.h
 moveit/robot_state/robot_state.h
 -
 
-/home/wilson/farmHand_ws/src/universal_robot/ur_kinematics/src/ur_moveit_plugin.cpp
+/home/bdml/farmHand/src/universal_robot/ur_kinematics/src/ur_moveit_plugin.cpp
 class_loader/class_loader.h
 -
 tf_conversions/tf_kdl.h
@@ -659,13 +659,11 @@ stdexcept
 /opt/ros/melodic/include/moveit/kdl_kinematics_plugin/joint_mimic.hpp
 
 /opt/ros/melodic/include/moveit/kinematics_base/kinematics_base.h
-geometry_msgs/PoseStamped.h
+geometry_msgs/Pose.h
 -
 moveit_msgs/MoveItErrorCodes.h
 -
 moveit/macros/class_forward.h
--
-moveit/macros/deprecation.h
 -
 ros/node_handle.h
 -
@@ -681,8 +679,6 @@ moveit/macros/declare_ptr.h
 /opt/ros/melodic/include/moveit/macros/declare_ptr.h
 memory
 -
-
-/opt/ros/melodic/include/moveit/macros/deprecation.h
 
 /opt/ros/melodic/include/moveit/rdf_loader/rdf_loader.h
 moveit/macros/class_forward.h
@@ -800,8 +796,6 @@ set
 moveit/robot_model/robot_model.h
 -
 moveit/robot_state/attached_body.h
--
-moveit/macros/deprecation.h
 -
 sensor_msgs/JointState.h
 -

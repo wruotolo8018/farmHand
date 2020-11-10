@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/wilson/farmHand_ws/src/universal_robot/ur_kinematics/include/ur_kinematics/ikfast.h
+/home/bdml/farmHand/src/universal_robot/ur_kinematics/include/ur_kinematics/ikfast.h
 vector
 -
 list
@@ -14,9 +14,9 @@ list
 stdexcept
 -
 
-/home/wilson/farmHand_ws/src/universal_robot/ur_kinematics/include/ur_kinematics/ur_kin.h
+/home/bdml/farmHand/src/universal_robot/ur_kinematics/include/ur_kinematics/ur_kin.h
 
-/home/wilson/farmHand_ws/src/universal_robot/ur_kinematics/src/ur_kin.cpp
+/home/bdml/farmHand/src/universal_robot/ur_kinematics/src/ur_kin.cpp
 ur_kinematics/ur_kin.h
 -
 math.h

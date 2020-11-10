@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wilson/farmHand_ws/src
+CMAKE_SOURCE_DIR = /home/bdml/farmHand/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wilson/farmHand_ws/build
+CMAKE_BINARY_DIR = /home/bdml/farmHand/build
 
 # Utility rule file for download_extra_data.
 
@@ -67,6 +67,6 @@ CMakeFiles/download_extra_data.dir/clean:
 .PHONY : CMakeFiles/download_extra_data.dir/clean
 
 CMakeFiles/download_extra_data.dir/depend:
-	cd /home/wilson/farmHand_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wilson/farmHand_ws/src /home/wilson/farmHand_ws/src /home/wilson/farmHand_ws/build /home/wilson/farmHand_ws/build /home/wilson/farmHand_ws/build/CMakeFiles/download_extra_data.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/bdml/farmHand/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bdml/farmHand/src /home/bdml/farmHand/src /home/bdml/farmHand/build /home/bdml/farmHand/build /home/bdml/farmHand/build/CMakeFiles/download_extra_data.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/download_extra_data.dir/depend
 

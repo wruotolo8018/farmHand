@@ -1,4 +1,4 @@
-prefix=/home/wilson/farmHand_ws/devel
+prefix=/home/bdml/farmHand/devel
 
 Name: ur5_demo
 Description: Description of ur5_demo

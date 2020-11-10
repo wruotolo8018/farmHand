@@ -1,10 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ur_driver_gencfg"
-  "/home/wilson/farmHand_ws/devel/include/ur_driver/URDriverConfig.h"
-  "/home/wilson/farmHand_ws/devel/share/ur_driver/docs/URDriverConfig.dox"
-  "/home/wilson/farmHand_ws/devel/share/ur_driver/docs/URDriverConfig-usage.dox"
-  "/home/wilson/farmHand_ws/devel/lib/python2.7/dist-packages/ur_driver/cfg/URDriverConfig.py"
-  "/home/wilson/farmHand_ws/devel/share/ur_driver/docs/URDriverConfig.wikidoc"
+  "/home/bdml/farmHand/devel/include/ur_driver/URDriverConfig.h"
+  "/home/bdml/farmHand/devel/share/ur_driver/docs/URDriverConfig.dox"
+  "/home/bdml/farmHand/devel/share/ur_driver/docs/URDriverConfig-usage.dox"
+  "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/ur_driver/cfg/URDriverConfig.py"
+  "/home/bdml/farmHand/devel/share/ur_driver/docs/URDriverConfig.wikidoc"
 )
 
 # Per-language clean rules from dependency scanning.

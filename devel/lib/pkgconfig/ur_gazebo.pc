@@ -1,4 +1,4 @@
-prefix=/home/wilson/farmHand_ws/devel
+prefix=/home/bdml/farmHand/devel
 
 Name: ur_gazebo
 Description: Description of ur_gazebo

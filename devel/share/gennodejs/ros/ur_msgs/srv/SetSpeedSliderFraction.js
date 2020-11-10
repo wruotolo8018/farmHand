@@ -66,10 +66,10 @@ class SetSpeedSliderFractionRequest {
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    
-    
-    
-    
+    # Set the speed slider on the teach pendant to the specified value.
+    #
+    # Values for 'speed_slider_fraction' must be from [0; 1.0]; values outside this
+    # valid range will result in an error being returned to the caller.
     
     float64 speed_slider_fraction
     

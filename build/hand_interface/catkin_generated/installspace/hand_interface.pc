@@ -1,4 +1,4 @@
-prefix=/home/wilson/farmHand_ws/install
+prefix=/home/bdml/farmHand/install
 
 Name: hand_interface
 Description: Description of hand_interface

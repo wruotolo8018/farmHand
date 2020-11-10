@@ -67,14 +67,14 @@ set(ur5_moveit_config_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(ur5_moveit_config_SOURCE_PREFIX /home/wilson/farmHand_ws/src/universal_robot/ur5_moveit_config)
-  set(ur5_moveit_config_DEVEL_PREFIX /home/wilson/farmHand_ws/devel)
+  set(ur5_moveit_config_SOURCE_PREFIX /home/bdml/farmHand/src/universal_robot/ur5_moveit_config)
+  set(ur5_moveit_config_DEVEL_PREFIX /home/bdml/farmHand/devel)
   set(ur5_moveit_config_INSTALL_PREFIX "")
   set(ur5_moveit_config_PREFIX ${ur5_moveit_config_DEVEL_PREFIX})
 else()
   set(ur5_moveit_config_SOURCE_PREFIX "")
   set(ur5_moveit_config_DEVEL_PREFIX "")
-  set(ur5_moveit_config_INSTALL_PREFIX /home/wilson/farmHand_ws/install)
+  set(ur5_moveit_config_INSTALL_PREFIX /home/bdml/farmHand/install)
   set(ur5_moveit_config_PREFIX ${ur5_moveit_config_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/wilson/farmHand_ws/install/lib;/home/wilson/farmHand_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/bdml/farmHand/install/lib;/home/bdml/farmHand/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

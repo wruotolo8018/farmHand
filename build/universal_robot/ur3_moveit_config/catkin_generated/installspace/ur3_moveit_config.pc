@@ -1,4 +1,4 @@
-prefix=/home/wilson/farmHand_ws/install
+prefix=/home/bdml/farmHand/install
 
 Name: ur3_moveit_config
 Description: Description of ur3_moveit_config

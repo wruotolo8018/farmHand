@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/hand_interface_generate_messages_py"
-  "/home/wilson/farmHand_ws/devel/lib/python2.7/dist-packages/hand_interface/msg/_flex_sns.py"
-  "/home/wilson/farmHand_ws/devel/lib/python2.7/dist-packages/hand_interface/msg/__init__.py"
+  "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/hand_interface/msg/_flex_sns.py"
+  "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/hand_interface/msg/__init__.py"
 )
 
 # Per-language clean rules from dependency scanning.

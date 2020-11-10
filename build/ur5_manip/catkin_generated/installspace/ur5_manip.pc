@@ -1,0 +1,8 @@
+prefix=/home/bdml/farmHand/install
+
+Name: ur5_manip
+Description: Description of ur5_manip
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib -lur_driver
+Requires: ur_driver message_runtime

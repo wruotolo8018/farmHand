@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/hand_interface_generate_messages_cpp"
-  "/home/wilson/farmHand_ws/devel/include/hand_interface/flex_sns.h"
+  "/home/bdml/farmHand/devel/include/hand_interface/flex_sns.h"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -66,10 +66,10 @@
   "172aeb6c49379a44cf68480fa5bfad3c")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<SetSpeedSliderFraction-request>)))
   "Returns full string definition for message of type '<SetSpeedSliderFraction-request>"
-  (cl:format cl:nil "~%~%~%~%~%float64 speed_slider_fraction~%~%~%"))
+  (cl:format cl:nil "# Set the speed slider on the teach pendant to the specified value.~%#~%# Values for 'speed_slider_fraction' must be from [0; 1.0]; values outside this~%# valid range will result in an error being returned to the caller.~%~%float64 speed_slider_fraction~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'SetSpeedSliderFraction-request)))
   "Returns full string definition for message of type 'SetSpeedSliderFraction-request"
-  (cl:format cl:nil "~%~%~%~%~%float64 speed_slider_fraction~%~%~%"))
+  (cl:format cl:nil "# Set the speed slider on the teach pendant to the specified value.~%#~%# Values for 'speed_slider_fraction' must be from [0; 1.0]; values outside this~%# valid range will result in an error being returned to the caller.~%~%float64 speed_slider_fraction~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <SetSpeedSliderFraction-request>))
   (cl:+ 0
      8

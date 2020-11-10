@@ -1,8 +1,8 @@
-# Install script for directory: /home/wilson/farmHand_ws/src/hand_interface
+# Install script for directory: /home/bdml/farmHand/src/hand_interface
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/wilson/farmHand_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/bdml/farmHand/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,53 +38,53 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface/msg" TYPE FILE FILES "/home/wilson/farmHand_ws/src/hand_interface/msg/flex_sns.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface/msg" TYPE FILE FILES "/home/bdml/farmHand/src/hand_interface/msg/flex_sns.msg")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface/cmake" TYPE FILE FILES "/home/wilson/farmHand_ws/build/hand_interface/catkin_generated/installspace/hand_interface-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface/cmake" TYPE FILE FILES "/home/bdml/farmHand/build/hand_interface/catkin_generated/installspace/hand_interface-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/wilson/farmHand_ws/devel/include/hand_interface")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/bdml/farmHand/devel/include/hand_interface")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/wilson/farmHand_ws/devel/share/roseus/ros/hand_interface")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/bdml/farmHand/devel/share/roseus/ros/hand_interface")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/wilson/farmHand_ws/devel/share/common-lisp/ros/hand_interface")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/wilson/farmHand_ws/devel/share/gennodejs/ros/hand_interface")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python2" -m compileall "/home/wilson/farmHand_ws/devel/lib/python2.7/dist-packages/hand_interface")
+  execute_process(COMMAND "/usr/bin/python2" -m compileall "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/hand_interface")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/wilson/farmHand_ws/devel/lib/python2.7/dist-packages/hand_interface")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/hand_interface")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/wilson/farmHand_ws/build/hand_interface/catkin_generated/installspace/hand_interface.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/bdml/farmHand/build/hand_interface/catkin_generated/installspace/hand_interface.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface/cmake" TYPE FILE FILES "/home/wilson/farmHand_ws/build/hand_interface/catkin_generated/installspace/hand_interface-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface/cmake" TYPE FILE FILES "/home/bdml/farmHand/build/hand_interface/catkin_generated/installspace/hand_interface-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface/cmake" TYPE FILE FILES
-    "/home/wilson/farmHand_ws/build/hand_interface/catkin_generated/installspace/hand_interfaceConfig.cmake"
-    "/home/wilson/farmHand_ws/build/hand_interface/catkin_generated/installspace/hand_interfaceConfig-version.cmake"
+    "/home/bdml/farmHand/build/hand_interface/catkin_generated/installspace/hand_interfaceConfig.cmake"
+    "/home/bdml/farmHand/build/hand_interface/catkin_generated/installspace/hand_interfaceConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface" TYPE FILE FILES "/home/wilson/farmHand_ws/src/hand_interface/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface" TYPE FILE FILES "/home/bdml/farmHand/src/hand_interface/package.xml")
 endif()
 

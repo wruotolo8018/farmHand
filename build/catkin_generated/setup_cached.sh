@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/wilson/farmHand_ws/build"
+export PWD='/home/bdml/farmHand/build'

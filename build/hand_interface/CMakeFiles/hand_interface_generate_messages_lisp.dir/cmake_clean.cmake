@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/hand_interface_generate_messages_lisp"
-  "/home/wilson/farmHand_ws/devel/share/common-lisp/ros/hand_interface/msg/flex_sns.lisp"
+  "/home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/flex_sns.lisp"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -1,4 +1,4 @@
-prefix=/home/wilson/farmHand_ws/install
+prefix=/home/bdml/farmHand/install
 
 Name: ur_kinematics
 Description: Description of ur_kinematics

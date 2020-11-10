@@ -146,10 +146,10 @@ struct Definition< ::ur_msgs::SetSpeedSliderFractionRequest_<ContainerAllocator>
 {
   static const char* value()
   {
-    return "\n"
-"\n"
-"\n"
-"\n"
+    return "# Set the speed slider on the teach pendant to the specified value.\n"
+"#\n"
+"# Values for 'speed_slider_fraction' must be from [0; 1.0]; values outside this\n"
+"# valid range will result in an error being returned to the caller.\n"
 "\n"
 "float64 speed_slider_fraction\n"
 ;

@@ -1,4 +1,4 @@
-prefix=/home/wilson/farmHand_ws/install
+prefix=/home/bdml/farmHand/install
 
 Name: ur5_e_moveit_config
 Description: Description of ur5_e_moveit_config

@@ -67,14 +67,14 @@ set(hand_interface_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(hand_interface_SOURCE_PREFIX /home/wilson/farmHand_ws/src/hand_interface)
-  set(hand_interface_DEVEL_PREFIX /home/wilson/farmHand_ws/devel)
+  set(hand_interface_SOURCE_PREFIX /home/bdml/farmHand/src/hand_interface)
+  set(hand_interface_DEVEL_PREFIX /home/bdml/farmHand/devel)
   set(hand_interface_INSTALL_PREFIX "")
   set(hand_interface_PREFIX ${hand_interface_DEVEL_PREFIX})
 else()
   set(hand_interface_SOURCE_PREFIX "")
   set(hand_interface_DEVEL_PREFIX "")
-  set(hand_interface_INSTALL_PREFIX /home/wilson/farmHand_ws/install)
+  set(hand_interface_INSTALL_PREFIX /home/bdml/farmHand/install)
   set(hand_interface_PREFIX ${hand_interface_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/wilson/farmHand_ws/install/lib;/home/wilson/farmHand_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/bdml/farmHand/install/lib;/home/bdml/farmHand/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

@@ -1,8 +1,8 @@
-prefix=/home/wilson/farmHand_ws/devel
+prefix=/home/bdml/farmHand/devel
 
 Name: ur_driver
 Description: Description of ur_driver
 Version: 1.2.5
-Cflags: -I/home/wilson/farmHand_ws/devel/include
+Cflags: -I/home/bdml/farmHand/devel/include
 Libs: -L${prefix}/lib 
 Requires: dynamic_reconfigure

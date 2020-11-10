@@ -1,8 +1,8 @@
-# Install script for directory: /home/wilson/farmHand_ws/src/ur5_demo
+# Install script for directory: /home/bdml/farmHand/src/ur5_demo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/wilson/farmHand_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/bdml/farmHand/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,37 +38,37 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur5_demo/cmake" TYPE FILE FILES "/home/wilson/farmHand_ws/build/ur5_demo/catkin_generated/installspace/ur5_demo-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur5_demo/cmake" TYPE FILE FILES "/home/bdml/farmHand/build/ur5_demo/catkin_generated/installspace/ur5_demo-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/wilson/farmHand_ws/devel/share/roseus/ros/ur5_demo")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/bdml/farmHand/devel/share/roseus/ros/ur5_demo")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python2" -m compileall "/home/wilson/farmHand_ws/devel/lib/python2.7/dist-packages/ur5_demo")
+  execute_process(COMMAND "/usr/bin/python2" -m compileall "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/ur5_demo")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/wilson/farmHand_ws/devel/lib/python2.7/dist-packages/ur5_demo")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/ur5_demo")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/wilson/farmHand_ws/build/ur5_demo/catkin_generated/installspace/ur5_demo.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/bdml/farmHand/build/ur5_demo/catkin_generated/installspace/ur5_demo.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur5_demo/cmake" TYPE FILE FILES "/home/wilson/farmHand_ws/build/ur5_demo/catkin_generated/installspace/ur5_demo-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur5_demo/cmake" TYPE FILE FILES "/home/bdml/farmHand/build/ur5_demo/catkin_generated/installspace/ur5_demo-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur5_demo/cmake" TYPE FILE FILES
-    "/home/wilson/farmHand_ws/build/ur5_demo/catkin_generated/installspace/ur5_demoConfig.cmake"
-    "/home/wilson/farmHand_ws/build/ur5_demo/catkin_generated/installspace/ur5_demoConfig-version.cmake"
+    "/home/bdml/farmHand/build/ur5_demo/catkin_generated/installspace/ur5_demoConfig.cmake"
+    "/home/bdml/farmHand/build/ur5_demo/catkin_generated/installspace/ur5_demoConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur5_demo" TYPE FILE FILES "/home/wilson/farmHand_ws/src/ur5_demo/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur5_demo" TYPE FILE FILES "/home/bdml/farmHand/src/ur5_demo/package.xml")
 endif()
 
