@@ -5,7 +5,7 @@
  */
 
 // Setup arrays for motor control pins
-const int num_sensors = 6;
+const int num_sensors = 8;
 int sns_array[num_sensors];
 String output_str;
 
