@@ -97,8 +97,8 @@ def test_move_ur5_continuous():
     ur5 = UR5Interface()
 
     # MoveIt! works well if joint limits are smaller (within -pi, pi)
-    if not ur5.check_joint_limits():
-        raise Exception('Bad joint limits! try running roslaunch with option "limited:=true"')
+    #if not ur5.check_joint_limits():
+    #    raise Exception('Bad joint limits! try running roslaunch with option "limited:=true"')
 
 
     ur5.goto_home_pose()
