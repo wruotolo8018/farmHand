@@ -1,6 +1,8 @@
-int32 prox1
-int32 dist1
-int32 prox2
-int32 dist2
-int32 prox3
-int32 dist3
+int32 curl1
+int32 hype1
+int32 curl2
+int32 hype2
+int32 curl3
+int32 hype3
+int32 curl4
+int32 hype4

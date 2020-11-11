@@ -24,42 +24,52 @@ struct flex_sns_
   typedef flex_sns_<ContainerAllocator> Type;
 
   flex_sns_()
-    : prox1(0)
-    , dist1(0)
-    , prox2(0)
-    , dist2(0)
-    , prox3(0)
-    , dist3(0)  {
+    : curl1(0)
+    , hype1(0)
+    , curl2(0)
+    , hype2(0)
+    , curl3(0)
+    , hype3(0)
+    , curl4(0)
+    , hype4(0)  {
     }
   flex_sns_(const ContainerAllocator& _alloc)
-    : prox1(0)
-    , dist1(0)
-    , prox2(0)
-    , dist2(0)
-    , prox3(0)
-    , dist3(0)  {
+    : curl1(0)
+    , hype1(0)
+    , curl2(0)
+    , hype2(0)
+    , curl3(0)
+    , hype3(0)
+    , curl4(0)
+    , hype4(0)  {
   (void)_alloc;
     }
 
 
 
-   typedef int32_t _prox1_type;
-  _prox1_type prox1;
+   typedef int32_t _curl1_type;
+  _curl1_type curl1;
 
-   typedef int32_t _dist1_type;
-  _dist1_type dist1;
+   typedef int32_t _hype1_type;
+  _hype1_type hype1;
 
-   typedef int32_t _prox2_type;
-  _prox2_type prox2;
+   typedef int32_t _curl2_type;
+  _curl2_type curl2;
 
-   typedef int32_t _dist2_type;
-  _dist2_type dist2;
+   typedef int32_t _hype2_type;
+  _hype2_type hype2;
 
-   typedef int32_t _prox3_type;
-  _prox3_type prox3;
+   typedef int32_t _curl3_type;
+  _curl3_type curl3;
 
-   typedef int32_t _dist3_type;
-  _dist3_type dist3;
+   typedef int32_t _hype3_type;
+  _hype3_type hype3;
+
+   typedef int32_t _curl4_type;
+  _curl4_type curl4;
+
+   typedef int32_t _hype4_type;
+  _hype4_type hype4;
 
 
 
@@ -90,12 +100,14 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::hand_interface::flex_sns_<ContainerAllocator1> & lhs, const ::hand_interface::flex_sns_<ContainerAllocator2> & rhs)
 {
-  return lhs.prox1 == rhs.prox1 &&
-    lhs.dist1 == rhs.dist1 &&
-    lhs.prox2 == rhs.prox2 &&
-    lhs.dist2 == rhs.dist2 &&
-    lhs.prox3 == rhs.prox3 &&
-    lhs.dist3 == rhs.dist3;
+  return lhs.curl1 == rhs.curl1 &&
+    lhs.hype1 == rhs.hype1 &&
+    lhs.curl2 == rhs.curl2 &&
+    lhs.hype2 == rhs.hype2 &&
+    lhs.curl3 == rhs.curl3 &&
+    lhs.hype3 == rhs.hype3 &&
+    lhs.curl4 == rhs.curl4 &&
+    lhs.hype4 == rhs.hype4;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -152,12 +164,12 @@ struct MD5Sum< ::hand_interface::flex_sns_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "8b57bff00d9b97e6f6a22eb31c6895cc";
+    return "57e523c8816fb6474dc2708662828753";
   }
 
   static const char* value(const ::hand_interface::flex_sns_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x8b57bff00d9b97e6ULL;
-  static const uint64_t static_value2 = 0xf6a22eb31c6895ccULL;
+  static const uint64_t static_value1 = 0x57e523c8816fb647ULL;
+  static const uint64_t static_value2 = 0x4dc2708662828753ULL;
 };
 
 template<class ContainerAllocator>
@@ -176,12 +188,14 @@ struct Definition< ::hand_interface::flex_sns_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "int32 prox1\n"
-"int32 dist1\n"
-"int32 prox2\n"
-"int32 dist2\n"
-"int32 prox3\n"
-"int32 dist3\n"
+    return "int32 curl1\n"
+"int32 hype1\n"
+"int32 curl2\n"
+"int32 hype2\n"
+"int32 curl3\n"
+"int32 hype3\n"
+"int32 curl4\n"
+"int32 hype4\n"
 ;
   }
 
@@ -200,12 +214,14 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.prox1);
-      stream.next(m.dist1);
-      stream.next(m.prox2);
-      stream.next(m.dist2);
-      stream.next(m.prox3);
-      stream.next(m.dist3);
+      stream.next(m.curl1);
+      stream.next(m.hype1);
+      stream.next(m.curl2);
+      stream.next(m.hype2);
+      stream.next(m.curl3);
+      stream.next(m.hype3);
+      stream.next(m.curl4);
+      stream.next(m.hype4);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -224,18 +240,22 @@ struct Printer< ::hand_interface::flex_sns_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::hand_interface::flex_sns_<ContainerAllocator>& v)
   {
-    s << indent << "prox1: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.prox1);
-    s << indent << "dist1: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.dist1);
-    s << indent << "prox2: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.prox2);
-    s << indent << "dist2: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.dist2);
-    s << indent << "prox3: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.prox3);
-    s << indent << "dist3: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.dist3);
+    s << indent << "curl1: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.curl1);
+    s << indent << "hype1: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.hype1);
+    s << indent << "curl2: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.curl2);
+    s << indent << "hype2: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.hype2);
+    s << indent << "curl3: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.curl3);
+    s << indent << "hype3: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.hype3);
+    s << indent << "curl4: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.curl4);
+    s << indent << "hype4: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.hype4);
   }
 };
 

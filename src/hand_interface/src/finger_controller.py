@@ -27,8 +27,8 @@ backward_motor_string = "505050404040505050"
 stop_motor_array = np.array([0,0,0,0,0,0,0,0,0])
 
 # Basic sensor data variables
-cur_joint_data = np.zeros(6)
-prev_joint_data = np.zeros(6)
+cur_joint_data = np.zeros(8)
+prev_joint_data = np.zeros(8)
 
 # Temp substate
 NOT_GRASPING = 0
@@ -38,8 +38,8 @@ grasp_substate = NOT_GRASPING
 grasp_start_time = 0
 
 # PWM variables
-pos_pwm_array = np.zeros(6)
-cur_pwm_array = np.zeros(6)
+pos_pwm_array = np.zeros(8)
+cur_pwm_array = np.zeros(8)
 
 
 
@@ -81,14 +81,17 @@ def joint_sns_callback(data):
     global prev_joint_data, cur_joint_data
     prev_joint_data = cur_joint_data
     # Finger 1
-    cur_joint_data[0] = data.prox1
-    cur_joint_data[1] = data.dist1
+    cur_joint_data[0] = data.curl1
+    cur_joint_data[1] = data.hype1
     # Finger 2
-    cur_joint_data[2] = data.prox2
-    cur_joint_data[3] = data.dist2
+    cur_joint_data[2] = data.curl2
+    cur_joint_data[3] = data.hype2
     # Finger 3
-    cur_joint_data[4] = data.prox3
-    cur_joint_data[5] = data.dist3
+    cur_joint_data[4] = data.curl3
+    cur_joint_data[5] = data.hype3
+    # Finger 4
+    cur_joint_data[6] = data.curl4
+    cur_joint_data[7] = data.hype4
 
 # Convert array of pwm ints to single string format for serial transmission
 # and center around 50 instead of 0
@@ -164,7 +167,7 @@ def position_control(des_prox, des_dist, fing_num):
 #        if(np.absolute(prox_error) > prox_threshold):
         Cpwm = int(prox_error + dist_error)
         Upwm = -int(prox_error + dist_error)
-        print("adjusting prox joint")
+#        print("adjusting prox joint")
 #        else:
 #            Cpwm = int(dist_error)
 #            Upwm = -int(prox_error + dist_error)
@@ -172,68 +175,16 @@ def position_control(des_prox, des_dist, fing_num):
         ######### End of curling controller
     elif (des_prox == 0 and des_dist == 0): 
         ######### Curling Controller
-        prox_threshold = 10
+        prox_threshold = 15
         if(np.absolute(prox_error) > prox_threshold):
             Cpwm = int(prox_error)
             Upwm = -int(prox_error)
-            print("adjusting prox joint")
+#            print("adjusting prox joint")
         else:
 #            Cpwm = int(prox_error + dist_error)
             Upwm = -int(dist_error)
-            print("adjusting distal joint")
-        ######### End of curling controller
-    
-    
-    #    Cpwm = int(prox_error)
-#    Upwm = -int(prox_error)
-#    
-    
-        
-
-    
-#    if (np.sign(prox_error) == np.sign(dist_error)):
-#        # curling condition
-#        Cpwm = int(prox_error + dist_error)
-#        Upwm = int(prox_error)
-#        print("curling") 
-#        
-#        Cpwm = int(prox_error)
-#        Upwm = -int(prox_error)
-#        
-#        prox_threshold = 50
-#        if(np.absolute(prox_error) > prox_threshold):
-#            Cpwm = int(prox_error)
-#            Upwm = -int(prox_error)
-#            print("adjusting prox joint")
-#        else:
-#            Cpwm = int(prox_error + dist_error)
-#            Upwm = -int(prox_error + dist_error)
 #            print("adjusting distal joint")
-#         
-#    else:    
-#        Cpwm = int(kp1*prox_error) #  + kp2*dist_error)
-#        Upwm = -int(kp2*prox_error + kp1*dist_error)
-#        print("hyperextending")
-    
-#    if(prox_error > 0):
-#        Cpwm = int(prox_error + dist_error)
-#        Upwm = -int(prox_error)
-#        print("+ prox error")
-#    elif(prox_error < 0):
-#        Cpwm = int(prox_error)
-#        Upwm = -int(prox_error + dist_error)
-#        print("- prox error")
-    
-#    Cpwm = int(kp1*prox_error) #  + kp2*dist_error)
-#    Upwm = -int(kp2*prox_error + kp1*dist_error)
-#    
-#    
-    
-#    Cpwm = int(kp_scale*(kp1*(des_prox - cur_joint_data[prox_index]) + kp2*(des_dist - cur_joint_data[dist_index])))
-#    Upwm = int(kp_scale*(-(kp2*(des_prox - cur_joint_data[prox_index]) + kp1*(des_dist - cur_joint_data[dist_index]))))
-
-    
-    
+        ######### End of curling controller
     
     
     # Apply a deadzone if needed for stability (was originally working fine without)
@@ -291,6 +242,8 @@ def motor_controller():
             
             # Run proportional control on the des and sensed pos values
             position_control(des_prox_value, des_dist_value, 0)
+            position_control(des_prox_value, des_dist_value, 2)
+            position_control(des_prox_value, des_dist_value, 3)
 #            position_control(des_prox_value, des_dist_value, 1)
 #            position_control(des_prox_value, des_dist_value, 2)
             
@@ -304,6 +257,8 @@ def motor_controller():
             
             # Run proportional control on the des and sensed pos values
             position_control(des_prox_value, des_dist_value, 0)
+            position_control(des_prox_value, des_dist_value, 2)
+            position_control(des_prox_value, des_dist_value, 3)
 #            position_control(des_prox_value, des_dist_value, 1)
 #            position_control(des_prox_value, des_dist_value, 2)
            
@@ -313,10 +268,12 @@ def motor_controller():
         elif (state == MOVE_TO_POSE_3):
             # Define desired position values for testing
             des_prox_value = 900
-            des_dist_value = -700
+            des_dist_value = -200
             
             # Run proportional control on the des and sensed pos values
             position_control(des_prox_value, des_dist_value, 0)
+            position_control(des_prox_value, des_dist_value, 2)
+            position_control(des_prox_value, des_dist_value, 3)
 #            position_control(des_prox_value, des_dist_value, 1)
 #            position_control(des_prox_value, des_dist_value, 2)
                         
@@ -328,9 +285,17 @@ def motor_controller():
         
         elif (state == TIGHTEN):
             cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
+#            cur_pwm_array[:] = [10,10,0,0,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
+#            cur_pwm_array[:] = [0,0,0,0,0,0,10,10,0]
         
         elif (state == LOOSEN):
             cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
+#            cur_pwm_array[:] = [-10,-10,0,0,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
+#            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
         
         # Process pwm array into string for serial comms
         cur_motor_string = pwm_array_to_string(cur_pwm_array)
