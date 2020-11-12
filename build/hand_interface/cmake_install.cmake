@@ -38,7 +38,10 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface/msg" TYPE FILE FILES "/home/bdml/farmHand/src/hand_interface/msg/flex_sns.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hand_interface/msg" TYPE FILE FILES
+    "/home/bdml/farmHand/src/hand_interface/msg/flex_sns.msg"
+    "/home/bdml/farmHand/src/hand_interface/msg/futek_data.msg"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

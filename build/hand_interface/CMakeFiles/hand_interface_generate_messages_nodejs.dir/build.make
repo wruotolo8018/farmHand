@@ -53,15 +53,22 @@ CMAKE_BINARY_DIR = /home/bdml/farmHand/build
 # Include the progress variables for this target.
 include hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/progress.make
 
+hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs: /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/futek_data.js
 hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs: /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/flex_sns.js
 
 
+/home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/futek_data.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/futek_data.js: /home/bdml/farmHand/src/hand_interface/msg/futek_data.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from hand_interface/futek_data.msg"
+	cd /home/bdml/farmHand/build/hand_interface && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/bdml/farmHand/src/hand_interface/msg/futek_data.msg -Ihand_interface:/home/bdml/farmHand/src/hand_interface/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p hand_interface -o /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg
+
 /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/flex_sns.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
 /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/flex_sns.js: /home/bdml/farmHand/src/hand_interface/msg/flex_sns.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from hand_interface/flex_sns.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from hand_interface/flex_sns.msg"
 	cd /home/bdml/farmHand/build/hand_interface && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/bdml/farmHand/src/hand_interface/msg/flex_sns.msg -Ihand_interface:/home/bdml/farmHand/src/hand_interface/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p hand_interface -o /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg
 
 hand_interface_generate_messages_nodejs: hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs
+hand_interface_generate_messages_nodejs: /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/futek_data.js
 hand_interface_generate_messages_nodejs: /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/flex_sns.js
 hand_interface_generate_messages_nodejs: hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/build.make
 

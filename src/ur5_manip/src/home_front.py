@@ -42,22 +42,22 @@ def move_home():
     front_pose = copy.deepcopy(home_pose)
     print(front_pose)
     
-    quat_15x = quaternion_from_euler(3.14159/12*6,0,0)
+    quat_15x = quaternion_from_euler(3.14159/12*2,0,0)
     og_quat = get_quaternion(front_pose)
     print(og_quat)
     
     new_quat = quaternion_multiply(quat_15x, og_quat)
     front_pose = set_quaternion(front_pose,new_quat)
-    front_pose.position.z += .1
+    front_pose.position.z += .05
     print(front_pose)
     
     ur5.goto_pose_target(front_pose)
     
-#    
-#    quat_des = quaternion_from_euler(.2,0,0)
-#    front_pose = set_quaternion(front_pose,quat_des)
-#    ur5.goto_pose_target(front_pose)
-    
+    new_quat = quaternion_multiply(quat_15x, new_quat)
+    front_pose = set_quaternion(front_pose,new_quat)
+    front_pose.position.z += .05
+    ur5.goto_pose_target(front_pose)
+        
     
     print(ur5.get_joint_values())
 

@@ -482,12 +482,13 @@ hand_interface/clean: hand_interface/CMakeFiles/hand_interface_genlisp.dir/clean
 hand_interface/clean: hand_interface/CMakeFiles/std_msgs_generate_messages_eus.dir/clean
 hand_interface/clean: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_flex_sns.dir/clean
 hand_interface/clean: hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/clean
+hand_interface/clean: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/clean
 hand_interface/clean: hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/clean
+hand_interface/clean: hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean
+hand_interface/clean: hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean
 hand_interface/clean: hand_interface/CMakeFiles/std_msgs_generate_messages_lisp.dir/clean
 hand_interface/clean: hand_interface/CMakeFiles/hand_interface_geneus.dir/clean
 hand_interface/clean: hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/clean
-hand_interface/clean: hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean
-hand_interface/clean: hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean
 
 .PHONY : hand_interface/clean
 
@@ -508,7 +509,7 @@ hand_interface/CMakeFiles/hand_interface_genpy.dir/all: hand_interface/CMakeFile
 
 # Build rule for subdir invocation for target.
 hand_interface/CMakeFiles/hand_interface_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
 .PHONY : hand_interface/CMakeFiles/hand_interface_genpy.dir/rule
@@ -535,8 +536,8 @@ clean: hand_interface/CMakeFiles/hand_interface_genpy.dir/clean
 hand_interface/CMakeFiles/hand_interface_generate_messages.dir/all: hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/all
 hand_interface/CMakeFiles/hand_interface_generate_messages.dir/all: hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/all
 hand_interface/CMakeFiles/hand_interface_generate_messages.dir/all: hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/all
-hand_interface/CMakeFiles/hand_interface_generate_messages.dir/all: hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/all
 hand_interface/CMakeFiles/hand_interface_generate_messages.dir/all: hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all
+hand_interface/CMakeFiles/hand_interface_generate_messages.dir/all: hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/all
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages.dir/depend
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num= "Built target hand_interface_generate_messages"
@@ -549,7 +550,7 @@ all: hand_interface/CMakeFiles/hand_interface_generate_messages.dir/all
 
 # Build rule for subdir invocation for target.
 hand_interface/CMakeFiles/hand_interface_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
 .PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages.dir/rule
@@ -645,7 +646,7 @@ hand_interface/CMakeFiles/hand_interface_gencpp.dir/all: hand_interface/CMakeFil
 
 # Build rule for subdir invocation for target.
 hand_interface/CMakeFiles/hand_interface_gencpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_gencpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
 .PHONY : hand_interface/CMakeFiles/hand_interface_gencpp.dir/rule
@@ -671,14 +672,15 @@ clean: hand_interface/CMakeFiles/hand_interface_gencpp.dir/clean
 # All Build rule for target.
 hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/all: hand_interface/CMakeFiles/std_msgs_generate_messages_nodejs.dir/all
 hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_flex_sns.dir/all
+hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/all
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/depend
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=16 "Built target hand_interface_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=19,20 "Built target hand_interface_generate_messages_nodejs"
 .PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
 .PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/rule
@@ -742,7 +744,7 @@ hand_interface/CMakeFiles/hand_interface_genlisp.dir/all: hand_interface/CMakeFi
 
 # Build rule for subdir invocation for target.
 hand_interface/CMakeFiles/hand_interface_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
 .PHONY : hand_interface/CMakeFiles/hand_interface_genlisp.dir/rule
@@ -832,14 +834,15 @@ clean: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_fl
 # All Build rule for target.
 hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/all: hand_interface/CMakeFiles/std_msgs_generate_messages_eus.dir/all
 hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_flex_sns.dir/all
+hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/all
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/depend
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=13,14 "Built target hand_interface_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=14,15,16 "Built target hand_interface_generate_messages_eus"
 .PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
 .PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/rule
@@ -860,19 +863,52 @@ clean: hand_interface/CMakeFiles/hand_interface_generate_messages_eus.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir
+
+# All Build rule for target.
+hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/all:
+	$(MAKE) -f hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/build.make hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/depend
+	$(MAKE) -f hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/build.make hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num= "Built target _hand_interface_generate_messages_check_deps_futek_data"
+.PHONY : hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/all
+
+# Build rule for subdir invocation for target.
+hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
+.PHONY : hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/rule
+
+# Convenience name for target.
+_hand_interface_generate_messages_check_deps_futek_data: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/rule
+
+.PHONY : _hand_interface_generate_messages_check_deps_futek_data
+
+# clean rule for target.
+hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/clean:
+	$(MAKE) -f hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/build.make hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/clean
+.PHONY : hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/clean
+
+# clean rule for target.
+clean: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir
 
 # All Build rule for target.
 hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/all: hand_interface/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_flex_sns.dir/all
+hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/all
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/depend
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=12 "Built target hand_interface_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=12,13 "Built target hand_interface_generate_messages_cpp"
 .PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
 .PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/rule
@@ -889,6 +925,72 @@ hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/clean:
 
 # clean rule for target.
 clean: hand_interface/CMakeFiles/hand_interface_generate_messages_cpp.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir
+
+# All Build rule for target.
+hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all: hand_interface/CMakeFiles/std_msgs_generate_messages_py.dir/all
+hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_flex_sns.dir/all
+hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/all
+	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/depend
+	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=21,22,23 "Built target hand_interface_generate_messages_py"
+.PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all
+
+# Build rule for subdir invocation for target.
+hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
+.PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/rule
+
+# Convenience name for target.
+hand_interface_generate_messages_py: hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/rule
+
+.PHONY : hand_interface_generate_messages_py
+
+# clean rule for target.
+hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean:
+	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean
+.PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean
+
+# clean rule for target.
+clean: hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target hand_interface/CMakeFiles/hand_interface_gennodejs.dir
+
+# All Build rule for target.
+hand_interface/CMakeFiles/hand_interface_gennodejs.dir/all: hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/all
+	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_gennodejs.dir/build.make hand_interface/CMakeFiles/hand_interface_gennodejs.dir/depend
+	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_gennodejs.dir/build.make hand_interface/CMakeFiles/hand_interface_gennodejs.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num= "Built target hand_interface_gennodejs"
+.PHONY : hand_interface/CMakeFiles/hand_interface_gennodejs.dir/all
+
+# Build rule for subdir invocation for target.
+hand_interface/CMakeFiles/hand_interface_gennodejs.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_gennodejs.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
+.PHONY : hand_interface/CMakeFiles/hand_interface_gennodejs.dir/rule
+
+# Convenience name for target.
+hand_interface_gennodejs: hand_interface/CMakeFiles/hand_interface_gennodejs.dir/rule
+
+.PHONY : hand_interface_gennodejs
+
+# clean rule for target.
+hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean:
+	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_gennodejs.dir/build.make hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean
+.PHONY : hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean
+
+# clean rule for target.
+clean: hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean
 
 .PHONY : clean
 
@@ -936,7 +1038,7 @@ hand_interface/CMakeFiles/hand_interface_geneus.dir/all: hand_interface/CMakeFil
 
 # Build rule for subdir invocation for target.
 hand_interface/CMakeFiles/hand_interface_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
 .PHONY : hand_interface/CMakeFiles/hand_interface_geneus.dir/rule
@@ -961,15 +1063,16 @@ clean: hand_interface/CMakeFiles/hand_interface_geneus.dir/clean
 
 # All Build rule for target.
 hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_flex_sns.dir/all
+hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_futek_data.dir/all
 hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/all: hand_interface/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/depend
 	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=15 "Built target hand_interface_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=17,18 "Built target hand_interface_generate_messages_lisp"
 .PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
 .PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/rule
@@ -986,71 +1089,6 @@ hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/clean:
 
 # clean rule for target.
 clean: hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target hand_interface/CMakeFiles/hand_interface_gennodejs.dir
-
-# All Build rule for target.
-hand_interface/CMakeFiles/hand_interface_gennodejs.dir/all: hand_interface/CMakeFiles/hand_interface_generate_messages_nodejs.dir/all
-	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_gennodejs.dir/build.make hand_interface/CMakeFiles/hand_interface_gennodejs.dir/depend
-	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_gennodejs.dir/build.make hand_interface/CMakeFiles/hand_interface_gennodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num= "Built target hand_interface_gennodejs"
-.PHONY : hand_interface/CMakeFiles/hand_interface_gennodejs.dir/all
-
-# Build rule for subdir invocation for target.
-hand_interface/CMakeFiles/hand_interface_gennodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_gennodejs.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
-.PHONY : hand_interface/CMakeFiles/hand_interface_gennodejs.dir/rule
-
-# Convenience name for target.
-hand_interface_gennodejs: hand_interface/CMakeFiles/hand_interface_gennodejs.dir/rule
-
-.PHONY : hand_interface_gennodejs
-
-# clean rule for target.
-hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean:
-	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_gennodejs.dir/build.make hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean
-.PHONY : hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean
-
-# clean rule for target.
-clean: hand_interface/CMakeFiles/hand_interface_gennodejs.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir
-
-# All Build rule for target.
-hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all: hand_interface/CMakeFiles/std_msgs_generate_messages_py.dir/all
-hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all: hand_interface/CMakeFiles/_hand_interface_generate_messages_check_deps_flex_sns.dir/all
-	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/depend
-	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=17,18 "Built target hand_interface_generate_messages_py"
-.PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all
-
-# Build rule for subdir invocation for target.
-hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bdml/farmHand/build/CMakeFiles 0
-.PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/rule
-
-# Convenience name for target.
-hand_interface_generate_messages_py: hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/rule
-
-.PHONY : hand_interface_generate_messages_py
-
-# clean rule for target.
-hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean:
-	$(MAKE) -f hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/build.make hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean
-.PHONY : hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean
-
-# clean rule for target.
-clean: hand_interface/CMakeFiles/hand_interface_generate_messages_py.dir/clean
 
 .PHONY : clean
 
@@ -1245,7 +1283,7 @@ universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_nodejs.dir/all: uni
 universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_nodejs.dir/all: universal_robot/ur_msgs/CMakeFiles/_ur_msgs_generate_messages_check_deps_Digital.dir/all
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_nodejs.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_nodejs.dir/depend
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_nodejs.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=65,66,67,68,69,70,71,72,73,74 "Built target ur_msgs_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=70,71,72,73,74,75,76,77,78,79 "Built target ur_msgs_generate_messages_nodejs"
 .PHONY : universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1415,7 +1453,7 @@ universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_py.dir/all: univers
 universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_py.dir/all: universal_robot/ur_msgs/CMakeFiles/_ur_msgs_generate_messages_check_deps_Digital.dir/all
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_py.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_py.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=75,76,77,78,79,80,81,82,83,84,85,86 "Built target ur_msgs_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=80,81,82,83,84,85,86,87,88,89,90,91 "Built target ur_msgs_generate_messages_py"
 .PHONY : universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1457,7 +1495,7 @@ universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_lisp.dir/all: unive
 universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_lisp.dir/all: universal_robot/ur_msgs/CMakeFiles/_ur_msgs_generate_messages_check_deps_Digital.dir/all
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_lisp.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_lisp.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=55,56,57,58,59,60,61,62,63,64 "Built target ur_msgs_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=60,61,62,63,64,65,66,67,68,69 "Built target ur_msgs_generate_messages_lisp"
 .PHONY : universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1755,7 +1793,7 @@ universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_cpp.dir/all: univer
 universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_cpp.dir/all: universal_robot/ur_msgs/CMakeFiles/_ur_msgs_generate_messages_check_deps_Digital.dir/all
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_cpp.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_cpp.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=34,35,36,37,38,39,40,41,42,43 "Built target ur_msgs_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=39,40,41,42,43,44,45,46,47,48 "Built target ur_msgs_generate_messages_cpp"
 .PHONY : universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1870,7 +1908,7 @@ universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_eus.dir/all: univer
 universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_eus.dir/all: universal_robot/ur_msgs/CMakeFiles/_ur_msgs_generate_messages_check_deps_Digital.dir/all
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_eus.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_eus.dir/depend
 	$(MAKE) -f universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_eus.dir/build.make universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=44,45,46,47,48,49,50,51,52,53,54 "Built target ur_msgs_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=49,50,51,52,53,54,55,56,57,58,59 "Built target ur_msgs_generate_messages_eus"
 .PHONY : universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2175,7 +2213,7 @@ universal_robot/ur_driver/preinstall:
 universal_robot/ur_driver/CMakeFiles/ur_driver_gencfg.dir/all:
 	$(MAKE) -f universal_robot/ur_driver/CMakeFiles/ur_driver_gencfg.dir/build.make universal_robot/ur_driver/CMakeFiles/ur_driver_gencfg.dir/depend
 	$(MAKE) -f universal_robot/ur_driver/CMakeFiles/ur_driver_gencfg.dir/build.make universal_robot/ur_driver/CMakeFiles/ur_driver_gencfg.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=33 "Built target ur_driver_gencfg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=38 "Built target ur_driver_gencfg"
 .PHONY : universal_robot/ur_driver/CMakeFiles/ur_driver_gencfg.dir/all
 
 # Include target in all.
@@ -2963,7 +3001,7 @@ clean: ur5_demo/CMakeFiles/ur5_demo_geneus.dir/clean
 ur5_demo/CMakeFiles/ur5_demo_generate_messages_eus.dir/all: hand_interface/CMakeFiles/std_msgs_generate_messages_eus.dir/all
 	$(MAKE) -f ur5_demo/CMakeFiles/ur5_demo_generate_messages_eus.dir/build.make ur5_demo/CMakeFiles/ur5_demo_generate_messages_eus.dir/depend
 	$(MAKE) -f ur5_demo/CMakeFiles/ur5_demo_generate_messages_eus.dir/build.make ur5_demo/CMakeFiles/ur5_demo_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=27 "Built target ur5_demo_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=32 "Built target ur5_demo_generate_messages_eus"
 .PHONY : ur5_demo/CMakeFiles/ur5_demo_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3416,7 +3454,7 @@ clean: ur5_manip/CMakeFiles/ur5_manip_generate_messages_nodejs.dir/clean
 ur5_manip/CMakeFiles/ur5_manip_generate_messages_eus.dir/all: hand_interface/CMakeFiles/std_msgs_generate_messages_eus.dir/all
 	$(MAKE) -f ur5_manip/CMakeFiles/ur5_manip_generate_messages_eus.dir/build.make ur5_manip/CMakeFiles/ur5_manip_generate_messages_eus.dir/depend
 	$(MAKE) -f ur5_manip/CMakeFiles/ur5_manip_generate_messages_eus.dir/build.make ur5_manip/CMakeFiles/ur5_manip_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=30 "Built target ur5_manip_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=35 "Built target ur5_manip_generate_messages_eus"
 .PHONY : ur5_manip/CMakeFiles/ur5_manip_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
@@ -4099,7 +4137,7 @@ universal_robot/ur_kinematics/preinstall:
 universal_robot/ur_kinematics/CMakeFiles/ur10_moveit_plugin.dir/all: universal_robot/ur_kinematics/CMakeFiles/ur10_kin.dir/all
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur10_moveit_plugin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur10_moveit_plugin.dir/depend
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur10_moveit_plugin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur10_moveit_plugin.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=21,22 "Built target ur10_moveit_plugin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=26,27 "Built target ur10_moveit_plugin"
 .PHONY : universal_robot/ur_kinematics/CMakeFiles/ur10_moveit_plugin.dir/all
 
 # Include target in all.
@@ -4136,7 +4174,7 @@ clean: universal_robot/ur_kinematics/CMakeFiles/ur10_moveit_plugin.dir/clean
 universal_robot/ur_kinematics/CMakeFiles/ur3_moveit_plugin.dir/all: universal_robot/ur_kinematics/CMakeFiles/ur3_kin.dir/all
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur3_moveit_plugin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur3_moveit_plugin.dir/depend
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur3_moveit_plugin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur3_moveit_plugin.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=25,26 "Built target ur3_moveit_plugin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=30,31 "Built target ur3_moveit_plugin"
 .PHONY : universal_robot/ur_kinematics/CMakeFiles/ur3_moveit_plugin.dir/all
 
 # Include target in all.
@@ -4173,7 +4211,7 @@ clean: universal_robot/ur_kinematics/CMakeFiles/ur3_moveit_plugin.dir/clean
 universal_robot/ur_kinematics/CMakeFiles/ur5_kin.dir/all:
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur5_kin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur5_kin.dir/depend
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur5_kin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur5_kin.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=28,29 "Built target ur5_kin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=33,34 "Built target ur5_kin"
 .PHONY : universal_robot/ur_kinematics/CMakeFiles/ur5_kin.dir/all
 
 # Include target in all.
@@ -5138,7 +5176,7 @@ clean: universal_robot/ur_kinematics/CMakeFiles/shape_msgs_generate_messages_cpp
 universal_robot/ur_kinematics/CMakeFiles/ur3_kin.dir/all:
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur3_kin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur3_kin.dir/depend
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur3_kin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur3_kin.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=23,24 "Built target ur3_kin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=28,29 "Built target ur3_kin"
 .PHONY : universal_robot/ur_kinematics/CMakeFiles/ur3_kin.dir/all
 
 # Include target in all.
@@ -5463,7 +5501,7 @@ clean: universal_robot/ur_kinematics/CMakeFiles/actionlib_msgs_generate_messages
 universal_robot/ur_kinematics/CMakeFiles/ur5_moveit_plugin.dir/all: universal_robot/ur_kinematics/CMakeFiles/ur5_kin.dir/all
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur5_moveit_plugin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur5_moveit_plugin.dir/depend
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur5_moveit_plugin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur5_moveit_plugin.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=31,32 "Built target ur5_moveit_plugin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=36,37 "Built target ur5_moveit_plugin"
 .PHONY : universal_robot/ur_kinematics/CMakeFiles/ur5_moveit_plugin.dir/all
 
 # Include target in all.
@@ -5596,7 +5634,7 @@ clean: universal_robot/ur_kinematics/CMakeFiles/moveit_msgs_generate_messages_no
 universal_robot/ur_kinematics/CMakeFiles/ur10_kin.dir/all:
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur10_kin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur10_kin.dir/depend
 	$(MAKE) -f universal_robot/ur_kinematics/CMakeFiles/ur10_kin.dir/build.make universal_robot/ur_kinematics/CMakeFiles/ur10_kin.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=19,20 "Built target ur10_kin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=24,25 "Built target ur10_kin"
 .PHONY : universal_robot/ur_kinematics/CMakeFiles/ur10_kin.dir/all
 
 # Include target in all.
