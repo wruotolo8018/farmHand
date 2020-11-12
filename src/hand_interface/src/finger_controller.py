@@ -126,9 +126,10 @@ def process_deadzone(pwmVal, deadzone_val):
     return pwmVal
 
 # Simple PID (really just P rn) control function to update pwm values based on sensed joint angles
-def position_control(des_prox, des_dist, fing_num):
+def position_control_2(des_prox, des_dist):
     # Access global variables
     global cur_joint_data, pos_pwm_array, cur_pwm_array
+    fing_num = 2
     
     # Set control variables
     kp_scale = .1
@@ -167,11 +168,6 @@ def position_control(des_prox, des_dist, fing_num):
 #        if(np.absolute(prox_error) > prox_threshold):
         Cpwm = int(prox_error + dist_error)
         Upwm = -int(prox_error + dist_error)
-#        print("adjusting prox joint")
-#        else:
-#            Cpwm = int(dist_error)
-#            Upwm = -int(prox_error + dist_error)
-#            print("adjusting distal joint")
         ######### End of curling controller
     elif (des_prox == 0 and des_dist == 0): 
         ######### Curling Controller
@@ -179,13 +175,9 @@ def position_control(des_prox, des_dist, fing_num):
         if(np.absolute(prox_error) > prox_threshold):
             Cpwm = int(prox_error)
             Upwm = -int(prox_error)
-#            print("adjusting prox joint")
         else:
-#            Cpwm = int(prox_error + dist_error)
             Upwm = -int(dist_error)
-#            print("adjusting distal joint")
         ######### End of curling controller
-    
     
     # Apply a deadzone if needed for stability (was originally working fine without)
     Cpwm = process_deadzone(Cpwm, one_dir_deadzone)
@@ -194,9 +186,7 @@ def position_control(des_prox, des_dist, fing_num):
     # Set pwm array values based on updates
     pos_pwm_array[fing_num*2 : fing_num*2+2] = [Cpwm, Upwm]
     cur_pwm_array[fing_num*2 : fing_num*2+2] = pos_pwm_array[fing_num*2 : fing_num*2+2]
-    
-    # Print updated pwm array for debugging
-    # print(pos_pwm_array)
+
 
 
 # Final safety function to put a cap on max PWM
@@ -241,11 +231,7 @@ def motor_controller():
             des_dist_value = 0
             
             # Run proportional control on the des and sensed pos values
-            position_control(des_prox_value, des_dist_value, 0)
-            position_control(des_prox_value, des_dist_value, 2)
-            position_control(des_prox_value, des_dist_value, 3)
-#            position_control(des_prox_value, des_dist_value, 1)
-#            position_control(des_prox_value, des_dist_value, 2)
+            position_control_2(des_prox_value, des_dist_value)
             
             # Cap final pwm value 
             final_pwm_cap(30);
@@ -256,26 +242,18 @@ def motor_controller():
             des_dist_value = 600
             
             # Run proportional control on the des and sensed pos values
-            position_control(des_prox_value, des_dist_value, 0)
-            position_control(des_prox_value, des_dist_value, 2)
-            position_control(des_prox_value, des_dist_value, 3)
-#            position_control(des_prox_value, des_dist_value, 1)
-#            position_control(des_prox_value, des_dist_value, 2)
+            position_control_2(des_prox_value, des_dist_value)
            
             # Cap final pwm value 
             final_pwm_cap(30);
         
         elif (state == MOVE_TO_POSE_3):
             # Define desired position values for testing
-            des_prox_value = 900
-            des_dist_value = -200
+            des_prox_value = 600
+            des_dist_value = -100
             
             # Run proportional control on the des and sensed pos values
-            position_control(des_prox_value, des_dist_value, 0)
-            position_control(des_prox_value, des_dist_value, 2)
-            position_control(des_prox_value, des_dist_value, 3)
-#            position_control(des_prox_value, des_dist_value, 1)
-#            position_control(des_prox_value, des_dist_value, 2)
+            position_control_2(des_prox_value, des_dist_value)
                         
             # Cap final pwm value 
             final_pwm_cap(30);   
@@ -284,17 +262,17 @@ def motor_controller():
             dummyVar = 1
         
         elif (state == TIGHTEN):
-            cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
+#            cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
 #            cur_pwm_array[:] = [10,10,0,0,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
-#            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
+            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,10,10,0]
         
         elif (state == LOOSEN):
-            cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
+#            cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
 #            cur_pwm_array[:] = [-10,-10,0,0,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
-#            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
+            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
         
         # Process pwm array into string for serial comms
