@@ -186,7 +186,192 @@ def position_control_2(des_prox, des_dist):
     # Set pwm array values based on updates
     pos_pwm_array[fing_num*2 : fing_num*2+2] = [Cpwm, Upwm]
     cur_pwm_array[fing_num*2 : fing_num*2+2] = pos_pwm_array[fing_num*2 : fing_num*2+2]
+    
+# Simple PID (really just P rn) control function to update pwm values based on sensed joint angles
+def position_control_0(des_prox, des_dist):
+    # Access global variables
+    global cur_joint_data, pos_pwm_array, cur_pwm_array
+    fing_num = 0
+    
+    # Set control variables
+    kp_scale = .1
+    kp1 = 1.0
+    kp2 = 1.0
+    looseScale = 0.75
+    one_dir_deadzone = 0 # In PWM/2, not sensor values
+    prox_index = fing_num*2
+    dist_index = fing_num*2+1
+    
+    # Run proportional control law
+    prox_error = kp_scale*(des_prox - cur_joint_data[prox_index])
+    dist_error = kp_scale*(des_dist - cur_joint_data[dist_index])
+    
+    Cpwm = 0
+    Upwm = 0
+    
+    if (des_prox > 0 and des_dist < 0):    
+        ######## Working hyperextension controller (two directional)
+        Cpwm = int(kp1*prox_error)
+        Upwm = -int(kp2*prox_error + kp1*dist_error)
+        
+        Cpwm = pwm_cap(Cpwm,40)
+        Upwm = pwm_cap(Upwm,40)
+    
+        if (Cpwm < 0):
+            Cpwm = Cpwm*looseScale
+            Cpwm = pwm_cap(Cpwm,20)
+        if (Upwm < 0):
+            Upwm = Upwm*looseScale
+            Upwm = pwm_cap(Upwm,20)
+        ######### End of hyperextension controller
+    elif (des_prox > 0 and des_dist > 0):
+        ######### Curling Controller
+        prox_threshold = 10
+#        if(np.absolute(prox_error) > prox_threshold):
+        Cpwm = int(prox_error + dist_error)
+        Upwm = -int(prox_error + dist_error)
+        ######### End of curling controller
+    elif (des_prox == 0 and des_dist == 0): 
+        ######### Curling Controller
+        prox_threshold = 15
+        if(np.absolute(prox_error) > prox_threshold):
+            Cpwm = int(prox_error)
+            Upwm = -int(prox_error)
+        else:
+            Upwm = -int(dist_error)
+        ######### End of curling controller
+    
+    # Apply a deadzone if needed for stability (was originally working fine without)
+    Cpwm = process_deadzone(Cpwm, one_dir_deadzone)
+    Upwm = process_deadzone(Upwm, one_dir_deadzone)
+            
+    # Set pwm array values based on updates
+    pos_pwm_array[fing_num*2 : fing_num*2+2] = [Cpwm, Upwm]
+    cur_pwm_array[fing_num*2 : fing_num*2+2] = pos_pwm_array[fing_num*2 : fing_num*2+2]
 
+# Simple PID (really just P rn) control function to update pwm values based on sensed joint angles
+def position_control_1(des_prox, des_dist):
+    # Access global variables
+    global cur_joint_data, pos_pwm_array, cur_pwm_array
+    fing_num = 1
+    
+    # Set control variables
+    kp_scale = .08
+    kp1 = 1.0
+    kp2 = 1.0
+    looseScale = 0.5
+    one_dir_deadzone = 0 # In PWM/2, not sensor values
+    prox_index = fing_num*2
+    dist_index = fing_num*2+1
+    
+    # Run proportional control law
+    prox_error = kp_scale*(des_prox - cur_joint_data[prox_index])
+    dist_error = kp_scale*(des_dist - cur_joint_data[dist_index])
+    
+    Cpwm = 0
+    Upwm = 0
+    
+    if (des_prox > 0 and des_dist < 0):    
+        ######## Working hyperextension controller (two directional)
+        Cpwm = int(kp1*prox_error)
+        Upwm = -int(kp2*prox_error + kp1*dist_error)
+        
+        Cpwm = pwm_cap(Cpwm,40)
+        Upwm = pwm_cap(Upwm,40)
+    
+        if (Cpwm < 0):
+            Cpwm = Cpwm*looseScale
+            Cpwm = pwm_cap(Cpwm,20)
+        if (Upwm < 0):
+            Upwm = Upwm*looseScale
+            Upwm = pwm_cap(Upwm,20)
+        ######### End of hyperextension controller
+    elif (des_prox > 0 and des_dist > 0):
+        ######### Curling Controller
+        prox_threshold = 10
+#        if(np.absolute(prox_error) > prox_threshold):
+        Cpwm = int(prox_error + dist_error)
+        Upwm = -int(prox_error + dist_error)
+        ######### End of curling controller
+    elif (des_prox == 0 and des_dist == 0): 
+        ######### Curling Controller
+        prox_threshold = 30
+        if(np.absolute(prox_error) > prox_threshold):
+            Cpwm = int(prox_error)
+            Upwm = -int(prox_error)
+        else:
+            Upwm = -int(dist_error)
+        ######### End of curling controller
+    
+    # Apply a deadzone if needed for stability (was originally working fine without)
+    Cpwm = process_deadzone(Cpwm, one_dir_deadzone)
+    Upwm = process_deadzone(Upwm, one_dir_deadzone)
+            
+    # Set pwm array values based on updates
+    pos_pwm_array[fing_num*2 : fing_num*2+2] = [Cpwm, Upwm]
+    cur_pwm_array[fing_num*2 : fing_num*2+2] = pos_pwm_array[fing_num*2 : fing_num*2+2]
+    
+# Simple PID (really just P rn) control function to update pwm values based on sensed joint angles
+def position_control_3(des_prox, des_dist):
+    # Access global variables
+    global cur_joint_data, pos_pwm_array, cur_pwm_array
+    fing_num = 3
+    
+    # Set control variables
+    kp_scale = .1
+    kp1 = 1.0
+    kp2 = 1.0
+    looseScale = 0.75
+    one_dir_deadzone = 0 # In PWM/2, not sensor values
+    prox_index = fing_num*2
+    dist_index = fing_num*2+1
+    
+    # Run proportional control law
+    prox_error = kp_scale*(des_prox - cur_joint_data[prox_index])
+    dist_error = kp_scale*(des_dist - cur_joint_data[dist_index])
+    
+    Cpwm = 0
+    Upwm = 0
+    
+    if (des_prox > 0 and des_dist < 0):    
+        ######## Working hyperextension controller (two directional)
+        Cpwm = int(kp1*prox_error)
+        Upwm = -int(kp2*prox_error + kp1*dist_error)
+        
+        Cpwm = pwm_cap(Cpwm,40)
+        Upwm = pwm_cap(Upwm,40)
+    
+        if (Cpwm < 0):
+            Cpwm = Cpwm*looseScale
+            Cpwm = pwm_cap(Cpwm,20)
+        if (Upwm < 0):
+            Upwm = Upwm*looseScale
+            Upwm = pwm_cap(Upwm,20)
+        ######### End of hyperextension controller
+    elif (des_prox > 0 and des_dist > 0):
+        ######### Curling Controller
+        prox_threshold = 10
+#        if(np.absolute(prox_error) > prox_threshold):
+        Cpwm = int(prox_error + dist_error)
+        Upwm = -int(prox_error + dist_error)
+        ######### End of curling controller
+    elif (des_prox == 0 and des_dist == 0): 
+        ######### Curling Controller
+        prox_threshold = 15
+        if(np.absolute(prox_error) > prox_threshold):
+            Cpwm = int(prox_error)
+            Upwm = -int(prox_error)
+        else:
+            Upwm = -int(dist_error)
+        ######### End of curling controller
+    
+    # Apply a deadzone if needed for stability (was originally working fine without)
+    Cpwm = process_deadzone(Cpwm, one_dir_deadzone)
+    Upwm = process_deadzone(Upwm, one_dir_deadzone)
+            
+    # Set pwm array values based on updates
+    pos_pwm_array[fing_num*2 : fing_num*2+2] = [Cpwm, Upwm]
+    cur_pwm_array[fing_num*2 : fing_num*2+2] = pos_pwm_array[fing_num*2 : fing_num*2+2]
 
 
 # Final safety function to put a cap on max PWM
@@ -231,7 +416,11 @@ def motor_controller():
             des_dist_value = 0
             
             # Run proportional control on the des and sensed pos values
-            position_control_2(des_prox_value, des_dist_value)
+#            position_control_2(des_prox_value, des_dist_value)
+#            position_control_3(des_prox_value, des_dist_value)
+#            position_control_0(des_prox_value, des_dist_value)
+            position_control_1(des_prox_value, des_dist_value)
+            
             
             # Cap final pwm value 
             final_pwm_cap(30);
@@ -239,21 +428,28 @@ def motor_controller():
         elif (state == MOVE_TO_POSE_2):
             # Define desired position values for testing
             des_prox_value = 400
-            des_dist_value = 600
+            des_dist_value = 400
             
             # Run proportional control on the des and sensed pos values
-            position_control_2(des_prox_value, des_dist_value)
-           
+#            position_control_2(des_prox_value, des_dist_value)
+#            position_control_3(des_prox_value, des_dist_value)
+#            position_control_0(des_prox_value, des_dist_value)
+            position_control_1(des_prox_value, des_dist_value)
+            
+            
             # Cap final pwm value 
             final_pwm_cap(30);
         
         elif (state == MOVE_TO_POSE_3):
             # Define desired position values for testing
             des_prox_value = 600
-            des_dist_value = -100
+            des_dist_value = -400
             
             # Run proportional control on the des and sensed pos values
-            position_control_2(des_prox_value, des_dist_value)
+#            position_control_2(des_prox_value, des_dist_value)
+#            position_control_3(des_prox_value, des_dist_value)
+#            position_control_0(des_prox_value, des_dist_value)
+            position_control_1(des_prox_value, des_dist_value)
                         
             # Cap final pwm value 
             final_pwm_cap(30);   
@@ -264,15 +460,15 @@ def motor_controller():
         elif (state == TIGHTEN):
 #            cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
 #            cur_pwm_array[:] = [10,10,0,0,0,0,0,0,0]
-#            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
-            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
+            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,10,10,0]
         
         elif (state == LOOSEN):
 #            cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
 #            cur_pwm_array[:] = [-10,-10,0,0,0,0,0,0,0]
-#            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
-            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
+            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
         
         # Process pwm array into string for serial comms
