@@ -466,8 +466,8 @@ def motor_controller():
         elif (state == HOME):
             position_control_2(0,0)
             position_control_3(0,0)
-            position_control_0(-200,-200)
-            position_control_1(-200,-200)
+#            position_control_0(-200,-200)
+#            position_control_1(-200,-200)
         
         elif (state == PINCH_ONE):
             position_control_2(400,-50)

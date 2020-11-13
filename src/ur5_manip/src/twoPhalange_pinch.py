@@ -13,133 +13,99 @@ import time
 import rospy
 import numpy as np
 import copy
+from std_msgs.msg import String, Int16
 
 from ur5_interface import UR5Interface
 #from robotiq_interface import RobotiqInterface
 
-### Global definitions
+# Callback functions    
+def state_callback(data):
+    incomingString = str(data.data)
+    global state, move_completed
+#    print("Incoming command: " + incomingString)
 
+    if (incomingString == "home"):
+        state = HOME
+        move_completed = 0
+        
+    elif (incomingString == "start"):
+        state = START
+        move_completed = 0
+        
+    elif (incomingString == "displace_1"):
+        state = DISPLACE_ONE
+        move_completed = 0
+       
+    elif (incomingString == "displace_2"):
+        state = DISPLACE_TWO
+        move_completed = 0
+
+
+### Global definitions
 INTER_COMMAND_DELAY = 4
 
+HOME = 6
+PINCH_ONE = 7
+PINCH_TWO = 8
+DISPLACE_ONE = 1
+DISPLACE_TWO = 2
+START = 3
+
+state = HOME
+move_completed = 0
 ### end global definitions
 
-def test_move_home():
+def pinch_test_arm_control():
     """
     Function to demonstrate moving the ur5 to home pose
     """
     # Initialize the ros node
-    rospy.init_node("test_move_home", anonymous=True, disable_signals=True)
+    rospy.init_node("pinch_test_arm_control", anonymous=True, disable_signals=True)
+    
+    # Setup subscription to cmd_motor_controller topic
+    rospy.Subscriber("master_state", String, state_callback)
 
     # Instantiate the UR5 interface.
     ur5 = UR5Interface()
-
-    # MoveIt! works well if joint limits are smaller (within -pi, pi)
-    #if not ur5.check_joint_limits():
-    #    raise Exception('Bad joint limits! try running roslaunch with option "limited:=true"')
-
-    # go to home and print the joint values
-    ur5.goto_home_pose()
-    print(ur5.get_joint_values())
-
-'''
-def test_robotiq_gripper():
-    """
-    Function to demonstrate robotiq gripper usage
-    """
-    # Initialize the ros node
-    rospy.init_node("test_robotiq_gripper", anonymous=True, disable_signals=True)
-
-    # Instantiage the Robotiq gripper interface.
-    gripper = RobotiqInterface()
-
-    # Command the gripper to go to fully open
-    gripper.goto_gripper_pos(0)
-
-    # Command the gripper to go to fully close
-    gripper.goto_gripper_pos(255)
-
-    # The robotiq position command ranges from 0 to 255
-    gripper.goto_gripper_pos(126)
-'''
-
-def test_move_ur5():
-    rospy.init_node("test_move_ur5", anonymous=True, disable_signals=True)
-
-    ur5 = UR5Interface()
-
-    # MoveIt! works well if joint limits are smaller (within -pi, pi)
-    #if not ur5.check_joint_limits():
-    #    raise Exception('Bad joint limits! try running roslaunch with option "limited:=true"')
-
-
-    current_pose = ur5.get_pose()
-    print("============ Current pose: %s" % current_pose)
     
-
-    while(1):
-        ### go to P1
-        ur5.goto_home_pose()
-        home_pose = ur5.get_pose()
-
-        ### go to P2
-        P2_pose = copy.deepcopy(home_pose)
-        P2_pose.position.x += 0.1
-        ur5.goto_pose_target(P2_pose)
-
-        ### go to P3
-        P3_pose = copy.deepcopy(home_pose)
-        P3_pose.position.z += 0.1
-        ur5.goto_pose_target(P3_pose)
-
-def test_move_ur5_continuous():
-    rospy.init_node("test_move_ur5_continuous", anonymous=True, disable_signals=True)
-
-    ur5 = UR5Interface()
-
-    # MoveIt! works well if joint limits are smaller (within -pi, pi)
-    #if not ur5.check_joint_limits():
-    #    raise Exception('Bad joint limits! try running roslaunch with option "limited:=true"')
-
-
-    ur5.goto_home_pose()
-    # predefine all the poses that we want to go to
+    ur5.goto_home_down()
     home_pose = ur5.get_pose()
+    move_completed = 1
+    
+    while not rospy.is_shutdown(): 
+        
+        global move_completed
+        
+        if (move_completed == 0):
+            
+            if (state == HOME): 
+                print("Moving to home position")
+                ur5.goto_home_down()
+                home_pose = ur5.get_pose()
+                move_completed = 1
+                
+            elif (state == START): 
+                print("Moving to start position")
+                start_pose = copy.deepcopy(home_pose)
+                start_pose.position.z -= 0.08
+                ur5.goto_pose_target(start_pose, wait = False)
+                move_completed = 1
+            
+            elif (state == DISPLACE_ONE): 
+                print("Performing first displacement")
+                first_pose = copy.deepcopy(start_pose)
+                first_pose.position.z += 0.005
+                ur5.goto_pose_target(first_pose, wait = False)
+                move_completed = 1
+            
+            elif (state == DISPLACE_TWO): 
+                print("Performing second displacement")
+                second_pose = copy.deepcopy(first_pose)
+                second_pose.position.z += 0.005
+                ur5.goto_pose_target(second_pose, wait = False)
+                move_completed = 1
+                        
 
-    P2_pose = copy.deepcopy(home_pose)
-    P2_pose.position.x += 0.1
 
-    P3_pose = copy.deepcopy(home_pose)
-    P3_pose.position.z += 0.1
-
-    print("============ Current pose: %s" % current_pose)
-
-    # The following commands are just to stall the script
-    print("============ Press `Enter` to continue the movement ...")
-    raw_input()
-
-    # loop through the waypoints
-    while(1):
-        ### go to P1
-        ur5.goto_home_pose(wait=False)
-        time.sleep(INTER_COMMAND_DELAY)
-
-        ### go to P2
-        ur5.goto_pose_target(P2_pose, wait=False)
-        time.sleep(INTER_COMMAND_DELAY)
-
-        ### go to P3
-        ur5.goto_pose_target(P3_pose, wait=False)
-        time.sleep(INTER_COMMAND_DELAY)
-
-
-curr_demo = 3
 if __name__ == '__main__': 
-    if (curr_demo == 1):
-        test_move_home()
-    elif (curr_demo == 2):
-        #test_robotiq_gripper()
-	print("Do nothing")
-    elif (curr_demo == 3):
-        test_move_ur5()
-    elif (curr_demo == 4):
-        test_move_ur5_continuous()
+    pinch_test_arm_control()
