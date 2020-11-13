@@ -36,28 +36,31 @@ def move_home():
     ur5 = UR5Interface()
 
     # go to home and print the joint values
-    ur5.goto_home_pose()
-    home_pose = ur5.get_pose()
+    ur5.set_speed(0.2)
+    ur5.goto_home_front()
     
-    front_pose = copy.deepcopy(home_pose)
-    print(front_pose)
-    
-    quat_15x = quaternion_from_euler(3.14159/12*2,0,0)
-    og_quat = get_quaternion(front_pose)
-    print(og_quat)
-    
-    new_quat = quaternion_multiply(quat_15x, og_quat)
-    front_pose = set_quaternion(front_pose,new_quat)
-    front_pose.position.z += .05
-    print(front_pose)
-    
-    ur5.goto_pose_target(front_pose)
-    
-    new_quat = quaternion_multiply(quat_15x, new_quat)
-    front_pose = set_quaternion(front_pose,new_quat)
-    front_pose.position.z += .05
-    ur5.goto_pose_target(front_pose)
-        
+#    
+#    home_pose = ur5.get_pose()
+#    
+#    front_pose = copy.deepcopy(home_pose)
+#    print(front_pose)
+#    
+#    quat_15x = quaternion_from_euler(3.14159/12*2,0,0)
+#    og_quat = get_quaternion(front_pose)
+#    print(og_quat)
+#    
+#    new_quat = quaternion_multiply(quat_15x, og_quat)
+#    front_pose = set_quaternion(front_pose,new_quat)
+#    front_pose.position.z += .05
+#    print(front_pose)
+#    
+#    ur5.goto_pose_target(front_pose)
+#    
+#    new_quat = quaternion_multiply(quat_15x, new_quat)
+#    front_pose = set_quaternion(front_pose,new_quat)
+#    front_pose.position.z += .05
+#    ur5.goto_pose_target(front_pose)
+#        
     
     print(ur5.get_joint_values())
 

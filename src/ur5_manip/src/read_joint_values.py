@@ -18,10 +18,6 @@ def move_home():
 
     # Instantiate the UR5 interface.
     ur5 = UR5Interface()
-
-    # go to home and print the joint values
-    ur5.set_speed(0.3)
-    ur5.goto_home_down()    
     
     print(ur5.get_joint_values())
 

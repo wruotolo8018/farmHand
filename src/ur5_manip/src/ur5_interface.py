@@ -26,9 +26,10 @@ class UR5Interface:
                    'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint']
 
 #    joint_values_home = [1.5450898256183896, -1.810624635807664, 2.258478488681325, -2.0176230710216156, -1.5706590472860515, 3.1148891041905493]
-    joint_values_home = [1.5508086593937045, -1.6433967614783649, 1.8528473864812147, -1.7753963832428354, -1.572205096188486, 3.1196015051553716]
-    joint_values_home_2 = [1.5508086593937045, -1.6433967614783649, 1.8528473864812147, -1.7753963832428354, -1.572205096188486, 3.1196015051553716]
-    
+#    joint_values_home = [1.5508086593937045, -1.6433967614783649, 1.8528473864812147, -1.7753963832428354, -1.572205096188486, 3.1196015051553716]
+    joint_values_home_down = [1.5508086593937045, -1.6433967614783649, 1.8528473864812147, -1.7753963832428354, -1.572205096188486, 3.1196015051553716]
+#    joint_values_home_front = [1.469825345882199, -1.5401886165917278, 2.5135044500881762, 2.172751576034601, -1.4505980022329732, 1.5766096226988737]
+    joint_values_home_front = [1.57079632679, -1.57079632679, 2.3135044500881762, 2.37079632679, -1.57079632679, 1.57079632679]
 
     def __init__(self):
         self.robot = moveit_commander.RobotCommander()
@@ -120,14 +121,27 @@ class UR5Interface:
     def get_pose(self):
         """ get robot end effector pose """
         return self.group.get_current_pose().pose
+    
+    def set_speed(self, speedVal):
+        """ set velocity and acceleration values """
+        self.group.set_max_velocity_scaling_factor(speedVal)
+        self.group.set_max_acceleration_scaling_factor(speedVal)
 
     def get_joint_values(self):
         """ get robot joint values """
         return self.group.get_current_joint_values()
 
-    def goto_home_pose(self, wait=True):
+#    def goto_home_pose(self, wait=True):
+#        """ go to robot end effector home pose """
+#        self.goto_joint_target(self.joint_values_home, wait=wait)
+        
+    def goto_home_front(self, wait=True):
         """ go to robot end effector home pose """
-        self.goto_joint_target(self.joint_values_home, wait=wait)
+        self.goto_joint_target(self.joint_values_home_front, wait=False)
+        
+    def goto_home_down(self, wait=True):
+        """ go to robot end effector home pose """
+        self.goto_joint_target(self.joint_values_home_down, wait=False)
 
     def goto_pose_target(self, pose, wait=True):
         """ go to robot end effector pose target """
