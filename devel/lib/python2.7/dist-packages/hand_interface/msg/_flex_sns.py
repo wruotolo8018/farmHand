@@ -8,18 +8,20 @@ import struct
 
 
 class flex_sns(genpy.Message):
-  _md5sum = "8b57bff00d9b97e6f6a22eb31c6895cc"
+  _md5sum = "57e523c8816fb6474dc2708662828753"
   _type = "hand_interface/flex_sns"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """int32 prox1
-int32 dist1
-int32 prox2
-int32 dist2
-int32 prox3
-int32 dist3
+  _full_text = """int32 curl1
+int32 hype1
+int32 curl2
+int32 hype2
+int32 curl3
+int32 hype3
+int32 curl4
+int32 hype4
 """
-  __slots__ = ['prox1','dist1','prox2','dist2','prox3','dist3']
-  _slot_types = ['int32','int32','int32','int32','int32','int32']
+  __slots__ = ['curl1','hype1','curl2','hype2','curl3','hype3','curl4','hype4']
+  _slot_types = ['int32','int32','int32','int32','int32','int32','int32','int32']
 
   def __init__(self, *args, **kwds):
     """
@@ -29,7 +31,7 @@ int32 dist3
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       prox1,dist1,prox2,dist2,prox3,dist3
+       curl1,hype1,curl2,hype2,curl3,hype3,curl4,hype4
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -38,25 +40,31 @@ int32 dist3
     if args or kwds:
       super(flex_sns, self).__init__(*args, **kwds)
       # message fields cannot be None, assign default values for those that are
-      if self.prox1 is None:
-        self.prox1 = 0
-      if self.dist1 is None:
-        self.dist1 = 0
-      if self.prox2 is None:
-        self.prox2 = 0
-      if self.dist2 is None:
-        self.dist2 = 0
-      if self.prox3 is None:
-        self.prox3 = 0
-      if self.dist3 is None:
-        self.dist3 = 0
+      if self.curl1 is None:
+        self.curl1 = 0
+      if self.hype1 is None:
+        self.hype1 = 0
+      if self.curl2 is None:
+        self.curl2 = 0
+      if self.hype2 is None:
+        self.hype2 = 0
+      if self.curl3 is None:
+        self.curl3 = 0
+      if self.hype3 is None:
+        self.hype3 = 0
+      if self.curl4 is None:
+        self.curl4 = 0
+      if self.hype4 is None:
+        self.hype4 = 0
     else:
-      self.prox1 = 0
-      self.dist1 = 0
-      self.prox2 = 0
-      self.dist2 = 0
-      self.prox3 = 0
-      self.dist3 = 0
+      self.curl1 = 0
+      self.hype1 = 0
+      self.curl2 = 0
+      self.hype2 = 0
+      self.curl3 = 0
+      self.hype3 = 0
+      self.curl4 = 0
+      self.hype4 = 0
 
   def _get_types(self):
     """
@@ -71,7 +79,7 @@ int32 dist3
     """
     try:
       _x = self
-      buff.write(_get_struct_6i().pack(_x.prox1, _x.dist1, _x.prox2, _x.dist2, _x.prox3, _x.dist3))
+      buff.write(_get_struct_8i().pack(_x.curl1, _x.hype1, _x.curl2, _x.hype2, _x.curl3, _x.hype3, _x.curl4, _x.hype4))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -85,8 +93,8 @@ int32 dist3
       end = 0
       _x = self
       start = end
-      end += 24
-      (_x.prox1, _x.dist1, _x.prox2, _x.dist2, _x.prox3, _x.dist3,) = _get_struct_6i().unpack(str[start:end])
+      end += 32
+      (_x.curl1, _x.hype1, _x.curl2, _x.hype2, _x.curl3, _x.hype3, _x.curl4, _x.hype4,) = _get_struct_8i().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -100,7 +108,7 @@ int32 dist3
     """
     try:
       _x = self
-      buff.write(_get_struct_6i().pack(_x.prox1, _x.dist1, _x.prox2, _x.dist2, _x.prox3, _x.dist3))
+      buff.write(_get_struct_8i().pack(_x.curl1, _x.hype1, _x.curl2, _x.hype2, _x.curl3, _x.hype3, _x.curl4, _x.hype4))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -115,8 +123,8 @@ int32 dist3
       end = 0
       _x = self
       start = end
-      end += 24
-      (_x.prox1, _x.dist1, _x.prox2, _x.dist2, _x.prox3, _x.dist3,) = _get_struct_6i().unpack(str[start:end])
+      end += 32
+      (_x.curl1, _x.hype1, _x.curl2, _x.hype2, _x.curl3, _x.hype3, _x.curl4, _x.hype4,) = _get_struct_8i().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -125,9 +133,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_6i = None
-def _get_struct_6i():
-    global _struct_6i
-    if _struct_6i is None:
-        _struct_6i = struct.Struct("<6i")
-    return _struct_6i
+_struct_8i = None
+def _get_struct_8i():
+    global _struct_8i
+    if _struct_8i is None:
+        _struct_8i = struct.Struct("<8i")
+    return _struct_8i

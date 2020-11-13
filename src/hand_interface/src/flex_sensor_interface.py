@@ -20,16 +20,19 @@ cur_flex_data = flex_sns()
 # Sensor calibration variables
 low_vals = []
 high_vals = []
-calibrated_vals = [0,0,0,0,0,0]
-num_sensors = 6
+calibrated_vals = [0,0,0,0,0,0,0,0]
+num_sensors = 8
 
 # Accessory functions 
 def arduino_map(val, inMin, inMax, outMin, outMax):
     return int((val-inMin)*(outMax-outMin)/(inMax-inMin)+outMin)
 def get_calibration_values():
     global low_vals, high_vals
-    low_vals = [413,430,0,0,0,0] 
-    high_vals = [190,210,1023,1023,1023,1023] 
+    low_vals = [600,415,410,445,460,380,530,340] 
+    high_vals = [325,150,230,189,280,135,350,130] 
+    
+#    low_vals = [0,0,0,0,0,0,0,0] 
+#    high_vals = [1023,1023,1023,1023,1023,1023,1023,1023] 
     
 # Callback Functions 
 # State callback is unused right now but can be used to turn sensor on and off
@@ -64,7 +67,7 @@ def basic_sensor_serial():
             read_string = com.read_until()
             
             # Print currently read string for debugging
-            # print(read_string)
+            print(read_string)
             
             # Populate message fields appropriately
             split_read_string = read_string.split('_')
@@ -86,20 +89,18 @@ def basic_sensor_serial():
                     calibrated_vals[i] = arduino_map(val, low_vals[i], high_vals[i], 0, 1023)
                  
                 # Print calibrated values for debugging purposes
-                #print(calibrated_vals)
-                #print(read_string)
-                #print("Prox Tendon Val: " + str(calibrated_vals[3]))
-                #print("Dist Tendon Val: " + str(calibrated_vals[4]))
-                #print("Hype Tendon Val: " + str(calibrated_vals[5]))
-                #print(" ")
+                print("Calibrated vals: " + str(calibrated_vals))
+                print(read_string)
                 
                 # Fill out flex data msg type with calibrated values
-                cur_flex_data.prox1 = calibrated_vals[0]
-                cur_flex_data.dist1 = calibrated_vals[1]
-                cur_flex_data.prox2 = calibrated_vals[2]
-                cur_flex_data.dist2 = calibrated_vals[3]
-                cur_flex_data.prox3 = calibrated_vals[4]
-                cur_flex_data.dist3 = calibrated_vals[5]
+                cur_flex_data.curl1 = calibrated_vals[0]
+                cur_flex_data.hype1 = calibrated_vals[1]
+                cur_flex_data.curl2 = calibrated_vals[2]
+                cur_flex_data.hype2 = calibrated_vals[3]
+                cur_flex_data.curl3 = calibrated_vals[4]
+                cur_flex_data.hype3 = calibrated_vals[5]
+                cur_flex_data.curl4 = calibrated_vals[6]
+                cur_flex_data.hype4 = calibrated_vals[7]
                 
             # publish sensor data
             flex_sense_pub.publish(cur_flex_data)

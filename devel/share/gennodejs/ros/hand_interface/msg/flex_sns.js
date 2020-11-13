@@ -18,67 +18,85 @@ class flex_sns {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.prox1 = null;
-      this.dist1 = null;
-      this.prox2 = null;
-      this.dist2 = null;
-      this.prox3 = null;
-      this.dist3 = null;
+      this.curl1 = null;
+      this.hype1 = null;
+      this.curl2 = null;
+      this.hype2 = null;
+      this.curl3 = null;
+      this.hype3 = null;
+      this.curl4 = null;
+      this.hype4 = null;
     }
     else {
-      if (initObj.hasOwnProperty('prox1')) {
-        this.prox1 = initObj.prox1
+      if (initObj.hasOwnProperty('curl1')) {
+        this.curl1 = initObj.curl1
       }
       else {
-        this.prox1 = 0;
+        this.curl1 = 0;
       }
-      if (initObj.hasOwnProperty('dist1')) {
-        this.dist1 = initObj.dist1
-      }
-      else {
-        this.dist1 = 0;
-      }
-      if (initObj.hasOwnProperty('prox2')) {
-        this.prox2 = initObj.prox2
+      if (initObj.hasOwnProperty('hype1')) {
+        this.hype1 = initObj.hype1
       }
       else {
-        this.prox2 = 0;
+        this.hype1 = 0;
       }
-      if (initObj.hasOwnProperty('dist2')) {
-        this.dist2 = initObj.dist2
-      }
-      else {
-        this.dist2 = 0;
-      }
-      if (initObj.hasOwnProperty('prox3')) {
-        this.prox3 = initObj.prox3
+      if (initObj.hasOwnProperty('curl2')) {
+        this.curl2 = initObj.curl2
       }
       else {
-        this.prox3 = 0;
+        this.curl2 = 0;
       }
-      if (initObj.hasOwnProperty('dist3')) {
-        this.dist3 = initObj.dist3
+      if (initObj.hasOwnProperty('hype2')) {
+        this.hype2 = initObj.hype2
       }
       else {
-        this.dist3 = 0;
+        this.hype2 = 0;
+      }
+      if (initObj.hasOwnProperty('curl3')) {
+        this.curl3 = initObj.curl3
+      }
+      else {
+        this.curl3 = 0;
+      }
+      if (initObj.hasOwnProperty('hype3')) {
+        this.hype3 = initObj.hype3
+      }
+      else {
+        this.hype3 = 0;
+      }
+      if (initObj.hasOwnProperty('curl4')) {
+        this.curl4 = initObj.curl4
+      }
+      else {
+        this.curl4 = 0;
+      }
+      if (initObj.hasOwnProperty('hype4')) {
+        this.hype4 = initObj.hype4
+      }
+      else {
+        this.hype4 = 0;
       }
     }
   }
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type flex_sns
-    // Serialize message field [prox1]
-    bufferOffset = _serializer.int32(obj.prox1, buffer, bufferOffset);
-    // Serialize message field [dist1]
-    bufferOffset = _serializer.int32(obj.dist1, buffer, bufferOffset);
-    // Serialize message field [prox2]
-    bufferOffset = _serializer.int32(obj.prox2, buffer, bufferOffset);
-    // Serialize message field [dist2]
-    bufferOffset = _serializer.int32(obj.dist2, buffer, bufferOffset);
-    // Serialize message field [prox3]
-    bufferOffset = _serializer.int32(obj.prox3, buffer, bufferOffset);
-    // Serialize message field [dist3]
-    bufferOffset = _serializer.int32(obj.dist3, buffer, bufferOffset);
+    // Serialize message field [curl1]
+    bufferOffset = _serializer.int32(obj.curl1, buffer, bufferOffset);
+    // Serialize message field [hype1]
+    bufferOffset = _serializer.int32(obj.hype1, buffer, bufferOffset);
+    // Serialize message field [curl2]
+    bufferOffset = _serializer.int32(obj.curl2, buffer, bufferOffset);
+    // Serialize message field [hype2]
+    bufferOffset = _serializer.int32(obj.hype2, buffer, bufferOffset);
+    // Serialize message field [curl3]
+    bufferOffset = _serializer.int32(obj.curl3, buffer, bufferOffset);
+    // Serialize message field [hype3]
+    bufferOffset = _serializer.int32(obj.hype3, buffer, bufferOffset);
+    // Serialize message field [curl4]
+    bufferOffset = _serializer.int32(obj.curl4, buffer, bufferOffset);
+    // Serialize message field [hype4]
+    bufferOffset = _serializer.int32(obj.hype4, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -86,23 +104,27 @@ class flex_sns {
     //deserializes a message object of type flex_sns
     let len;
     let data = new flex_sns(null);
-    // Deserialize message field [prox1]
-    data.prox1 = _deserializer.int32(buffer, bufferOffset);
-    // Deserialize message field [dist1]
-    data.dist1 = _deserializer.int32(buffer, bufferOffset);
-    // Deserialize message field [prox2]
-    data.prox2 = _deserializer.int32(buffer, bufferOffset);
-    // Deserialize message field [dist2]
-    data.dist2 = _deserializer.int32(buffer, bufferOffset);
-    // Deserialize message field [prox3]
-    data.prox3 = _deserializer.int32(buffer, bufferOffset);
-    // Deserialize message field [dist3]
-    data.dist3 = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [curl1]
+    data.curl1 = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [hype1]
+    data.hype1 = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [curl2]
+    data.curl2 = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [hype2]
+    data.hype2 = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [curl3]
+    data.curl3 = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [hype3]
+    data.hype3 = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [curl4]
+    data.curl4 = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [hype4]
+    data.hype4 = _deserializer.int32(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 24;
+    return 32;
   }
 
   static datatype() {
@@ -112,18 +134,20 @@ class flex_sns {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '8b57bff00d9b97e6f6a22eb31c6895cc';
+    return '57e523c8816fb6474dc2708662828753';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    int32 prox1
-    int32 dist1
-    int32 prox2
-    int32 dist2
-    int32 prox3
-    int32 dist3
+    int32 curl1
+    int32 hype1
+    int32 curl2
+    int32 hype2
+    int32 curl3
+    int32 hype3
+    int32 curl4
+    int32 hype4
     
     `;
   }
@@ -134,46 +158,60 @@ class flex_sns {
       msg = {};
     }
     const resolved = new flex_sns(null);
-    if (msg.prox1 !== undefined) {
-      resolved.prox1 = msg.prox1;
+    if (msg.curl1 !== undefined) {
+      resolved.curl1 = msg.curl1;
     }
     else {
-      resolved.prox1 = 0
+      resolved.curl1 = 0
     }
 
-    if (msg.dist1 !== undefined) {
-      resolved.dist1 = msg.dist1;
+    if (msg.hype1 !== undefined) {
+      resolved.hype1 = msg.hype1;
     }
     else {
-      resolved.dist1 = 0
+      resolved.hype1 = 0
     }
 
-    if (msg.prox2 !== undefined) {
-      resolved.prox2 = msg.prox2;
+    if (msg.curl2 !== undefined) {
+      resolved.curl2 = msg.curl2;
     }
     else {
-      resolved.prox2 = 0
+      resolved.curl2 = 0
     }
 
-    if (msg.dist2 !== undefined) {
-      resolved.dist2 = msg.dist2;
+    if (msg.hype2 !== undefined) {
+      resolved.hype2 = msg.hype2;
     }
     else {
-      resolved.dist2 = 0
+      resolved.hype2 = 0
     }
 
-    if (msg.prox3 !== undefined) {
-      resolved.prox3 = msg.prox3;
+    if (msg.curl3 !== undefined) {
+      resolved.curl3 = msg.curl3;
     }
     else {
-      resolved.prox3 = 0
+      resolved.curl3 = 0
     }
 
-    if (msg.dist3 !== undefined) {
-      resolved.dist3 = msg.dist3;
+    if (msg.hype3 !== undefined) {
+      resolved.hype3 = msg.hype3;
     }
     else {
-      resolved.dist3 = 0
+      resolved.hype3 = 0
+    }
+
+    if (msg.curl4 !== undefined) {
+      resolved.curl4 = msg.curl4;
+    }
+    else {
+      resolved.curl4 = 0
+    }
+
+    if (msg.hype4 !== undefined) {
+      resolved.hype4 = msg.hype4;
+    }
+    else {
+      resolved.hype4 = 0
     }
 
     return resolved;
