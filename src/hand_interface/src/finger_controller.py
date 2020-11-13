@@ -10,13 +10,15 @@ import numpy as np
 from hand_interface.msg import flex_sns
 
 # state definitions
-MOVE_TO_POSE_1 = 2
-MOVE_TO_POSE_2 = 3
-MOVE_TO_POSE_3 = 4
-TIGHTEN = 5
-LOOSEN = 6
+MOVE_TO_POSE_1 = 1
+MOVE_TO_POSE_2 = 2
+MOVE_TO_POSE_3 = 3
+TIGHTEN = 4
+LOOSEN = 5
 STOPPED = 0
-PURE_CONTACT_CONTROL = 1
+HOME = 6
+PINCH_ONE = 7
+PINCH_TWO = 8
 
 state = STOPPED
 
@@ -71,9 +73,16 @@ def state_callback(data):
     elif (incomingString == "loosen"):
         state = LOOSEN
         print("Switching state to LOOSEN")
-    elif (incomingString == "pure_contact"):
-        state = PURE_CONTACT_CONTROL
-        print("Switching state to PURE_CONTACT_CONTROL")
+    elif (incomingString == "home"):
+        state = HOME
+        print("Moving to home position")
+    elif (incomingString == "engage_1"):
+        state = PINCH_ONE
+        print("Engaging first phalange")
+    elif (incomingString == "engage_2"):
+        state = PINCH_TWO
+        print("Engaging second phalange")
+    
     
 # Callback function for joint position sensing data
 def joint_sns_callback(data):
@@ -169,7 +178,7 @@ def position_control_2(des_prox, des_dist):
         Cpwm = int(prox_error + dist_error)
         Upwm = -int(prox_error + dist_error)
         ######### End of curling controller
-    elif (des_prox == 0 and des_dist == 0): 
+    elif (des_prox <= 0 and des_dist <= 0): 
         ######### Curling Controller
         prox_threshold = 15
         if(np.absolute(prox_error) > prox_threshold):
@@ -231,7 +240,7 @@ def position_control_0(des_prox, des_dist):
         Cpwm = int(prox_error + dist_error)
         Upwm = -int(prox_error + dist_error)
         ######### End of curling controller
-    elif (des_prox == 0 and des_dist == 0): 
+    elif (des_prox <= 0 and des_dist <= 0): 
         ######### Curling Controller
         prox_threshold = 15
         if(np.absolute(prox_error) > prox_threshold):
@@ -293,7 +302,7 @@ def position_control_1(des_prox, des_dist):
         Cpwm = int(prox_error + dist_error)
         Upwm = -int(prox_error + dist_error)
         ######### End of curling controller
-    elif (des_prox == 0 and des_dist == 0): 
+    elif (des_prox <= 0 and des_dist <= 0): 
         ######### Curling Controller
         prox_threshold = 30
         if(np.absolute(prox_error) > prox_threshold):
@@ -355,7 +364,7 @@ def position_control_3(des_prox, des_dist):
         Cpwm = int(prox_error + dist_error)
         Upwm = -int(prox_error + dist_error)
         ######### End of curling controller
-    elif (des_prox == 0 and des_dist == 0): 
+    elif (des_prox <= 0 and des_dist <= 0): 
         ######### Curling Controller
         prox_threshold = 15
         if(np.absolute(prox_error) > prox_threshold):
@@ -416,9 +425,9 @@ def motor_controller():
             des_dist_value = 0
             
             # Run proportional control on the des and sensed pos values
-#            position_control_2(des_prox_value, des_dist_value)
-#            position_control_3(des_prox_value, des_dist_value)
-#            position_control_0(des_prox_value, des_dist_value)
+            position_control_2(des_prox_value, des_dist_value)
+            position_control_3(des_prox_value, des_dist_value)
+            position_control_0(des_prox_value, des_dist_value)
             position_control_1(des_prox_value, des_dist_value)
             
             
@@ -431,9 +440,9 @@ def motor_controller():
             des_dist_value = 400
             
             # Run proportional control on the des and sensed pos values
-#            position_control_2(des_prox_value, des_dist_value)
-#            position_control_3(des_prox_value, des_dist_value)
-#            position_control_0(des_prox_value, des_dist_value)
+            position_control_2(des_prox_value, des_dist_value)
+            position_control_3(des_prox_value, des_dist_value)
+            position_control_0(des_prox_value, des_dist_value)
             position_control_1(des_prox_value, des_dist_value)
             
             
@@ -446,28 +455,38 @@ def motor_controller():
             des_dist_value = -400
             
             # Run proportional control on the des and sensed pos values
-#            position_control_2(des_prox_value, des_dist_value)
-#            position_control_3(des_prox_value, des_dist_value)
-#            position_control_0(des_prox_value, des_dist_value)
+            position_control_2(des_prox_value, des_dist_value)
+            position_control_3(des_prox_value, des_dist_value)
+            position_control_0(des_prox_value, des_dist_value)
             position_control_1(des_prox_value, des_dist_value)
                         
             # Cap final pwm value 
             final_pwm_cap(30);   
        
-        elif (state == PURE_CONTACT_CONTROL):
-            dummyVar = 1
+        elif (state == HOME):
+            position_control_2(0,0)
+            position_control_3(0,0)
+            position_control_0(-200,-200)
+            position_control_1(-200,-200)
+        
+        elif (state == PINCH_ONE):
+            position_control_2(400,-50)
+        
+        elif (state == PINCH_TWO):
+            position_control_3(400,-200)
+        
         
         elif (state == TIGHTEN):
-#            cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
+            cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
 #            cur_pwm_array[:] = [10,10,0,0,0,0,0,0,0]
-            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,10,10,0]
         
         elif (state == LOOSEN):
-#            cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
+            cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
 #            cur_pwm_array[:] = [-10,-10,0,0,0,0,0,0,0]
-            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
         

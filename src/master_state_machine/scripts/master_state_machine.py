@@ -21,13 +21,13 @@ def master_state_machine():
     while not rospy.is_shutdown():
         # Display control options
         print('Enter a Command:')
-        print('[space] = stop all motors (and enter manual_input mode)')
+        print('[space] = stop all motors')
         print('[1] = move to pose 1')
         print('[2] = move to pose 2')
         print('[3] = move to pose 3')
         print('[4] = tighten tendons')
         print('[5] = loosen tendons')
-        print('[6] = pure contact controller')
+        print('[6] = start pinch sequence')
         input_string = raw_input('Input: ')
         
         # Handle input and publish appropriate state
@@ -50,8 +50,32 @@ def master_state_machine():
             state_string = "loosen"
             pub_master_state.publish(state_string)
         elif (input_string == '6'):
-            state_string = "pure_contact"
+            raw_input("Go to home? Press Enter")
+            state_string = "home"
             pub_master_state.publish(state_string)
+
+            raw_input("Go to start? Press Enter")
+            state_string = "start"
+            pub_master_state.publish(state_string)
+
+            raw_input("Engage finger 1? Press Enter")
+            state_string = "engage_1"
+            pub_master_state.publish(state_string)
+
+            raw_input("Displace partially? Press Enter")
+            state_string = "displace_1"
+            pub_master_state.publish(state_string)
+
+            raw_input("Engage finger 2? Press Enter")
+            state_string = "engage_2"
+            pub_master_state.publish(state_string)
+            
+            raw_input("Displace fully? Press Enter")
+            state_string = "displace_2"
+            pub_master_state.publish(state_string)
+            
+
+
 
 if __name__ == '__main__':
     try:
