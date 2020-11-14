@@ -53,22 +53,15 @@ CMAKE_BINARY_DIR = /home/bdml/farmHand/build
 # Include the progress variables for this target.
 include hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/progress.make
 
-hand_interface/CMakeFiles/hand_interface_generate_messages_lisp: /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/futek_data.lisp
 hand_interface/CMakeFiles/hand_interface_generate_messages_lisp: /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/flex_sns.lisp
 
 
-/home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/futek_data.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/futek_data.lisp: /home/bdml/farmHand/src/hand_interface/msg/futek_data.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from hand_interface/futek_data.msg"
-	cd /home/bdml/farmHand/build/hand_interface && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/bdml/farmHand/src/hand_interface/msg/futek_data.msg -Ihand_interface:/home/bdml/farmHand/src/hand_interface/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p hand_interface -o /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg
-
 /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/flex_sns.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
 /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/flex_sns.lisp: /home/bdml/farmHand/src/hand_interface/msg/flex_sns.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Lisp code from hand_interface/flex_sns.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bdml/farmHand/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from hand_interface/flex_sns.msg"
 	cd /home/bdml/farmHand/build/hand_interface && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/bdml/farmHand/src/hand_interface/msg/flex_sns.msg -Ihand_interface:/home/bdml/farmHand/src/hand_interface/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p hand_interface -o /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg
 
 hand_interface_generate_messages_lisp: hand_interface/CMakeFiles/hand_interface_generate_messages_lisp
-hand_interface_generate_messages_lisp: /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/futek_data.lisp
 hand_interface_generate_messages_lisp: /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/flex_sns.lisp
 hand_interface_generate_messages_lisp: hand_interface/CMakeFiles/hand_interface_generate_messages_lisp.dir/build.make
 

@@ -1,0 +1,8 @@
+prefix=/home/bdml/farmHand/install
+
+Name: futek_data_logger
+Description: Description of futek_data_logger
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime

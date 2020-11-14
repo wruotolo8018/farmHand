@@ -74,6 +74,11 @@ def master_state_machine():
             state_string = "displace_2"
             pub_master_state.publish(state_string)
             
+            raw_input("Finish sampling data? Press Enter")
+            state_string = "end_data"
+            pub_master_state.publish(state_string)
+            
+            
 
 
 

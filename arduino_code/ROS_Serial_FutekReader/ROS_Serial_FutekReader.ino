@@ -15,7 +15,7 @@ void setup() {
 
 int curTime = millis();
 int prevTime = millis();
-int readRate = 10; // hz
+int readRate = 50; // hz
 
 void loop() {
   curTime = millis();
