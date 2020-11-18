@@ -84,7 +84,7 @@ def pinch_test_arm_control():
         if (move_completed == 0):
             
             OFFSET_VALUE = 0.005
-            FULL_DISPLACEMENT = 0.02
+            FULL_DISPLACEMENT = 0.012
             
             if (state == HOME): 
                 print("Moving to home position")
@@ -98,6 +98,7 @@ def pinch_test_arm_control():
                 start_pose = copy.deepcopy(home_pose)
                 ur5.set_speed(.1)
                 start_pose.position.z -= 0.09
+                start_pose.position.x += 0.005
                 ur5.goto_pose_target(start_pose, wait = False)
                 move_completed = 1
             
@@ -111,7 +112,7 @@ def pinch_test_arm_control():
             
             elif (state == DISPLACE_TWO): 
                 print("Performing second displacement")
-                ur5.set_speed(.01)
+                ur5.set_speed(.003)
                 second_pose = copy.deepcopy(start_pose)
                 second_pose.position.z += FULL_DISPLACEMENT
                 ur5.goto_pose_target(second_pose, wait = False)
