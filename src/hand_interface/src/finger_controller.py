@@ -79,13 +79,14 @@ def state_callback(data):
         print("Moving to home position")
     elif (incomingString == "engage_1"):
         state = PINCH_ONE
-        cur_pwm_array[4:6] = [10,0]
+        grasp_substate = GRASP_ONE
+        cur_pwm_array[4:6] = [8,0]
         rospy.Timer(rospy.Duration(1), grasp_timer_callback_1, oneshot=True)
 #        grasp_substate = PRE_GRASP
         print("Engaging first phalange")
     elif (incomingString == "engage_2"):
         state = PINCH_TWO
-        cur_pwm_array[6:8] = [15,0]
+        cur_pwm_array[6:8] = [12,0]
         rospy.Timer(rospy.Duration(1), grasp_timer_callback_2, oneshot=True)
 #        grasp_substate = PRE_GRASP
         print("Engaging second phalange")
@@ -152,7 +153,7 @@ def position_control_2(des_prox, des_dist):
     fing_num = 2
     
     # Set control variables
-    kp_scale = .1
+    kp_scale = .05
     kp1 = 1.0
     kp2 = 1.0
     looseScale = 0.75
@@ -413,11 +414,16 @@ def grasp_timer_callback_2(event):
     cur_pwm_array[6:8] = [0,0]
     
 def grasp_bump_callback(event):
+    changeMade = False
     global cur_pwm_array
-    if (cur_pwm_array[4] < 50):
-        cur_pwm_array[4] += 5
-        cur_pwm_array[6] += 5
+    if (cur_pwm_array[4] < 40):
+        cur_pwm_array[4] += 4
+        changeMade = True
+    if (cur_pwm_array[6] < 50):
+        cur_pwm_array[6] += 6
+        changeMade = True
         print("Callback grasp bump called!")
+    if (changeMade):
         rospy.Timer(rospy.Duration(0.3), grasp_bump_callback, oneshot=True)
     
 
