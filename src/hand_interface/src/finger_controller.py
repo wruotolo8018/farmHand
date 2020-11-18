@@ -33,10 +33,10 @@ cur_joint_data = np.zeros(8)
 prev_joint_data = np.zeros(8)
 
 # Temp substate
-NOT_GRASPING = 0
-GRASP_START = 1
-GRASP_LATER = 2
-grasp_substate = NOT_GRASPING
+PRE_GRASP = 0
+GRASP_ONE = 1
+GRASP_TWO = 2
+grasp_substate = PRE_GRASP
 grasp_start_time = 0
 
 # PWM variables
@@ -52,7 +52,7 @@ def arduino_map(val, inMin, inMax, outMin, outMax):
 # Callback functions    
 def state_callback(data):
     incomingString = str(data.data)
-    global state
+    global state, grasp_substate
 #    print("Incoming command: " + incomingString)
     
     if (incomingString == "move_to_pose_1"):
@@ -78,9 +78,11 @@ def state_callback(data):
         print("Moving to home position")
     elif (incomingString == "engage_1"):
         state = PINCH_ONE
+        grasp_substate = PRE_GRASP
         print("Engaging first phalange")
     elif (incomingString == "engage_2"):
         state = PINCH_TWO
+        grasp_substate = PRE_GRASP
         print("Engaging second phalange")
     
     
@@ -145,7 +147,7 @@ def position_control_2(des_prox, des_dist):
     kp1 = 1.0
     kp2 = 1.0
     looseScale = 0.75
-    one_dir_deadzone = 0 # In PWM/2, not sensor values
+    one_dir_deadzone = 5 # In PWM/2, not sensor values
     prox_index = fing_num*2
     dist_index = fing_num*2+1
     
@@ -391,6 +393,15 @@ def final_pwm_cap(one_dir_final_cap):
     for i in range(len(cur_pwm_array)):
         cur_pwm_array[i] = pwm_cap(cur_pwm_array[i], one_dir_final_cap)
 
+def grasp_timer_callback_1(event):
+    print("Finger 1 blind grasp engaged")
+    global grasp_substate
+    grasp_substate = GRASP_ONE
+    
+def grasp_timer_callback_2(event):
+    print("Finger 2 blind grasp engaged")
+    global grasp_substate
+    grasp_substate = GRASP_ONE
 
 # Main loop
 def motor_controller():
@@ -406,6 +417,7 @@ def motor_controller():
      
     # Global variables
     global cur_pwm_array, cur_des_pose, grasp_substate, grasp_start_time, w_p, w_c, w_f
+    global PRE_GRASP, GRASP_ONE, GRASP_TWO
     print("Start PWM ARRAY: " + str(cur_pwm_array))
     
     # Set loop speed
@@ -418,7 +430,7 @@ def motor_controller():
         # Internal state machine sets pwm array based on state and sensed values
         if (state == MOVE_TO_POSE_1):
 
-            grasp_substate = NOT_GRASPING
+#            grasp_substate = NOT_GRASPING
 
             # Define desired position values for testing
             des_prox_value = 0
@@ -430,6 +442,8 @@ def motor_controller():
             position_control_0(des_prox_value, des_dist_value)
             position_control_1(des_prox_value, des_dist_value)
             
+            print("In move to pose 1")
+            
             # Cap final pwm value 
             final_pwm_cap(30);
         
@@ -439,10 +453,11 @@ def motor_controller():
             des_dist_value = 400
             
             # Run proportional control on the des and sensed pos values
-            position_control_2(des_prox_value, des_dist_value)
-            position_control_3(des_prox_value, des_dist_value)
             position_control_0(des_prox_value, des_dist_value)
             position_control_1(des_prox_value, des_dist_value)
+            position_control_2(600, 600)
+            position_control_3(600, 600)
+            
             
             
             # Cap final pwm value 
@@ -469,10 +484,23 @@ def motor_controller():
 #            position_control_1(-200,-200)
         
         elif (state == PINCH_ONE):
-            position_control_2(400,-50)
+            if (grasp_substate == PRE_GRASP):
+                position_control_2(500,100)
+                rospy.Timer(rospy.Duration(2), grasp_timer_callback_1, oneshot=True)
+                
+            elif (grasp_substate == GRASP_ONE):
+                cur_pwm_array[4] = 50
+                cur_pwm_array[5] = 0
+                
         
         elif (state == PINCH_TWO):
-            position_control_3(400,-200)
+            if (grasp_substate == PRE_GRASP):
+                position_control_3(500,100)
+                rospy.Timer(rospy.Duration(2), grasp_timer_callback_2, oneshot=True)
+                
+            elif (grasp_substate == GRASP_ONE):
+                cur_pwm_array[6] = 50
+                cur_pwm_array[7] = 0
         
         
         elif (state == TIGHTEN):

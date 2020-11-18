@@ -28,11 +28,11 @@ def arduino_map(val, inMin, inMax, outMin, outMax):
     return int((val-inMin)*(outMax-outMin)/(inMax-inMin)+outMin)
 def get_calibration_values():
     global low_vals, high_vals
-    low_vals = [600,415,410,445,460,380,530,340] 
-    high_vals = [325,150,230,189,280,135,350,130] 
+    low_vals = [575,420,350,449,400,288,536,336] 
+    high_vals = [325,150,230,189,275,180,420,230] 
     
-#    low_vals = [0,0,0,0,0,0,0,0] 
-#    high_vals = [1023,1023,1023,1023,1023,1023,1023,1023] 
+    #low_vals = [0,0,0,0,0,0,0,0] 
+    #high_vals = [1023,1023,1023,1023,1023,1023,1023,1023] 
     
 # Callback Functions 
 # State callback is unused right now but can be used to turn sensor on and off
@@ -67,7 +67,7 @@ def basic_sensor_serial():
             read_string = com.read_until()
             
             # Print currently read string for debugging
-            print(read_string)
+            #print(read_string)
             
             # Populate message fields appropriately
             split_read_string = read_string.split('_')
@@ -88,7 +88,7 @@ def basic_sensor_serial():
                  
                 # Print calibrated values for debugging purposes
                 print("Calibrated vals: " + str(calibrated_vals))
-                print(read_string)
+
                 
                 # Fill out flex data msg type with calibrated values
                 cur_flex_data.curl1 = calibrated_vals[0]

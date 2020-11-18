@@ -54,29 +54,40 @@ def master_state_machine():
             state_string = "home"
             pub_master_state.publish(state_string)
 
-            raw_input("Go to start? Press Enter")
+            raw_input("Start trial? Press Enter")
             state_string = "start"
             pub_master_state.publish(state_string)
+            rospy.sleep(2.0)
 
             raw_input("Engage finger 1? Press Enter")
+            print("Engaging finger 1")
             state_string = "engage_1"
             pub_master_state.publish(state_string)
+#            rospy.sleep(2.0)
 
-            raw_input("Displace partially? Press Enter")
+#            raw_input("Displace partially? Press Enter")
+            print("Performing displacement 1")
             state_string = "displace_1"
             pub_master_state.publish(state_string)
+            rospy.sleep(2.0)
 
-            raw_input("Engage finger 2? Press Enter")
+#            raw_input("Engage finger 2? Press Enter")
+            print("Engaging finger 2")
             state_string = "engage_2"
             pub_master_state.publish(state_string)
+#            rospy.sleep(1.0)
             
-            raw_input("Displace fully? Press Enter")
+#            raw_input("Displace fully? Press Enter")
+            print("Displacing fully")
             state_string = "displace_2"
             pub_master_state.publish(state_string)
+            rospy.sleep(4.0)
             
-            raw_input("Finish sampling data? Press Enter")
+#            raw_input("Finish sampling data? Press Enter")
+            print("Data sampling finished")
             state_string = "end_data"
             pub_master_state.publish(state_string)
+            pub_master_state.publish('stop')
             
             
 

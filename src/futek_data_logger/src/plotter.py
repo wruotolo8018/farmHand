@@ -34,6 +34,9 @@ def plotData(dataArray):
         mainPlot.plot(z_pos, data_1)
         mainPlot.plot(z_pos, data_2)
 
+	#mainPlot.plot(data_1)
+        #mainPlot.plot(data_2)
+
         mainPlot.title.set_text('Current Data')
 
         plt.draw()
