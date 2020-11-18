@@ -85,6 +85,7 @@ def pinch_test_arm_control():
             
             if (state == HOME): 
                 print("Moving to home position")
+                ur5.set_speed(.1)
                 ur5.goto_home_down()
                 home_pose = ur5.get_pose()
                 move_completed = 1
@@ -92,12 +93,14 @@ def pinch_test_arm_control():
             elif (state == START): 
                 print("Moving to start position")
                 start_pose = copy.deepcopy(home_pose)
+                ur5.set_speed(.1)
                 start_pose.position.z -= 0.08
                 ur5.goto_pose_target(start_pose, wait = False)
                 move_completed = 1
             
             elif (state == DISPLACE_ONE): 
                 print("Performing first displacement")
+                ur5.set_speed(.01)
                 first_pose = copy.deepcopy(start_pose)
                 first_pose.position.z += 0.005
                 ur5.goto_pose_target(first_pose, wait = False)
@@ -105,6 +108,7 @@ def pinch_test_arm_control():
             
             elif (state == DISPLACE_TWO): 
                 print("Performing second displacement")
+                ur5.set_speed(.01)
                 second_pose = copy.deepcopy(first_pose)
                 second_pose.position.z += 0.005
                 ur5.goto_pose_target(second_pose, wait = False)

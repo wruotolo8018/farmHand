@@ -51,7 +51,8 @@ def state_callback(data):
         state = ACTIVE
         print("Starting data collection!")
         global cur_data_array
-        cur_data_array = np.zeros((2,1))
+        cur_data_array = np.zeros((3,1))
+        
     elif(incomingString == 'end_data'):
         state = DEACTIVATED
         plot_state = UNPLOTTED
@@ -97,20 +98,15 @@ def data_processor():
     while not rospy.is_shutdown():  
         if state == ACTIVE:
                             
-                # Append new data to np array
-                global cur_data_array, cur_data_vec
-                print(cur_data_array.shape)
-                print(cur_data_vec.shape)
-                cur_data_array = np.hstack((cur_data_array, cur_data_vec))
-                print(cur_data_array.shape)
-                
+            # Append new data to np array
+            global cur_data_array, cur_data_vec
+            cur_data_array = np.hstack((cur_data_array, cur_data_vec))                
             
         elif state == DEACTIVATED:
             # Plot current data set to see if it's reasonable
-            global plot_state
+            global plot_state, cur_data_array
             if (plot_state == UNPLOTTED):
-                global cur_data_array
-                plotData(cur_data_array)
+                plotData(cur_data_array[:,1:])
                 plot_state = PLOTTED
                 
                 save_data(cur_data_array)

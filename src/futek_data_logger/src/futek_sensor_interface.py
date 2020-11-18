@@ -87,7 +87,7 @@ def futek_sensor_serial():
             read_string = com.read_until()
             
             # Print currently read string for debugging
-            print(read_string)
+#            print(read_string)
             
             # Populate message fields appropriately
             split_read_string = read_string.split('_')
@@ -118,29 +118,6 @@ def futek_sensor_serial():
                 # publish sensor data
                 futek_sense_pub.publish(cur_futek_data)
                 
-                # Append new data to np array
-#                new_data_vec = np.zeros((2,1))
-#                new_data_vec[0,0] = calibrated_vals[0]
-#                new_data_vec[1,0] = calibrated_vals[1]
-#                global cur_data_array
-#                cur_data_array = np.hstack((cur_data_array, new_data_vec))
-#                print(cur_data_array.shape)
-                
-            
-#        elif state == DEACTIVATED:
-#            read_string = com.read_until()
-#            # Save Accumulated Data to File
-#            dummyVar = 0
-#            
-#            # Plot current data set to see if it's reasonable
-#            global plot_state
-#            if (plot_state == UNPLOTTED):
-#                global cur_data_array
-#                plotData(cur_data_array)
-#                plot_state = PLOTTED
-#                
-#                save_data(cur_data_array)
-        
         # Sleep to set read rate based on desired value
         rate.sleep()
 

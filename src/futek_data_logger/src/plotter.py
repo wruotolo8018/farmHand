@@ -31,8 +31,8 @@ def plotData(dataArray):
         z_pos = plotArrayFloat[2,:]
 
         mainPlot.clear()
-        mainPlot.plot(data_1, z_pos)
-        mainPlot.plot(data_2, z_pos)
+        mainPlot.plot(z_pos, data_1)
+        mainPlot.plot(z_pos, data_2)
 
         mainPlot.title.set_text('Current Data')
 
