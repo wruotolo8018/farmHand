@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/futek_data_logger_generate_messages_nodejs"
+  "/home/bdml/farmHand/devel/share/gennodejs/ros/futek_data_logger/msg/z_pos.js"
   "/home/bdml/farmHand/devel/share/gennodejs/ros/futek_data_logger/msg/futek_data.js"
 )
 

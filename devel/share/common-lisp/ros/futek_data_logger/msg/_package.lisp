@@ -3,5 +3,7 @@
   (:export
    "<FUTEK_DATA>"
    "FUTEK_DATA"
+   "<Z_POS>"
+   "Z_POS"
   ))
 

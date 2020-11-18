@@ -26,13 +26,13 @@ class futek_data {
         this.futek1 = initObj.futek1
       }
       else {
-        this.futek1 = 0;
+        this.futek1 = 0.0;
       }
       if (initObj.hasOwnProperty('futek2')) {
         this.futek2 = initObj.futek2
       }
       else {
-        this.futek2 = 0;
+        this.futek2 = 0.0;
       }
     }
   }
@@ -40,9 +40,9 @@ class futek_data {
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type futek_data
     // Serialize message field [futek1]
-    bufferOffset = _serializer.int32(obj.futek1, buffer, bufferOffset);
+    bufferOffset = _serializer.float32(obj.futek1, buffer, bufferOffset);
     // Serialize message field [futek2]
-    bufferOffset = _serializer.int32(obj.futek2, buffer, bufferOffset);
+    bufferOffset = _serializer.float32(obj.futek2, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -51,9 +51,9 @@ class futek_data {
     let len;
     let data = new futek_data(null);
     // Deserialize message field [futek1]
-    data.futek1 = _deserializer.int32(buffer, bufferOffset);
+    data.futek1 = _deserializer.float32(buffer, bufferOffset);
     // Deserialize message field [futek2]
-    data.futek2 = _deserializer.int32(buffer, bufferOffset);
+    data.futek2 = _deserializer.float32(buffer, bufferOffset);
     return data;
   }
 
@@ -68,14 +68,14 @@ class futek_data {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'bd56bb9649bdacce672aa395f41c39f2';
+    return '0b61dc96ccfbf1e910f406986b9acb9a';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    int32 futek1
-    int32 futek2
+    float32 futek1
+    float32 futek2
     
     `;
   }
@@ -90,14 +90,14 @@ class futek_data {
       resolved.futek1 = msg.futek1;
     }
     else {
-      resolved.futek1 = 0
+      resolved.futek1 = 0.0
     }
 
     if (msg.futek2 !== undefined) {
       resolved.futek2 = msg.futek2;
     }
     else {
-      resolved.futek2 = 0
+      resolved.futek2 = 0.0
     }
 
     return resolved;

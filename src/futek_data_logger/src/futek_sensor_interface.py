@@ -13,11 +13,11 @@ from plotter import plotData
 # state definitions
 ACTIVE = 1
 DEACTIVATED = 0
-state = DEACTIVATED
+state = ACTIVE
 
-PLOTTED = 0
-UNPLOTTED = 1
-plot_state = PLOTTED
+#PLOTTED = 0
+#UNPLOTTED = 1
+#plot_state = PLOTTED
 
 # Msg data arrays to be filled out below
 cur_futek_data = futek_data()
@@ -44,15 +44,21 @@ def get_calibration_values():
 def state_callback(data):
     incomingString = str(data.data)
     global state, plot_state
-    if (incomingString == 'engage_1'):
-        state = ACTIVE
-        print("Starting data collection!")
-        global cur_data_array
-        cur_data_array = np.zeros((2,1))
-    elif(incomingString == 'end_data'):
-        state = DEACTIVATED
-        plot_state = UNPLOTTED
-        print("Finishing data collection!")
+#    if (incomingString == 'engage_1'):
+#        state = ACTIVE
+#        print("Starting data collection!")
+#        global cur_data_array
+#        cur_data_array = np.zeros((2,1))
+#    elif(incomingString == 'end_data'):
+#        state = DEACTIVATED
+#        plot_state = UNPLOTTED
+#        print("Finishing data collection!")
+        
+def save_data(data):
+    file_name = raw_input('File name to save: ')
+    full_name = './saved_data/' + file_name + '.npy'
+    with open(full_name, 'wb') as f:
+        np.save(f, data)
     
 # Main node
 def futek_sensor_serial():
@@ -73,7 +79,7 @@ def futek_sensor_serial():
     get_calibration_values()
     
     # Output that things are going
-    print("Basic futek sensor read & publish")
+    print("Basic futek sensor read & publish node started")
     
     while not rospy.is_shutdown():  
         if state == ACTIVE:
@@ -113,25 +119,27 @@ def futek_sensor_serial():
                 futek_sense_pub.publish(cur_futek_data)
                 
                 # Append new data to np array
-                new_data_vec = np.zeros((2,1))
-                new_data_vec[0,0] = calibrated_vals[0]
-                new_data_vec[1,0] = calibrated_vals[1]
-                global cur_data_array
-                cur_data_array = np.hstack((cur_data_array, new_data_vec))
-                print(cur_data_array.shape)
+#                new_data_vec = np.zeros((2,1))
+#                new_data_vec[0,0] = calibrated_vals[0]
+#                new_data_vec[1,0] = calibrated_vals[1]
+#                global cur_data_array
+#                cur_data_array = np.hstack((cur_data_array, new_data_vec))
+#                print(cur_data_array.shape)
                 
             
-        elif state == DEACTIVATED:
-            read_string = com.read_until()
-            # Save Accumulated Data to File
-            dummyVar = 0
-            
-            # Plot current data set to see if it's reasonable
-            global plot_state
-            if (plot_state == UNPLOTTED):
-                global cur_data_array
-                plotData(cur_data_array)
-                plot_state = PLOTTED
+#        elif state == DEACTIVATED:
+#            read_string = com.read_until()
+#            # Save Accumulated Data to File
+#            dummyVar = 0
+#            
+#            # Plot current data set to see if it's reasonable
+#            global plot_state
+#            if (plot_state == UNPLOTTED):
+#                global cur_data_array
+#                plotData(cur_data_array)
+#                plot_state = PLOTTED
+#                
+#                save_data(cur_data_array)
         
         # Sleep to set read rate based on desired value
         rate.sleep()

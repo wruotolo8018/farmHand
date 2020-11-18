@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/bdml/farmHand/src/futek_data_logger/msg/futek_data.msg"
+messages_str = "/home/bdml/farmHand/src/futek_data_logger/msg/futek_data.msg;/home/bdml/farmHand/src/futek_data_logger/msg/z_pos.msg"
 services_str = ""
 pkg_name = "futek_data_logger"
 dependencies_str = "std_msgs"

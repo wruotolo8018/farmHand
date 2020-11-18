@@ -62,6 +62,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   futek_data.msg
+  z_pos.msg
 )
 
 ## Generate services in the 'srv' folder

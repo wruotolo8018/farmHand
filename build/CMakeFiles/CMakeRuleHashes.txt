@@ -1,5 +1,6 @@
 # Hashes of file build rules.
 ef65041bd7bbb5d3a4382f8d364c0944 /home/bdml/farmHand/devel/include/futek_data_logger/futek_data.h
+5776da2de9a4635723217d7fe07f5772 /home/bdml/farmHand/devel/include/futek_data_logger/z_pos.h
 a4c92c6abdc68bea42490435702f6e1b /home/bdml/farmHand/devel/include/hand_interface/flex_sns.h
 9d6bb54e12d1022d38caa5c04e99d118 /home/bdml/farmHand/devel/include/hand_interface/futek_data.h
 606090212dbf5f1f39b3b30d6578daee /home/bdml/farmHand/devel/include/ur_driver/URDriverConfig.h
@@ -15,6 +16,7 @@ c5993568f26eb115690208bb0ab5cc2b /home/bdml/farmHand/devel/include/ur_msgs/SetIO
 71c9abbe28556e02e4b771765b6f9c50 /home/bdml/farmHand/devel/include/ur_msgs/ToolDataMsg.h
 730e5d32f99a1a6261de87d87c7bd070 /home/bdml/farmHand/devel/lib/python2.7/dist-packages/futek_data_logger/msg/__init__.py
 8bba08e0d8440d75f07b79ff62ea489c /home/bdml/farmHand/devel/lib/python2.7/dist-packages/futek_data_logger/msg/_futek_data.py
+230196348d607ae2bb643106b7cb8529 /home/bdml/farmHand/devel/lib/python2.7/dist-packages/futek_data_logger/msg/_z_pos.py
 aab993715b1ac8ffff8e3cf3f17d0440 /home/bdml/farmHand/devel/lib/python2.7/dist-packages/hand_interface/msg/__init__.py
 17790b843bd1867f925b9f5da33b4cae /home/bdml/farmHand/devel/lib/python2.7/dist-packages/hand_interface/msg/_flex_sns.py
 42b0fe2985cd7612476dc70c328663fa /home/bdml/farmHand/devel/lib/python2.7/dist-packages/hand_interface/msg/_futek_data.py
@@ -31,6 +33,7 @@ cf08bbc371b45d813c50fd4d4e32f4fd /home/bdml/farmHand/devel/lib/python2.7/dist-pa
 1c663373c64dcc8eeea414f73e7b351c /home/bdml/farmHand/devel/lib/python2.7/dist-packages/ur_msgs/srv/_SetSpeedSliderFraction.py
 e0be3fa0c8bd053ec8847e33b6aeb7e2 /home/bdml/farmHand/devel/lib/python2.7/dist-packages/ur_msgs/srv/__init__.py
 ce4c95e497685e3558b8636dfb3a91ef /home/bdml/farmHand/devel/share/common-lisp/ros/futek_data_logger/msg/futek_data.lisp
+4ce6888423f2e50e8bfc79c0e2d2de1e /home/bdml/farmHand/devel/share/common-lisp/ros/futek_data_logger/msg/z_pos.lisp
 1ce8861288f6c4c6c127a878247ab7f1 /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/flex_sns.lisp
 9fc5f87fa8194e1b86098f007d226232 /home/bdml/farmHand/devel/share/common-lisp/ros/hand_interface/msg/futek_data.lisp
 96e1fc40b88b4e8ffec3270f4a605ecf /home/bdml/farmHand/devel/share/common-lisp/ros/ur_msgs/msg/Analog.lisp
@@ -44,6 +47,7 @@ ce4c95e497685e3558b8636dfb3a91ef /home/bdml/farmHand/devel/share/common-lisp/ros
 99f55eed64e70d4d481796d00bbbfb32 /home/bdml/farmHand/devel/share/common-lisp/ros/ur_msgs/srv/SetPayload.lisp
 2b7ef58142c5039abeb151c5e5fc7efd /home/bdml/farmHand/devel/share/common-lisp/ros/ur_msgs/srv/SetSpeedSliderFraction.lisp
 3d830864c3f3671669c028eac7ffccb9 /home/bdml/farmHand/devel/share/gennodejs/ros/futek_data_logger/msg/futek_data.js
+30008790a5331a0e46ebbd166c27bc69 /home/bdml/farmHand/devel/share/gennodejs/ros/futek_data_logger/msg/z_pos.js
 73102d8b94a3d234bba0d3674e2cdd3e /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/flex_sns.js
 bd1dc6f4328d08838a8140b6f97174ba /home/bdml/farmHand/devel/share/gennodejs/ros/hand_interface/msg/futek_data.js
 6a4aab223b46477d31f1e79fb97cb357 /home/bdml/farmHand/devel/share/gennodejs/ros/ur_msgs/msg/Analog.js
@@ -58,6 +62,7 @@ dc159266fadead2b65f4178f602f803a /home/bdml/farmHand/devel/share/gennodejs/ros/u
 4906c2c4ac176f98c055d649ae27c1d6 /home/bdml/farmHand/devel/share/gennodejs/ros/ur_msgs/srv/SetSpeedSliderFraction.js
 7d01151670098ae2540be8dc9edb6319 /home/bdml/farmHand/devel/share/roseus/ros/futek_data_logger/manifest.l
 f0a61e5fc4d256ec29512a0a0340d856 /home/bdml/farmHand/devel/share/roseus/ros/futek_data_logger/msg/futek_data.l
+0727e29202986b4f64d265f08ecd293c /home/bdml/farmHand/devel/share/roseus/ros/futek_data_logger/msg/z_pos.l
 659003c4f3ff1f94a7dd3de0bd5044db /home/bdml/farmHand/devel/share/roseus/ros/hand_interface/manifest.l
 8681de6a4a0c555b0a60e24c1a48962e /home/bdml/farmHand/devel/share/roseus/ros/hand_interface/msg/flex_sns.l
 b57cd0e4be1b1d3fa509a7721d3bddce /home/bdml/farmHand/devel/share/roseus/ros/hand_interface/msg/futek_data.l
@@ -76,6 +81,7 @@ e8cc754bae9cea7281bdf7ca85233dbb /home/bdml/farmHand/devel/share/roseus/ros/ur_m
 4f79be3e3ce12ad4a26bc9224425756d /home/bdml/farmHand/devel/share/roseus/ros/ur_msgs/srv/SetSpeedSliderFraction.l
 650710cab4ec5212e6c9c2b72efaac61 CMakeFiles/clean_test_results
 7dcfe5614a0c2dcdc872bed9b8b95a88 futek_data_logger/CMakeFiles/_futek_data_logger_generate_messages_check_deps_futek_data
+3699043794d9c77e72c4334ed9f2d3c5 futek_data_logger/CMakeFiles/_futek_data_logger_generate_messages_check_deps_z_pos
 d6297fe8c07396a4cf08511da0792b77 futek_data_logger/CMakeFiles/futek_data_logger_generate_messages_cpp
 d6297fe8c07396a4cf08511da0792b77 futek_data_logger/CMakeFiles/futek_data_logger_generate_messages_eus
 d6297fe8c07396a4cf08511da0792b77 futek_data_logger/CMakeFiles/futek_data_logger_generate_messages_lisp
@@ -130,5 +136,4 @@ fcc85f83a626e7e13ac23e7033dc95d2 universal_robot/ur_msgs/CMakeFiles/_ur_msgs_gen
 75ac92543630013bcb19cd1df7d156a0 universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_lisp
 75ac92543630013bcb19cd1df7d156a0 universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_nodejs
 75ac92543630013bcb19cd1df7d156a0 universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_py
-b643d8652d29c7b600ed2b9fee1a4f64 ur5_demo/CMakeFiles/ur5_demo_generate_messages_eus
 1520c6723a6af728bbc8b1afe79f1936 ur5_manip/CMakeFiles/ur5_manip_generate_messages_eus

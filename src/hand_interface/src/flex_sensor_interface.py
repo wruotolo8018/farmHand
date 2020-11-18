@@ -83,8 +83,6 @@ def basic_sensor_serial():
                     # Get current value for calibration
                     val = int(split_read_string[i])
                     
-                    # TODO: Catch divide by zero error
-#    
                     # Map value to standardized range (other controllers assume 0-1023)
                     calibrated_vals[i] = arduino_map(val, low_vals[i], high_vals[i], 0, 1023)
                  

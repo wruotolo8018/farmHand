@@ -153,7 +153,7 @@ class UR5Interface:
         if (wait == True):
             print("============ Press `Enter` to execute the movement ...")
             raw_input()
-        self.group.execute(plan, wait=True)
+        self.group.execute(plan, wait=wait)
         self.group.stop()
         self.group.clear_pose_targets()
 

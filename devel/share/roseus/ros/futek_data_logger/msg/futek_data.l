@@ -19,12 +19,12 @@
 (defmethod futek_data_logger::futek_data
   (:init
    (&key
-    ((:futek1 __futek1) 0)
-    ((:futek2 __futek2) 0)
+    ((:futek1 __futek1) 0.0)
+    ((:futek2 __futek2) 0.0)
     )
    (send-super :init)
-   (setq _futek1 (round __futek1))
-   (setq _futek2 (round __futek2))
+   (setq _futek1 (float __futek1))
+   (setq _futek2 (float __futek2))
    self)
   (:futek1
    (&optional __futek1)
@@ -35,41 +35,41 @@
   (:serialization-length
    ()
    (+
-    ;; int32 _futek1
+    ;; float32 _futek1
     4
-    ;; int32 _futek2
+    ;; float32 _futek2
     4
     ))
   (:serialize
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
-     ;; int32 _futek1
-       (write-long _futek1 s)
-     ;; int32 _futek2
-       (write-long _futek2 s)
+     ;; float32 _futek1
+       (sys::poke _futek1 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _futek2
+       (sys::poke _futek2 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
-   ;; int32 _futek1
-     (setq _futek1 (sys::peek buf ptr- :integer)) (incf ptr- 4)
-   ;; int32 _futek2
-     (setq _futek2 (sys::peek buf ptr- :integer)) (incf ptr- 4)
+   ;; float32 _futek1
+     (setq _futek1 (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _futek2
+     (setq _futek2 (sys::peek buf ptr- :float)) (incf ptr- 4)
    ;;
    self)
   )
 
-(setf (get futek_data_logger::futek_data :md5sum-) "bd56bb9649bdacce672aa395f41c39f2")
+(setf (get futek_data_logger::futek_data :md5sum-) "0b61dc96ccfbf1e910f406986b9acb9a")
 (setf (get futek_data_logger::futek_data :datatype-) "futek_data_logger/futek_data")
 (setf (get futek_data_logger::futek_data :definition-)
-      "int32 futek1
-int32 futek2
+      "float32 futek1
+float32 futek2
 
 ")
 
 
 
-(provide :futek_data_logger/futek_data "bd56bb9649bdacce672aa395f41c39f2")
+(provide :futek_data_logger/futek_data "0b61dc96ccfbf1e910f406986b9acb9a")
 
 

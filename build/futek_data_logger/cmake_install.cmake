@@ -38,7 +38,10 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/futek_data_logger/msg" TYPE FILE FILES "/home/bdml/farmHand/src/futek_data_logger/msg/futek_data.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/futek_data_logger/msg" TYPE FILE FILES
+    "/home/bdml/farmHand/src/futek_data_logger/msg/futek_data.msg"
+    "/home/bdml/farmHand/src/futek_data_logger/msg/z_pos.msg"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

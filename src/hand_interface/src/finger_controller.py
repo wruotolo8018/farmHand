@@ -430,7 +430,6 @@ def motor_controller():
             position_control_0(des_prox_value, des_dist_value)
             position_control_1(des_prox_value, des_dist_value)
             
-            
             # Cap final pwm value 
             final_pwm_cap(30);
         

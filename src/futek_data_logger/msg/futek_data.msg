@@ -1,2 +1,2 @@
-int32 futek1
-int32 futek2
+float32 futek1
+float32 futek2

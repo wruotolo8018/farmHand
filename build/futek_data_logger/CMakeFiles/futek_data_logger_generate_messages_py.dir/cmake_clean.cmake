@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/futek_data_logger_generate_messages_py"
+  "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/futek_data_logger/msg/_z_pos.py"
   "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/futek_data_logger/msg/_futek_data.py"
   "/home/bdml/farmHand/devel/lib/python2.7/dist-packages/futek_data_logger/msg/__init__.py"
 )

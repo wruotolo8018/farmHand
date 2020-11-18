@@ -16,7 +16,6 @@ Returns:None
 
 def plotData(dataArray):
 
-    print("Anything working?")
     style.use('fivethirtyeight')
     fig, mainPlot = plt.subplots(nrows=1,ncols=1)
 
@@ -29,10 +28,11 @@ def plotData(dataArray):
 
         data_1 = plotArrayFloat[0,:]
         data_2 = plotArrayFloat[1,:]
+        z_pos = plotArrayFloat[2,:]
 
         mainPlot.clear()
-        mainPlot.plot(data_1)
-        mainPlot.plot(data_2)
+        mainPlot.plot(data_1, z_pos)
+        mainPlot.plot(data_2, z_pos)
 
         mainPlot.title.set_text('Current Data')
 

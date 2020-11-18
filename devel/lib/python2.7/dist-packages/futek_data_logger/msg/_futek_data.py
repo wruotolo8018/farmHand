@@ -8,14 +8,14 @@ import struct
 
 
 class futek_data(genpy.Message):
-  _md5sum = "bd56bb9649bdacce672aa395f41c39f2"
+  _md5sum = "0b61dc96ccfbf1e910f406986b9acb9a"
   _type = "futek_data_logger/futek_data"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """int32 futek1
-int32 futek2
+  _full_text = """float32 futek1
+float32 futek2
 """
   __slots__ = ['futek1','futek2']
-  _slot_types = ['int32','int32']
+  _slot_types = ['float32','float32']
 
   def __init__(self, *args, **kwds):
     """
@@ -35,12 +35,12 @@ int32 futek2
       super(futek_data, self).__init__(*args, **kwds)
       # message fields cannot be None, assign default values for those that are
       if self.futek1 is None:
-        self.futek1 = 0
+        self.futek1 = 0.
       if self.futek2 is None:
-        self.futek2 = 0
+        self.futek2 = 0.
     else:
-      self.futek1 = 0
-      self.futek2 = 0
+      self.futek1 = 0.
+      self.futek2 = 0.
 
   def _get_types(self):
     """
@@ -55,7 +55,7 @@ int32 futek2
     """
     try:
       _x = self
-      buff.write(_get_struct_2i().pack(_x.futek1, _x.futek2))
+      buff.write(_get_struct_2f().pack(_x.futek1, _x.futek2))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -70,7 +70,7 @@ int32 futek2
       _x = self
       start = end
       end += 8
-      (_x.futek1, _x.futek2,) = _get_struct_2i().unpack(str[start:end])
+      (_x.futek1, _x.futek2,) = _get_struct_2f().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -84,7 +84,7 @@ int32 futek2
     """
     try:
       _x = self
-      buff.write(_get_struct_2i().pack(_x.futek1, _x.futek2))
+      buff.write(_get_struct_2f().pack(_x.futek1, _x.futek2))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -100,7 +100,7 @@ int32 futek2
       _x = self
       start = end
       end += 8
-      (_x.futek1, _x.futek2,) = _get_struct_2i().unpack(str[start:end])
+      (_x.futek1, _x.futek2,) = _get_struct_2f().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -109,9 +109,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_2i = None
-def _get_struct_2i():
-    global _struct_2i
-    if _struct_2i is None:
-        _struct_2i = struct.Struct("<2i")
-    return _struct_2i
+_struct_2f = None
+def _get_struct_2f():
+    global _struct_2f
+    if _struct_2f is None:
+        _struct_2f = struct.Struct("<2f")
+    return _struct_2f

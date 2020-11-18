@@ -10,13 +10,13 @@
   ((futek1
     :reader futek1
     :initarg :futek1
-    :type cl:integer
-    :initform 0)
+    :type cl:float
+    :initform 0.0)
    (futek2
     :reader futek2
     :initarg :futek2
-    :type cl:integer
-    :initform 0))
+    :type cl:float
+    :initform 0.0))
 )
 
 (cl:defclass futek_data (<futek_data>)
@@ -38,33 +38,31 @@
   (futek2 m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <futek_data>) ostream)
   "Serializes a message object of type '<futek_data>"
-  (cl:let* ((signed (cl:slot-value msg 'futek1)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
-    )
-  (cl:let* ((signed (cl:slot-value msg 'futek2)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
-    )
+  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'futek1))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'futek2))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <futek_data>) istream)
   "Deserializes a message object of type '<futek_data>"
-    (cl:let ((unsigned 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:slot-value msg 'futek1) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
-    (cl:let ((unsigned 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:slot-value msg 'futek2) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'futek1) (roslisp-utils:decode-single-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'futek2) (roslisp-utils:decode-single-float-bits bits)))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<futek_data>)))
@@ -75,16 +73,16 @@
   "futek_data_logger/futek_data")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<futek_data>)))
   "Returns md5sum for a message object of type '<futek_data>"
-  "bd56bb9649bdacce672aa395f41c39f2")
+  "0b61dc96ccfbf1e910f406986b9acb9a")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'futek_data)))
   "Returns md5sum for a message object of type 'futek_data"
-  "bd56bb9649bdacce672aa395f41c39f2")
+  "0b61dc96ccfbf1e910f406986b9acb9a")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<futek_data>)))
   "Returns full string definition for message of type '<futek_data>"
-  (cl:format cl:nil "int32 futek1~%int32 futek2~%~%~%"))
+  (cl:format cl:nil "float32 futek1~%float32 futek2~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'futek_data)))
   "Returns full string definition for message of type 'futek_data"
-  (cl:format cl:nil "int32 futek1~%int32 futek2~%~%~%"))
+  (cl:format cl:nil "float32 futek1~%float32 futek2~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <futek_data>))
   (cl:+ 0
      4

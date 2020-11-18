@@ -14,6 +14,8 @@ import rospy
 import numpy as np
 import copy
 from std_msgs.msg import String, Int16
+from futek_data_logger.msg import z_pos
+
 
 from ur5_interface import UR5Interface
 #from robotiq_interface import RobotiqInterface
@@ -64,6 +66,9 @@ def pinch_test_arm_control():
     
     # Setup subscription to cmd_motor_controller topic
     rospy.Subscriber("master_state", String, state_callback)
+    
+    # Publish just z position for plotting later
+    z_pos_pub = rospy.Publisher('ur5_position', z_pos, queue_size=10)
 
     # Instantiate the UR5 interface.
     ur5 = UR5Interface()
@@ -104,7 +109,10 @@ def pinch_test_arm_control():
                 second_pose.position.z += 0.005
                 ur5.goto_pose_target(second_pose, wait = False)
                 move_completed = 1
-                        
+                
+        cur_pose = ur5.get_pose()
+        cur_z_pos = cur_pose.position.z
+        z_pos_pub.publish(cur_z_pos)        
 
 
 if __name__ == '__main__': 

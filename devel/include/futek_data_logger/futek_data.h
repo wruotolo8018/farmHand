@@ -24,21 +24,21 @@ struct futek_data_
   typedef futek_data_<ContainerAllocator> Type;
 
   futek_data_()
-    : futek1(0)
-    , futek2(0)  {
+    : futek1(0.0)
+    , futek2(0.0)  {
     }
   futek_data_(const ContainerAllocator& _alloc)
-    : futek1(0)
-    , futek2(0)  {
+    : futek1(0.0)
+    , futek2(0.0)  {
   (void)_alloc;
     }
 
 
 
-   typedef int32_t _futek1_type;
+   typedef float _futek1_type;
   _futek1_type futek1;
 
-   typedef int32_t _futek2_type;
+   typedef float _futek2_type;
   _futek2_type futek2;
 
 
@@ -128,12 +128,12 @@ struct MD5Sum< ::futek_data_logger::futek_data_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "bd56bb9649bdacce672aa395f41c39f2";
+    return "0b61dc96ccfbf1e910f406986b9acb9a";
   }
 
   static const char* value(const ::futek_data_logger::futek_data_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xbd56bb9649bdacceULL;
-  static const uint64_t static_value2 = 0x672aa395f41c39f2ULL;
+  static const uint64_t static_value1 = 0x0b61dc96ccfbf1e9ULL;
+  static const uint64_t static_value2 = 0x10f406986b9acb9aULL;
 };
 
 template<class ContainerAllocator>
@@ -152,8 +152,8 @@ struct Definition< ::futek_data_logger::futek_data_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "int32 futek1\n"
-"int32 futek2\n"
+    return "float32 futek1\n"
+"float32 futek2\n"
 ;
   }
 
@@ -193,9 +193,9 @@ struct Printer< ::futek_data_logger::futek_data_<ContainerAllocator> >
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::futek_data_logger::futek_data_<ContainerAllocator>& v)
   {
     s << indent << "futek1: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.futek1);
+    Printer<float>::stream(s, indent + "  ", v.futek1);
     s << indent << "futek2: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.futek2);
+    Printer<float>::stream(s, indent + "  ", v.futek2);
   }
 };
 
