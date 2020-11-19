@@ -44,15 +44,6 @@ def get_calibration_values():
 def state_callback(data):
     incomingString = str(data.data)
     global state, plot_state
-#    if (incomingString == 'engage_1'):
-#        state = ACTIVE
-#        print("Starting data collection!")
-#        global cur_data_array
-#        cur_data_array = np.zeros((2,1))
-#    elif(incomingString == 'end_data'):
-#        state = DEACTIVATED
-#        plot_state = UNPLOTTED
-#        print("Finishing data collection!")
         
 def save_data(data):
     file_name = raw_input('File name to save: ')
@@ -86,9 +77,6 @@ def futek_sensor_serial():
             # Read serial interface for current data
             read_string = com.read_until()
             
-            # Print currently read string for debugging
-#            print(read_string)
-            
             # Populate message fields appropriately
             split_read_string = read_string.split('_')
             
@@ -103,8 +91,6 @@ def futek_sensor_serial():
                     # Get current value for calibration
                     val = int(split_read_string[i])
                     
-                    # TODO: Catch divide by zero error
-#    
                     # Map value to standardized range (other controllers assume 0-1023)
                     calibrated_vals[i] = arduino_map(val, low_vals[i], high_vals[i], 0.0, 15.0)
                  

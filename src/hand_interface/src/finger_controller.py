@@ -45,7 +45,6 @@ pos_pwm_array = np.zeros(8)
 cur_pwm_array = np.zeros(8)
 
 
-
 # Accessory function to conveniently map one range of values to another
 def arduino_map(val, inMin, inMax, outMin, outMax):
     return int((val-inMin)*(outMax-outMin)/(inMax-inMin)+outMin)
@@ -454,8 +453,6 @@ def motor_controller():
         # Internal state machine sets pwm array based on state and sensed values
         if (state == MOVE_TO_POSE_1):
 
-#            grasp_substate = NOT_GRASPING
-
             # Define desired position values for testing
             des_prox_value = 0
             des_dist_value = 0
@@ -470,17 +467,9 @@ def motor_controller():
             final_pwm_cap(30);
         
         elif (state == MOVE_TO_POSE_2):
-            # Define desired position values for testing
-#            des_prox_value = 400
-#            des_dist_value = 400
-            
-            # Run proportional control on the des and sensed pos values
-#            position_control_0(des_prox_value, des_dist_value)
-#            position_control_1(des_prox_value, des_dist_value)
+            # Only move first two fingers for testing
             position_control_2(700, 1)
             position_control_3(600, 1)
-            
-            
             
             # Cap final pwm value 
             final_pwm_cap(30);
@@ -502,38 +491,12 @@ def motor_controller():
         elif (state == HOME):
             position_control_2(0,0)
             position_control_3(0,0)
-#            position_control_0(-200,-200)
-#            position_control_1(-200,-200)
         
         elif (state == PINCH_ONE):
             x = 1
-#            cur_pwm_array[4:6] = [10,0]
-#            rospy.Timer(rospy.Duration(1), grasp_timer_callback_1, oneshot=True)
-#            
-#            position_control_2(600,1)
-#            if (grasp_substate == PRE_GRASP):
-#                position_control_2(500,100)    
-#                rospy.Timer(rospy.Duration(2), grasp_timer_callback_1, oneshot=True)
-                
-#            elif (grasp_substate == GRASP_ONE):
-#                cur_pwm_array[4] = 50
-#                cur_pwm_array[5] = 0
-                
         
         elif (state == PINCH_TWO):
             x = 1
-#            cur_pwm_array[6:8] = [10,0]
-#            rospy.Timer(rospy.Duration(1), grasp_timer_callback_2, oneshot=True)
-#            position_control_2(700, 1)
-#            cur_pwm_array[4:6] = [0,0]
-#            position_control_3(550, 1)
-#            if (grasp_substate == PRE_GRASP):
-#                position_control_3(500,100)
-#                rospy.Timer(rospy.Duration(2), grasp_timer_callback_2, oneshot=True)
-#                
-#            elif (grasp_substate == GRASP_ONE):
-#                cur_pwm_array[6] = 50
-#                cur_pwm_array[7] = 0
             
         elif (state == CLAMP):
             if (grasp_substate == GRASP_ONE):
@@ -543,10 +506,7 @@ def motor_controller():
                 cur_pwm_array[7] = 0
                 rospy.Timer(rospy.Duration(0.2), grasp_bump_callback, oneshot=True)
                 grasp_substate = GRASP_TWO
-#            elif (grasp_substate == GRASP_TWO):
                 
-            
-#        
         
         elif (state == TIGHTEN):
             cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
@@ -562,8 +522,10 @@ def motor_controller():
 #            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
         
-        # Process pwm array into string for serial comms
+        # STOP OTHER TWO FINGERS FOR THIS TESTING
         cur_pwm_array[0:4] = [0,0,0,0]
+        
+        # Process pwm array into string for serial comms
         cur_motor_string = pwm_array_to_string(cur_pwm_array)
         
         # Final safety check for stopped conditions
@@ -571,10 +533,6 @@ def motor_controller():
             cmdPub.publish(stop_motor_string)
             cur_motor_string = stop_motor_string
             cur_pwm_array = stop_motor_array
-        
-        # Print current motor pwm values and resulting string for debugging purposes
-#        print("PWM Array: " + str(cur_pwm_array))
-#        print("Current motor string: " + cur_motor_string)
         
         # Publish current motor string for motor interface to handle
         cmdPub.publish(cur_motor_string)

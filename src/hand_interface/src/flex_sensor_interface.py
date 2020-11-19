@@ -66,9 +66,6 @@ def basic_sensor_serial():
             # Read serial interface for current data
             read_string = com.read_until()
             
-            # Print currently read string for debugging
-            #print(read_string)
-            
             # Populate message fields appropriately
             split_read_string = read_string.split('_')
             
@@ -89,7 +86,6 @@ def basic_sensor_serial():
                 # Print calibrated values for debugging purposes
                 print("Calibrated vals: " + str(calibrated_vals))
 
-                
                 # Fill out flex data msg type with calibrated values
                 cur_flex_data.curl1 = calibrated_vals[0]
                 cur_flex_data.hype1 = calibrated_vals[1]
