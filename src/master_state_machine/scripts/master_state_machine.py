@@ -75,7 +75,7 @@ def master_state_machine():
             print("Engaging finger 2")
             state_string = "engage_2"
             pub_master_state.publish(state_string)
-            rospy.sleep(0.7)
+            rospy.sleep(0.5)
             
 #            raw_input("Displace fully? Press Enter")
             print("Displacing fully")

@@ -79,13 +79,13 @@ def state_callback(data):
     elif (incomingString == "engage_1"):
         state = PINCH_ONE
         grasp_substate = GRASP_ONE
-        cur_pwm_array[4:6] = [10,0]
+        cur_pwm_array[4:6] = [15,7]
         rospy.Timer(rospy.Duration(1), grasp_timer_callback_1, oneshot=True)
 #        grasp_substate = PRE_GRASP
         print("Engaging first phalange")
     elif (incomingString == "engage_2"):
         state = PINCH_TWO
-        cur_pwm_array[6:8] = [12,0]
+        cur_pwm_array[4:6] = [15,7]
         rospy.Timer(rospy.Duration(1), grasp_timer_callback_2, oneshot=True)
 #        grasp_substate = PRE_GRASP
         print("Engaging second phalange")
@@ -410,20 +410,27 @@ def grasp_timer_callback_1(event):
 def grasp_timer_callback_2(event):
     print("Finger 2 blind grasp engaged")
     global grasp_substate, cur_pwm_array
-    cur_pwm_array[6:8] = [0,0]
+    cur_pwm_array[4:6] = [0,0]
     
-def grasp_bump_callback(event):
-    changeMade = False
-    global cur_pwm_array
-    if (cur_pwm_array[4] < 30):
-        cur_pwm_array[4] += 1
-        changeMade = True
-    if (cur_pwm_array[6] < 30):
-        cur_pwm_array[6] += 5
-        changeMade = True
-        print("Callback grasp bump called!")
-    if (changeMade):
-        rospy.Timer(rospy.Duration(0.3), grasp_bump_callback, oneshot=True)
+#def grasp_bump_callback(event):
+#    changeMade = False
+#    global cur_pwm_array
+#    if (cur_pwm_array[4] < 50):
+#        cur_pwm_array[4] += 4
+#        if (cur_pwm_array[4] < 35):
+#            cur_pwm_array[5] = -10
+#        else: 
+#            cur_pwm_array[5] = -10
+#        changeMade = True
+#    else:
+#        cur_pwm_array[5] = 0
+##    if (cur_pwm_array[6] < 30):
+##        cur_pwm_array[6] += 5
+##        changeMade = True
+##        print("Callback grasp bump called!")
+#    if (changeMade):
+#        rospy.Timer(rospy.Duration(0.3), grasp_bump_callback, oneshot=True)
+#    cur_pwm_array[4:6] = [35,0]
     
 
 # Main loop
@@ -468,8 +475,8 @@ def motor_controller():
         
         elif (state == MOVE_TO_POSE_2):
             # Only move first two fingers for testing
-            position_control_2(700, 1)
-            position_control_3(600, 1)
+            position_control_2(900, 1)
+#            position_control_3(600, 1)
             
             # Cap final pwm value 
             final_pwm_cap(30);
@@ -501,10 +508,10 @@ def motor_controller():
         elif (state == CLAMP):
             if (grasp_substate == GRASP_ONE):
                 cur_pwm_array[4] = 10
-                cur_pwm_array[5] = 0
-                cur_pwm_array[6] = 10
-                cur_pwm_array[7] = 0
-                rospy.Timer(rospy.Duration(0.2), grasp_bump_callback, oneshot=True)
+                cur_pwm_array[5] = -10
+#                cur_pwm_array[6] = 10
+#                cur_pwm_array[7] = 0
+#                rospy.Timer(rospy.Duration(0.2), grasp_bump_callback, oneshot=True)
                 grasp_substate = GRASP_TWO
                 
         
@@ -524,6 +531,7 @@ def motor_controller():
         
         # STOP OTHER TWO FINGERS FOR THIS TESTING
         cur_pwm_array[0:4] = [0,0,0,0]
+        cur_pwm_array[6:8] = [0,0]
         
         # Process pwm array into string for serial comms
         cur_motor_string = pwm_array_to_string(cur_pwm_array)

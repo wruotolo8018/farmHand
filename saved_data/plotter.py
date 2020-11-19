@@ -27,7 +27,7 @@ def plotData(dataArray):
         #time = plotArrayFloat[2,:]
 
         data_1 = plotArrayFloat[0,:]
-        data_2 = plotArrayFloat[1,:]
+        data_2 = plotArrayFloat[1,:]*4.0/6.0
         z_pos = plotArrayFloat[2,:]
 
         mainPlot.clear()
