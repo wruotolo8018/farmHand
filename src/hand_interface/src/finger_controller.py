@@ -80,7 +80,7 @@ def state_callback(data):
     elif (incomingString == "engage_1"):
         state = PINCH_ONE
         grasp_substate = GRASP_ONE
-        cur_pwm_array[4:6] = [8,0]
+        cur_pwm_array[4:6] = [10,0]
         rospy.Timer(rospy.Duration(1), grasp_timer_callback_1, oneshot=True)
 #        grasp_substate = PRE_GRASP
         print("Engaging first phalange")
@@ -416,11 +416,11 @@ def grasp_timer_callback_2(event):
 def grasp_bump_callback(event):
     changeMade = False
     global cur_pwm_array
-    if (cur_pwm_array[4] < 40):
-        cur_pwm_array[4] += 4
+    if (cur_pwm_array[4] < 30):
+        cur_pwm_array[4] += 1
         changeMade = True
-    if (cur_pwm_array[6] < 50):
-        cur_pwm_array[6] += 6
+    if (cur_pwm_array[6] < 30):
+        cur_pwm_array[6] += 5
         changeMade = True
         print("Callback grasp bump called!")
     if (changeMade):
