@@ -16,10 +16,33 @@ import copy
 from std_msgs.msg import String, Int16
 from futek_data_logger.msg import z_pos
 from tf.transformations import euler_from_quaternion, quaternion_from_euler, quaternion_multiply
-
-
 from ur5_interface import UR5Interface
-#from robotiq_interface import RobotiqInterface
+
+### Global definitions
+INTER_COMMAND_DELAY = 4
+
+HOME = 0
+START = 1
+MOVE_1 = 2
+MOVE_2 = 3
+MOVE_3 = 4
+MOVE_4 = 5
+MOVE_5 = 6
+MOVE_6 = 7
+MOVE_7 = 8
+MOVE_8 = 9
+MOVE_9 = 10
+MOVE_10 = 11
+MOVE_11 = 12
+MOVE_12 = 13
+
+state = HOME
+move_completed = 0
+
+pose_x, pose_y, pose_z = 0.0, 0.0, 0.0
+eul_1, eul_2, eul_3 = 0.0, 0.0, 0.0
+
+### end global definitions
 
 # Callback functions    
 def state_callback(data):
@@ -34,6 +57,8 @@ def state_callback(data):
     elif (incomingString == "start"):
         state = START
         move_completed = 0
+
+
         
     elif (incomingString == "move_1"):
         state = MOVE_1
@@ -51,6 +76,22 @@ def state_callback(data):
         state = MOVE_4
         move_completed = 0
 
+    elif (incomingString == "move_5"):
+        state = MOVE_5
+        move_completed = 0
+
+    elif (incomingString == "move_6"):
+        state = MOVE_6
+        move_completed = 0
+
+    elif (incomingString == "move_7"):
+        state = MOVE_7
+        move_completed = 0
+
+    elif (incomingString == "move_8"):
+        state = MOVE_8
+        move_completed = 0
+
 def set_quaternion(pose, quaternion):
     pose.orientation.x = quaternion[0]
     pose.orientation.y = quaternion[1]
@@ -66,21 +107,17 @@ def get_quaternion(pose):
     quat[3] = pose.orientation.w
     return quat
 
-### Global definitions
-INTER_COMMAND_DELAY = 4
+def relative_pose(old_pose, x_dot, y_dot, z_dot, eul_1, eul_2, eul_3):
+    new_pose = copy.deepcopy(old_pose)
+    delta_quat = quaternion_from_euler(eul_1, eul_2, eul_3)
+    og_quat = get_quaternion(old_pose)
+    new_quat = quaternion_multiply(delta_quat, og_quat)
+    new_pose = set_quaternion(new_pose, new_quat)
+    new_pose.position.x += x_dot
+    new_pose.position.y += y_dot
+    new_pose.position.z += z_dot
+    return new_pose
 
-HOME = 0
-START = 1
-MOVE_1 = 2
-MOVE_2 = 3
-MOVE_3 = 4
-MOVE_4 = 5
-MOVE_5 = 6
-MOVE_6 = 7
-
-state = HOME
-move_completed = 0
-### end global definitions
 
 def pinch_test_arm_control():
     """
@@ -126,52 +163,45 @@ def pinch_test_arm_control():
             elif (state == MOVE_1):
                 print("Performing first movement")
                 ur5.set_speed(.05)
-                first_pose = copy.deepcopy(home_pose)
-                first_pose.position.z += -.03
-                ur5.goto_pose_target(first_pose, wait = False)
+                pose_1 = relative_pose(home_pose, 0, 0, -0.03, 0, 0, 0)
+                ur5.goto_pose_target(pose_1, wait = False)
                 move_completed = 1
             
             elif (state == MOVE_2):
-                print("Performing second displacement")
-                ur5.set_speed(.05)
-                second_pose = copy.deepcopy(first_pose)
-                second_pose.position.z += .1
-                ur5.goto_pose_target(second_pose, wait = False)
+                print("Performing second movement")
+                pose_2 = relative_pose(pose_1, 0, 0, .1, 0,0,0)
+                ur5.goto_pose_target(pose_2, wait = False)
                 move_completed = 1
 
             elif (state == MOVE_3):
-                print("Performing third displacement")
+                print("Performing third movement")
                 ur5.set_speed(.15)
-                third_pose = copy.deepcopy(second_pose)
-                quat_15x = quaternion_from_euler(0, 0, -3.14159/2)
-                og_quat = get_quaternion(third_pose)
-                new_quat = quaternion_multiply(quat_15x, og_quat)
-                third_pose = set_quaternion(third_pose, new_quat)
-                ur5.goto_pose_target(third_pose, wait = False)
+                pose_3 = relative_pose(pose_2, 0,0,0,0,0,-3.14159/2)
+                ur5.goto_pose_target(pose_3, wait = False)
                 move_completed = 1
 
             elif (state == MOVE_4):
-                print("Performing third displacement")
+                print("Performing fourth movement")
                 ur5.set_speed(.05)
-                fourth_pose = copy.deepcopy(third_pose)
-                quat_15x = quaternion_from_euler(3.14159/4, 0, 0)
-                og_quat = get_quaternion(fourth_pose)
-                new_quat = quaternion_multiply(quat_15x, og_quat)
-                fourth_pose = set_quaternion(fourth_pose, new_quat)
-                ur5.goto_pose_target(fourth_pose, wait = False)
+                pose_4 = relative_pose(pose_3, 0, 0, 0, 3.14159/4, 0, 0)
+                ur5.goto_pose_target(pose_4, wait=False)
                 move_completed = 1
 
-            # elif (state == MOVE_2):
-            #     print("Performing second displacement")
-            #     ur5.set_speed(.05)
-            #     second_pose = copy.deepcopy(first_pose)
-            #     second_pose.position.z += .2
-            #     ur5.goto_pose_target(second_pose, wait = False)
-            #     move_completed = 1
-                
-        cur_pose = ur5.get_pose()
-        cur_z_pos = cur_pose.position.z
-        z_pos_pub.publish(cur_z_pos)        
+            elif (state == MOVE_5):
+                print("Performing fifth movement")
+                move_completed = 1
+
+            elif (state == MOVE_6):
+                print("Performing sixth movement")
+                move_completed = 1
+
+            elif (state == MOVE_7):
+                print("Performing seventh movement")
+                move_completed = 1
+
+            elif (state == MOVE_8):
+                print("Performing eighth movement")
+                move_completed = 1
 
 
 if __name__ == '__main__': 

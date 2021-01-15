@@ -352,6 +352,17 @@ def final_pwm_cap(one_dir_final_cap):
     for i in range(len(cur_pwm_array)):
         cur_pwm_array[i] = pwm_cap(cur_pwm_array[i], one_dir_final_cap)
 
+# Four finger homing method
+def home_fingers():
+    # Run proportional control on the des and sensed pos values
+    position_control_2(0, 0)
+    position_control_3(0, 0)
+    position_control_0(0, 0)
+    position_control_1(0, 0)
+
+
+######## START EDITING HERE FOR QUALITATIVE TESTING #############
+
 # Grasp timer callbacks for open loop grasp control
 def pregrasp_timer_callback(event):
     print("Stopping fingers after pregrasp command")
@@ -392,7 +403,7 @@ def state_callback(data):
         print("Switching state to LOOSEN")
 
 
-    # States for various test sequences
+    # States for various grasp sequences
     elif (incomingString == "home"):
         state = HOME
         print("Moving to home position")
@@ -407,17 +418,7 @@ def state_callback(data):
         cur_pwm_array[0:8] = [25, -10, 35, -10, 25, -10, 35, -10]
         rospy.Timer(rospy.Duration(4.0), grasp_timer_callback_1, oneshot=True)
 
-    elif (incomingString == "displace_2"):
-        state = CLAMP
-        #        grasp_substate = PRE_GRASP
-        print("Clamping down")
 
-def home_fingers():
-    # Run proportional control on the des and sensed pos values
-    position_control_2(0, 0)
-    position_control_3(0, 0)
-    position_control_0(0, 0)
-    position_control_1(0, 0)
 
 # Main loop
 def motor_controller():
@@ -458,67 +459,33 @@ def motor_controller():
                         
             # Cap final pwm value 
             final_pwm_cap(30);
-        
-        elif (state == MOVE_TO_POSE_2):
-            # Only move first two fingers for testing
-            position_control_2(900, 1)
-#            position_control_3(600, 1)
-            
-            # Cap final pwm value 
-            final_pwm_cap(30);
-        
-        elif (state == MOVE_TO_POSE_3):
-            # Define desired position values for testing
-            des_prox_value = 600
-            des_dist_value = -400
-            
-            # Run proportional control on the des and sensed pos values
-            position_control_2(des_prox_value, des_dist_value)
-            position_control_3(des_prox_value, des_dist_value)
-            position_control_0(des_prox_value, des_dist_value)
-            position_control_1(des_prox_value, des_dist_value)
-                        
-            # Cap final pwm value 
-            final_pwm_cap(30);   
        
         elif (state == HOME):
             print("In HOME state")
             home_fingers()
         
         elif (state == PRE_GRASP):
-            x = 1
             print("In PRE_GRASP state")
         
         elif (state == ACTIVE_GRASPING):
-            x = 1
-            cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
-            
-        elif (state == CLAMP):
-            if (grasp_substate == GRASP_ONE):
-                cur_pwm_array[4] = 10
-                cur_pwm_array[5] = -10
-#                cur_pwm_array[6] = 10
-#                cur_pwm_array[7] = 0
-#                rospy.Timer(rospy.Duration(0.2), grasp_bump_callback, oneshot=True)
-                grasp_substate = GRASP_TWO
-                
+            print("Actively grasping object with some pwm command")
+            # cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
         
         elif (state == TIGHTEN):
             cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
 #            cur_pwm_array[:] = [10,10,0,0,0,0,0,0,0]
-#             cur_pwm_array[:] = [0,0,10,0,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,10,10,0]
         
         elif (state == LOOSEN):
             cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
 #            cur_pwm_array[:] = [-10,-10,0,0,0,0,0,0,0]
-#            cur_pwm_array[:] = [0,0,-10,0,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
-        
+
         # Process pwm array into string for serial comms
-        # print("Current pwm array: " + str(cur_pwm_array))
         cur_motor_string = pwm_array_to_string(cur_pwm_array)
         
         # Final safety check for stopped conditions
