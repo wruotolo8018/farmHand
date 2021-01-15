@@ -1,0 +1,178 @@
+#!/usr/bin/env python
+
+""" ur5_calib.py
+    Script used to moving the robot to calibrate wrt to realsense camera.
+    This assumes that we have already launched the ur5 bringup node
+    author: Michael Andres Lin (michaelv03@gmail.com)
+    date: 10/31/2019
+"""
+
+import os
+import sys
+import time
+import rospy
+import numpy as np
+import copy
+from std_msgs.msg import String, Int16
+from futek_data_logger.msg import z_pos
+from tf.transformations import euler_from_quaternion, quaternion_from_euler, quaternion_multiply
+
+
+from ur5_interface import UR5Interface
+#from robotiq_interface import RobotiqInterface
+
+# Callback functions    
+def state_callback(data):
+    incomingString = str(data.data)
+    global state, move_completed
+#    print("Incoming command: " + incomingString)
+
+    if (incomingString == "home"):
+        state = HOME
+        move_completed = 0
+        
+    elif (incomingString == "start"):
+        state = START
+        move_completed = 0
+        
+    elif (incomingString == "move_1"):
+        state = MOVE_1
+        move_completed = 0
+       
+    elif (incomingString == "move_2"):
+        state = MOVE_2
+        move_completed = 0
+
+    elif (incomingString == "move_3"):
+        state = MOVE_3
+        move_completed = 0
+
+    elif (incomingString == "move_4"):
+        state = MOVE_4
+        move_completed = 0
+
+def set_quaternion(pose, quaternion):
+    pose.orientation.x = quaternion[0]
+    pose.orientation.y = quaternion[1]
+    pose.orientation.z = quaternion[2]
+    pose.orientation.w = quaternion[3]
+    return pose
+
+def get_quaternion(pose):
+    quat = np.zeros(4)
+    quat[0] = pose.orientation.x
+    quat[1] = pose.orientation.y
+    quat[2] = pose.orientation.z
+    quat[3] = pose.orientation.w
+    return quat
+
+### Global definitions
+INTER_COMMAND_DELAY = 4
+
+HOME = 0
+START = 1
+MOVE_1 = 2
+MOVE_2 = 3
+MOVE_3 = 4
+MOVE_4 = 5
+MOVE_5 = 6
+MOVE_6 = 7
+
+state = HOME
+move_completed = 0
+### end global definitions
+
+def pinch_test_arm_control():
+    """
+    Function to demonstrate moving the ur5 to home pose
+    """
+    # Initialize the ros node
+    rospy.init_node("pinch_test_arm_control", anonymous=True, disable_signals=True)
+    
+    # Setup subscription to cmd_motor_controller topic
+    rospy.Subscriber("master_state", String, state_callback)
+    
+    # Publish just z position for plotting later
+    z_pos_pub = rospy.Publisher('ur5_position', z_pos, queue_size=10)
+
+    # Instantiate the UR5 interface.
+    ur5 = UR5Interface()
+    
+    ur5.goto_home_down()
+    home_pose = ur5.get_pose()
+    move_completed = 1
+    
+    while not rospy.is_shutdown(): 
+        
+        global move_completed
+        
+        if (move_completed == 0):
+            
+            if (state == HOME): 
+                print("Moving to home position")
+                ur5.set_speed(.1)
+                ur5.goto_home_down()
+                home_pose = ur5.get_pose()
+                move_completed = 1
+                
+            elif (state == START):
+                print("Moving to start position")
+                start_pose = copy.deepcopy(home_pose)
+                ur5.set_speed(.1)
+                start_pose.position.z += 0.1
+                ur5.goto_pose_target(start_pose, wait = False)
+                move_completed = 1
+            
+            elif (state == MOVE_1):
+                print("Performing first movement")
+                ur5.set_speed(.05)
+                first_pose = copy.deepcopy(home_pose)
+                first_pose.position.z += -.03
+                ur5.goto_pose_target(first_pose, wait = False)
+                move_completed = 1
+            
+            elif (state == MOVE_2):
+                print("Performing second displacement")
+                ur5.set_speed(.05)
+                second_pose = copy.deepcopy(first_pose)
+                second_pose.position.z += .1
+                ur5.goto_pose_target(second_pose, wait = False)
+                move_completed = 1
+
+            elif (state == MOVE_3):
+                print("Performing third displacement")
+                ur5.set_speed(.15)
+                third_pose = copy.deepcopy(second_pose)
+                quat_15x = quaternion_from_euler(0, 0, -3.14159/2)
+                og_quat = get_quaternion(third_pose)
+                new_quat = quaternion_multiply(quat_15x, og_quat)
+                third_pose = set_quaternion(third_pose, new_quat)
+                ur5.goto_pose_target(third_pose, wait = False)
+                move_completed = 1
+
+            elif (state == MOVE_4):
+                print("Performing third displacement")
+                ur5.set_speed(.05)
+                fourth_pose = copy.deepcopy(third_pose)
+                quat_15x = quaternion_from_euler(3.14159/4, 0, 0)
+                og_quat = get_quaternion(fourth_pose)
+                new_quat = quaternion_multiply(quat_15x, og_quat)
+                fourth_pose = set_quaternion(fourth_pose, new_quat)
+                ur5.goto_pose_target(fourth_pose, wait = False)
+                move_completed = 1
+
+            # elif (state == MOVE_2):
+            #     print("Performing second displacement")
+            #     ur5.set_speed(.05)
+            #     second_pose = copy.deepcopy(first_pose)
+            #     second_pose.position.z += .2
+            #     ur5.goto_pose_target(second_pose, wait = False)
+            #     move_completed = 1
+                
+        cur_pose = ur5.get_pose()
+        cur_z_pos = cur_pose.position.z
+        z_pos_pub.publish(cur_z_pos)        
+
+
+if __name__ == '__main__': 
+    pinch_test_arm_control()

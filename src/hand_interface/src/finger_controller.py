@@ -9,7 +9,7 @@ import time
 import numpy as np
 from hand_interface.msg import flex_sns
 
-# state definitions
+# main state definitions
 MOVE_TO_POSE_1 = 1
 MOVE_TO_POSE_2 = 2
 MOVE_TO_POSE_3 = 3
@@ -23,6 +23,11 @@ CLAMP = 9
 
 state = STOPPED
 
+# Grasping states
+PRE_GRASP = 10
+GRASP_WIDE = 11
+ACTIVE_GRASPING = 12
+
 # Useful saved motor values
 stop_motor_string = "505050505050505050"
 forward_motor_string = "505050606060505050"
@@ -33,68 +38,14 @@ stop_motor_array = np.array([0,0,0,0,0,0,0,0,0])
 cur_joint_data = np.zeros(8)
 prev_joint_data = np.zeros(8)
 
-# Temp substate
-PRE_GRASP = 0
-GRASP_ONE = 1
-GRASP_TWO = 2
-grasp_substate = GRASP_ONE
-grasp_start_time = 0
-
 # PWM variables
 pos_pwm_array = np.zeros(8)
 cur_pwm_array = np.zeros(8)
-
 
 # Accessory function to conveniently map one range of values to another
 def arduino_map(val, inMin, inMax, outMin, outMax):
     return int((val-inMin)*(outMax-outMin)/(inMax-inMin)+outMin)
 
-# Callback functions    
-def state_callback(data):
-    incomingString = str(data.data)
-    global state, grasp_substate
-#    print("Incoming command: " + incomingString)
-    
-    if (incomingString == "move_to_pose_1"):
-        state = MOVE_TO_POSE_1
-        print("Switching state to MOVE_TO_POSE_1")
-    elif (incomingString == "move_to_pose_2"):
-        state = MOVE_TO_POSE_2
-        print("Switching state to MOVE_TO_POSE_2")
-    elif (incomingString == "move_to_pose_3"):
-        state = MOVE_TO_POSE_3
-        print("Switching state to MOVE_TO_POSE_3")
-    elif (incomingString == "stop"):
-        state = STOPPED
-        print("Switching state to STOPPED")
-    elif (incomingString == "tighten"):
-        state = TIGHTEN
-        print("Switching state to TIGHTEN")
-    elif (incomingString == "loosen"):
-        state = LOOSEN
-        print("Switching state to LOOSEN")
-    elif (incomingString == "home"):
-        state = HOME
-        print("Moving to home position")
-    elif (incomingString == "engage_1"):
-        state = PINCH_ONE
-        grasp_substate = GRASP_ONE
-        cur_pwm_array[4:6] = [15,7]
-        rospy.Timer(rospy.Duration(1), grasp_timer_callback_1, oneshot=True)
-#        grasp_substate = PRE_GRASP
-        print("Engaging first phalange")
-    elif (incomingString == "engage_2"):
-        state = PINCH_TWO
-        cur_pwm_array[4:6] = [15,7]
-        rospy.Timer(rospy.Duration(1), grasp_timer_callback_2, oneshot=True)
-#        grasp_substate = PRE_GRASP
-        print("Engaging second phalange")
-    elif (incomingString == "displace_2"):
-        state = CLAMP
-#        grasp_substate = PRE_GRASP
-        print("Clamping down")
-    
-    
 # Callback function for joint position sensing data
 def joint_sns_callback(data):
     # Bump old data to prev variable
@@ -393,7 +344,6 @@ def position_control_3(des_prox, des_dist):
     pos_pwm_array[fing_num*2 : fing_num*2+2] = [Cpwm, Upwm]
     cur_pwm_array[fing_num*2 : fing_num*2+2] = pos_pwm_array[fing_num*2 : fing_num*2+2]
 
-
 # Final safety function to put a cap on max PWM
 def final_pwm_cap(one_dir_final_cap):
     # Access global variables
@@ -402,36 +352,72 @@ def final_pwm_cap(one_dir_final_cap):
     for i in range(len(cur_pwm_array)):
         cur_pwm_array[i] = pwm_cap(cur_pwm_array[i], one_dir_final_cap)
 
+# Grasp timer callbacks for open loop grasp control
+def pregrasp_timer_callback(event):
+    print("Stopping fingers after pregrasp command")
+    global cur_pwm_array, stop_motor_array, state, STOPPED
+    cur_pwm_array = stop_motor_array
+    state = STOPPED
+
 def grasp_timer_callback_1(event):
-    print("Finger 1 blind grasp engaged")
-    global grasp_substate, cur_pwm_array
-    cur_pwm_array[4:6] = [0,0]
-    
-def grasp_timer_callback_2(event):
-    print("Finger 2 blind grasp engaged")
-    global grasp_substate, cur_pwm_array
-    cur_pwm_array[4:6] = [0,0]
-    
-#def grasp_bump_callback(event):
-#    changeMade = False
-#    global cur_pwm_array
-#    if (cur_pwm_array[4] < 50):
-#        cur_pwm_array[4] += 4
-#        if (cur_pwm_array[4] < 35):
-#            cur_pwm_array[5] = -10
-#        else: 
-#            cur_pwm_array[5] = -10
-#        changeMade = True
-#    else:
-#        cur_pwm_array[5] = 0
-##    if (cur_pwm_array[6] < 30):
-##        cur_pwm_array[6] += 5
-##        changeMade = True
-##        print("Callback grasp bump called!")
-#    if (changeMade):
-#        rospy.Timer(rospy.Duration(0.3), grasp_bump_callback, oneshot=True)
-#    cur_pwm_array[4:6] = [35,0]
-    
+    print("Setting to constant grasp force")
+    global cur_pwm_array, stop_motor_array, state, STOPPED
+    cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
+    state = ACTIVE_GRASPING
+
+# Callback functions
+def state_callback(data):
+    incomingString = str(data.data)
+    global state, grasp_substate
+    #    print("Incoming command: " + incomingString)
+
+    # All the general states for testing
+    if (incomingString == "move_to_pose_1"):
+        state = MOVE_TO_POSE_1
+        print("Switching state to MOVE_TO_POSE_1")
+    # elif (incomingString == "move_to_pose_2"):
+    #     state = MOVE_TO_POSE_2
+    #     print("Switching state to MOVE_TO_POSE_2")
+    # elif (incomingString == "move_to_pose_3"):
+    #     state = MOVE_TO_POSE_3
+    #     print("Switching state to MOVE_TO_POSE_3")
+    elif (incomingString == "stop"):
+        state = STOPPED
+        print("Switching state to STOPPED")
+    elif (incomingString == "tighten"):
+        state = TIGHTEN
+        print("Switching state to TIGHTEN")
+    elif (incomingString == "loosen"):
+        state = LOOSEN
+        print("Switching state to LOOSEN")
+
+
+    # States for various test sequences
+    elif (incomingString == "home"):
+        state = HOME
+        print("Moving to home position")
+
+    elif (incomingString == "pregrasp_wide"):
+        state = PRE_GRASP
+        cur_pwm_array[0:8] = [-10, 10, -10, 20, -10, 10, -10, 20]
+        rospy.Timer(rospy.Duration(3.0), pregrasp_timer_callback, oneshot=True)
+
+    elif (incomingString == "grasp_wide"):
+        state = GRASP_WIDE
+        cur_pwm_array[0:8] = [25, -10, 35, -10, 25, -10, 35, -10]
+        rospy.Timer(rospy.Duration(4.0), grasp_timer_callback_1, oneshot=True)
+
+    elif (incomingString == "displace_2"):
+        state = CLAMP
+        #        grasp_substate = PRE_GRASP
+        print("Clamping down")
+
+def home_fingers():
+    # Run proportional control on the des and sensed pos values
+    position_control_2(0, 0)
+    position_control_3(0, 0)
+    position_control_0(0, 0)
+    position_control_1(0, 0)
 
 # Main loop
 def motor_controller():
@@ -496,14 +482,16 @@ def motor_controller():
             final_pwm_cap(30);   
        
         elif (state == HOME):
-            position_control_2(0,0)
-            position_control_3(0,0)
+            print("In HOME state")
+            home_fingers()
         
-        elif (state == PINCH_ONE):
+        elif (state == PRE_GRASP):
             x = 1
+            print("In PRE_GRASP state")
         
-        elif (state == PINCH_TWO):
+        elif (state == ACTIVE_GRASPING):
             x = 1
+            cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
             
         elif (state == CLAMP):
             if (grasp_substate == GRASP_ONE):
@@ -518,26 +506,24 @@ def motor_controller():
         elif (state == TIGHTEN):
             cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
 #            cur_pwm_array[:] = [10,10,0,0,0,0,0,0,0]
-#            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
+#             cur_pwm_array[:] = [0,0,10,0,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,10,10,0]
         
         elif (state == LOOSEN):
             cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
 #            cur_pwm_array[:] = [-10,-10,0,0,0,0,0,0,0]
-#            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
+#            cur_pwm_array[:] = [0,0,-10,0,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
         
-        # STOP OTHER TWO FINGERS FOR THIS TESTING
-        cur_pwm_array[0:4] = [0,0,0,0]
-        cur_pwm_array[6:8] = [0,0]
-        
         # Process pwm array into string for serial comms
+        # print("Current pwm array: " + str(cur_pwm_array))
         cur_motor_string = pwm_array_to_string(cur_pwm_array)
         
         # Final safety check for stopped conditions
-        if (state == STOPPED): 
+        if (state == STOPPED):
+            print("In STOPPED state")
             cmdPub.publish(stop_motor_string)
             cur_motor_string = stop_motor_string
             cur_pwm_array = stop_motor_array

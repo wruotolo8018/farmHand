@@ -22,12 +22,12 @@ def master_state_machine():
         # Display control options
         print('Enter a Command:')
         print('[space] = stop all motors')
-        print('[1] = move to pose 1')
-        print('[2] = move to pose 2')
-        print('[3] = move to pose 3')
+        print('[1] = home fingers')
+        print('[2] = test pregrasp')
+        print('[3] = test grasp')
         print('[4] = tighten tendons')
         print('[5] = loosen tendons')
-        print('[6] = start pinch sequence')
+        print('[6] = start grasp sequence')
         input_string = raw_input('Input: ')
         
         # Handle input and publish appropriate state
@@ -38,10 +38,10 @@ def master_state_machine():
             state_string = "move_to_pose_1"
             pub_master_state.publish(state_string)
         elif (input_string == '2'):
-            state_string = "move_to_pose_2"
+            state_string = "pregrasp_wide"
             pub_master_state.publish(state_string)
         elif (input_string == '3'):
-            state_string = "move_to_pose_3"
+            state_string = "grasp_wide"
             pub_master_state.publish(state_string)
         elif (input_string == '4'):
             state_string = "tighten"
@@ -59,35 +59,41 @@ def master_state_machine():
             pub_master_state.publish(state_string)
             rospy.sleep(2.0)
 
-            raw_input("Engage finger 1? Press Enter")
-            print("Engaging finger 1")
-            state_string = "engage_1"
+            raw_input("Put hand in pregrasp positions?")
+            print("Going to pregrasp")
+            state_string = "pregrasp_wide"
             pub_master_state.publish(state_string)
             rospy.sleep(2.0)
 
-#            raw_input("Displace partially? Press Enter")
+            raw_input("Go to position 1? Press Enter")
             print("Performing displacement 1")
-            state_string = "displace_1"
+            state_string = "move_1"
             pub_master_state.publish(state_string)
             rospy.sleep(2.0)
 
-#            raw_input("Engage finger 2? Press Enter")
-            print("Engaging finger 2")
-            state_string = "engage_2"
+            raw_input("Grasp object?")
+            print("Grasping")
+            state_string = "grasp_wide"
             pub_master_state.publish(state_string)
-            rospy.sleep(0.5)
-            
-#            raw_input("Displace fully? Press Enter")
-            print("Displacing fully")
-            state_string = "displace_2"
+            rospy.sleep(2.0)
+
+            raw_input("Go to position 2? Press Enter")
+            print("Going to position 2")
+            state_string = "move_2"
             pub_master_state.publish(state_string)
             rospy.sleep(4.0)
-            
-#            raw_input("Finish sampling data? Press Enter")
-            print("Data sampling finished")
-            state_string = "end_data"
+
+            raw_input("Go to position 3? Press Enter")
+            print("Going to position 3")
+            state_string = "move_3"
             pub_master_state.publish(state_string)
-#            pub_master_state.publish('stop')
+            rospy.sleep(4.0)
+
+            raw_input("Go to position 4? Press Enter")
+            print("Going to position 4")
+            state_string = "move_4"
+            pub_master_state.publish(state_string)
+            rospy.sleep(4.0)
             
             
 
