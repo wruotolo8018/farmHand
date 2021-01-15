@@ -163,7 +163,7 @@ def pinch_test_arm_control():
             elif (state == MOVE_1):
                 print("Performing first movement")
                 ur5.set_speed(.05)
-                pose_1 = relative_pose(home_pose, 0, 0, -0.03, 0, 0, 0)
+                pose_1 = relative_pose(home_pose, 0, 0, -0.023, 0, 0, 0)
                 ur5.goto_pose_target(pose_1, wait = False)
                 move_completed = 1
             
@@ -182,13 +182,16 @@ def pinch_test_arm_control():
 
             elif (state == MOVE_4):
                 print("Performing fourth movement")
-                ur5.set_speed(.05)
-                pose_4 = relative_pose(pose_3, 0, 0, 0, 3.14159/4, 0, 0)
+                ur5.set_speed(.15)
+                pose_4 = relative_pose(pose_3, 0, 0, 0, 0, 0, 3.14159/2)
                 ur5.goto_pose_target(pose_4, wait=False)
                 move_completed = 1
 
             elif (state == MOVE_5):
                 print("Performing fifth movement")
+                ur5.set_speed(.05)
+                pose_4 = relative_pose(pose_4, 0, .1, 0, 3.14159 / 4, 0, 0)
+                ur5.goto_pose_target(pose_4, wait=False)
                 move_completed = 1
 
             elif (state == MOVE_6):

@@ -373,7 +373,7 @@ def pregrasp_timer_callback(event):
 def grasp_timer_callback_1(event):
     print("Setting to constant grasp force")
     global cur_pwm_array, stop_motor_array, state, STOPPED
-    cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
+    cur_pwm_array[0:8] = [25, 0, 25, 0, 25, 0, 25, 0]
     state = ACTIVE_GRASPING
 
 # Callback functions
@@ -410,8 +410,8 @@ def state_callback(data):
 
     elif (incomingString == "pregrasp_wide"):
         state = PRE_GRASP
-        cur_pwm_array[0:8] = [-10, 10, -10, 20, -10, 10, -10, 20]
-        rospy.Timer(rospy.Duration(3.0), pregrasp_timer_callback, oneshot=True)
+        cur_pwm_array[0:8] = [-10, 20, -10, 27, -10, 20, -10, 27]
+        rospy.Timer(rospy.Duration(2.4), pregrasp_timer_callback, oneshot=True)
 
     elif (incomingString == "grasp_wide"):
         state = GRASP_WIDE
