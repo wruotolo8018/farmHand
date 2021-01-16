@@ -54,34 +54,38 @@ def master_state_machine():
             state_string = "home_arm"
             pub_master_state.publish(state_string)
 
+            raw_input("Pregrasp?")
+            print("Pregrasping")
+            state_string = "pregrasp_wide"
+            pub_master_state.publish(state_string)
+
             raw_input("Start trial? Press Enter")
             state_string = "start"
             pub_master_state.publish(state_string)
-            # rospy.sleep(2.0)
-
-            raw_input("Grasp object?")
-            print("Grasping")
-            state_string = "grasp_pinch"
-            pub_master_state.publish(state_string)
-            # rospy.sleep(2.0)
 
             raw_input("Go to position 1? Press Enter")
             print("Performing displacement 1")
             state_string = "move_1"
             pub_master_state.publish(state_string)
-            # rospy.sleep(2.0)
 
             raw_input("Go to position 2? Press Enter")
-            print("Going to position 2")
+            print("Going to position 2 and grasping")
             state_string = "move_2"
             pub_master_state.publish(state_string)
-            # rospy.sleep(4.0)
+
+            raw_input("Start grasping? Press Enter")
+            state_string = "grasp_wide"
+            pub_master_state.publish(state_string)
+
+            # raw_input("Grasp object?")
+            # print("Grasping")
+            # state_string = "grasp_wide"
+            # pub_master_state.publish(state_string)
 
             raw_input("Go to position 3? Press Enter")
             print("Going to position 3")
             state_string = "move_3"
             pub_master_state.publish(state_string)
-            # rospy.sleep(4.0)
 
             raw_input("Go to home? Press Enter")
             state_string = "home_fingers"
@@ -89,6 +93,15 @@ def master_state_machine():
             state_string = "home_arm"
             pub_master_state.publish(state_string)
 
+
+
+
+            # raw_input("Grasp object?")
+            # print("Grasping")
+            # state_string = "grasp_pinch"
+            # pub_master_state.publish(state_string)
+            # # rospy.sleep(2.0)
+            #
             # raw_input("Go to position 3? Press Enter")
             # print("Going to position 3")
             # state_string = "move_3"

@@ -373,7 +373,7 @@ def pregrasp_timer_callback(event):
 def grasp_timer_callback_1(event):
     print("Setting to constant grasp force")
     global cur_pwm_array, stop_motor_array, state, STOPPED
-    cur_pwm_array[0:8] = [0, 0, 0, 0, 15, 0, 15, 0]
+    cur_pwm_array[0:8] = [20, 0, 20, 0, 20, 0, 20, 0]
     state = ACTIVE_GRASPING
 
 # Callback functions
@@ -410,13 +410,14 @@ def state_callback(data):
 
     elif (incomingString == "pregrasp_wide"):
         state = PRE_GRASP
-        cur_pwm_array[0:8] = [-10, 20, -10, 27, -10, 20, -10, 27]
-        rospy.Timer(rospy.Duration(2.4), pregrasp_timer_callback, oneshot=True)
+        # cur_pwm_array[0:8] = [-10, 20, -10, 27, -10, 20, -10, 27]
+        cur_pwm_array[0:8] = [-7, 24, 0, 0, -7, 20, 0, 0]
+        rospy.Timer(rospy.Duration(3.0), pregrasp_timer_callback, oneshot=True)
 
     elif (incomingString == "grasp_wide"):
         state = GRASP_WIDE
-        cur_pwm_array[0:8] = [25, -10, 35, -10, 25, -10, 35, -10]
-        rospy.Timer(rospy.Duration(4.0), grasp_timer_callback_1, oneshot=True)
+        cur_pwm_array[0:8] = [18, -10, 18, 0, 20, -10, 20, 0]
+        rospy.Timer(rospy.Duration(3.0), grasp_timer_callback_1, oneshot=True)
 
     elif (incomingString == "pregrasp_pinch"):
         state = PRE_GRASP
@@ -482,20 +483,20 @@ def motor_controller():
         
         elif (state == TIGHTEN):
             cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
-#            cur_pwm_array[:] = [10,10,0,0,0,0,0,0,0]
+           # cur_pwm_array[:] = [0,0,10,0,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,10,10,0]
         
         elif (state == LOOSEN):
             cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
-#            cur_pwm_array[:] = [-10,-10,0,0,0,0,0,0,0]
+           # cur_pwm_array[:] = [0,0,-10,0,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
 
         # Process pwm array into string for serial comms
-        cur_pwm_array[0:4] = [0,0,0,0]
+        # cur_pwm_array[0:4] = [0,0,0,0]
         cur_motor_string = pwm_array_to_string(cur_pwm_array)
         
         # Final safety check for stopped conditions
