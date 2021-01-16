@@ -370,7 +370,20 @@ def pregrasp_timer_callback(event):
     cur_pwm_array = stop_motor_array
     state = STOPPED
 
+def grasp_timer_callback_3(event):
+    print("Setting to constant grasp force")
+    global cur_pwm_array, stop_motor_array, state, STOPPED
+    cur_pwm_array[0:8] = [20, 0, 20, 0, 20, 0, 20, 0]
+    state = ACTIVE_GRASPING
+
+
 def grasp_timer_callback_1(event):
+    print("Setting to constant grasp force")
+    global cur_pwm_array, stop_motor_array, state, STOPPED
+    cur_pwm_array[0:8] = [0, 0, 0, 0, 20, 0, 20, 0]
+    state = ACTIVE_GRASPING
+
+def grasp_timer_callback_2(event):
     print("Setting to constant grasp force")
     global cur_pwm_array, stop_motor_array, state, STOPPED
     cur_pwm_array[0:8] = [20, 0, 20, 0, 20, 0, 20, 0]
@@ -416,18 +429,29 @@ def state_callback(data):
 
     elif (incomingString == "grasp_wide"):
         state = GRASP_WIDE
-        cur_pwm_array[0:8] = [18, -10, 18, 0, 20, -10, 20, 0]
-        rospy.Timer(rospy.Duration(3.0), grasp_timer_callback_1, oneshot=True)
+        cur_pwm_array[0:8] = [26, -5, 20, -5, 26, -5, 20, -5]
+        rospy.Timer(rospy.Duration(3.0), grasp_timer_callback_3, oneshot=True)
 
-    elif (incomingString == "pregrasp_pinch"):
+    # elif (incomingString == "pregrasp_pinch"):
+    #     state = PRE_GRASP
+    #     cur_pwm_array[0:8] = [-10, 30, -10, 30, 20, 10, 20, 10]
+    #     rospy.Timer(rospy.Duration(1.4), pregrasp_timer_callback, oneshot=True)
+    #
+    # elif (incomingString == "grasp_pinch"):
+    #     state = GRASP_WIDE
+    #     cur_pwm_array[0:8] = [-10, 30, -10, 30, 20, 12, 20, 12]
+    #     rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_1, oneshot=True)
+
+    elif (incomingString == "pinch_1"):
         state = PRE_GRASP
-        cur_pwm_array[0:8] = [-10, 30, -10, 30, 20, 10, 20, 10]
-        rospy.Timer(rospy.Duration(1.4), pregrasp_timer_callback, oneshot=True)
+        cur_pwm_array[0:8] = [0, 0, 0, 0, 20, 0, 20, 0]
+        rospy.Timer(rospy.Duration(1.4), grasp_timer_callback_1, oneshot=True)
 
-    elif (incomingString == "grasp_pinch"):
+    elif (incomingString == "pinch_2"):
         state = GRASP_WIDE
-        cur_pwm_array[0:8] = [-10, 30, -10, 30, 20, 12, 20, 12]
-        rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_1, oneshot=True)
+        cur_pwm_array[0:8] = [20, 0, 25, 0, 20, 0, 25, 0]
+        rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_2, oneshot=True)
+
 
 
 # Main loop
@@ -483,14 +507,14 @@ def motor_controller():
         
         elif (state == TIGHTEN):
             cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
-           # cur_pwm_array[:] = [0,0,10,0,0,0,0,0,0]
+           # cur_pwm_array[:] = [0,0,0,0,0,0,10,0,0]
 #            cur_pwm_array[:] = [0,0,10,10,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,10,10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,10,10,0]
         
         elif (state == LOOSEN):
             cur_pwm_array[:] = [-10,-10,-10,-10,-10,-10,-10,-10,-10]
-           # cur_pwm_array[:] = [0,0,-10,0,0,0,0,0,0]
+           # cur_pwm_array[:] = [0,0,0,0,0,0,-10,0,0]
 #            cur_pwm_array[:] = [0,0,-10,-10,0,0,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,-10,-10,0,0,0]
 #            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
