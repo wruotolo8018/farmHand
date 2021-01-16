@@ -373,7 +373,7 @@ def pregrasp_timer_callback(event):
 def grasp_timer_callback_1(event):
     print("Setting to constant grasp force")
     global cur_pwm_array, stop_motor_array, state, STOPPED
-    cur_pwm_array[0:8] = [25, 0, 25, 0, 25, 0, 25, 0]
+    cur_pwm_array[0:8] = [0, 0, 0, 0, 15, 0, 15, 0]
     state = ACTIVE_GRASPING
 
 # Callback functions
@@ -404,7 +404,7 @@ def state_callback(data):
 
 
     # States for various grasp sequences
-    elif (incomingString == "home"):
+    elif (incomingString == "home_fingers"):
         state = HOME
         print("Moving to home position")
 
@@ -418,6 +418,15 @@ def state_callback(data):
         cur_pwm_array[0:8] = [25, -10, 35, -10, 25, -10, 35, -10]
         rospy.Timer(rospy.Duration(4.0), grasp_timer_callback_1, oneshot=True)
 
+    elif (incomingString == "pregrasp_pinch"):
+        state = PRE_GRASP
+        cur_pwm_array[0:8] = [-10, 30, -10, 30, 20, 10, 20, 10]
+        rospy.Timer(rospy.Duration(1.4), pregrasp_timer_callback, oneshot=True)
+
+    elif (incomingString == "grasp_pinch"):
+        state = GRASP_WIDE
+        cur_pwm_array[0:8] = [-10, 30, -10, 30, 20, 12, 20, 12]
+        rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_1, oneshot=True)
 
 
 # Main loop
@@ -486,6 +495,7 @@ def motor_controller():
 #            cur_pwm_array[:] = [0,0,0,0,0,0,-10,-10,0]
 
         # Process pwm array into string for serial comms
+        cur_pwm_array[0:4] = [0,0,0,0]
         cur_motor_string = pwm_array_to_string(cur_pwm_array)
         
         # Final safety check for stopped conditions
