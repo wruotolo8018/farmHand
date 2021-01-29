@@ -26,6 +26,7 @@ state = STOPPED
 # Grasping states
 PRE_GRASP = 10
 GRASP_WIDE = 11
+GRASP_PINCH = 13
 ACTIVE_GRASPING = 12
 
 # Useful saved motor values
@@ -373,23 +374,21 @@ def pregrasp_timer_callback(event):
 def grasp_timer_callback_3(event):
     print("Setting to constant grasp force")
     global cur_pwm_array, stop_motor_array, state, STOPPED
-    cur_pwm_array[0:8] = [20, 0, 20, 0, 20, 0, 20, 0]
+    cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
     state = ACTIVE_GRASPING
 
-
 def grasp_timer_callback_1(event):
-    print("Setting to constant grasp force")
+    print("Setting to constant grasp force for wide grasp")
     global cur_pwm_array, stop_motor_array, state, STOPPED
-    cur_pwm_array[0:8] = [0, 0, 0, 0, 20, 0, 20, 0]
+    cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
     state = ACTIVE_GRASPING
 
 def grasp_timer_callback_2(event):
-    print("Setting to constant grasp force")
+    print("Setting to constant grasp force for pinch")
     global cur_pwm_array, stop_motor_array, state, STOPPED
-    cur_pwm_array[0:8] = [20, 0, 20, 0, 20, 0, 20, 0]
+    cur_pwm_array[0:8] = [30, 5, 30, 5, 30, 5, 30, 5]
     state = ACTIVE_GRASPING
 
-# Callback functions
 def state_callback(data):
     incomingString = str(data.data)
     global state, grasp_substate
@@ -421,36 +420,42 @@ def state_callback(data):
         state = HOME
         print("Moving to home position")
 
+    # Open wide for plate (pregrasp_wide)
+    # Grab plate (grasp_wide)
+    # Release plate (manual)
+    # Pinch plate from rim (grasp_pinch)
+    # Release plate (manual)
+
     elif (incomingString == "pregrasp_wide"):
         state = PRE_GRASP
         # cur_pwm_array[0:8] = [-10, 20, -10, 27, -10, 20, -10, 27]
-        cur_pwm_array[0:8] = [-7, 24, 0, 0, -7, 20, 0, 0]
-        rospy.Timer(rospy.Duration(3.0), pregrasp_timer_callback, oneshot=True)
+        cur_pwm_array[0:8] = [-7, 24, -7, 24, -7, 20, -7, 24]
+        rospy.Timer(rospy.Duration(2.0), pregrasp_timer_callback, oneshot=True)
 
     elif (incomingString == "grasp_wide"):
         state = GRASP_WIDE
-        cur_pwm_array[0:8] = [26, -5, 20, -5, 26, -5, 20, -5]
-        rospy.Timer(rospy.Duration(3.0), grasp_timer_callback_3, oneshot=True)
+        cur_pwm_array[0:8] = [20, -25, 20, -25, 20, -25, 20, -25]
+        rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_1, oneshot=True)
 
     # elif (incomingString == "pregrasp_pinch"):
     #     state = PRE_GRASP
     #     cur_pwm_array[0:8] = [-10, 30, -10, 30, 20, 10, 20, 10]
     #     rospy.Timer(rospy.Duration(1.4), pregrasp_timer_callback, oneshot=True)
     #
-    # elif (incomingString == "grasp_pinch"):
+    elif (incomingString == "grasp_pinch"):
+        state = GRASP_PINCH
+        cur_pwm_array[0:8] = [20, 5, 20, 5, 20, 5, 20, 5]
+        rospy.Timer(rospy.Duration(1.5), grasp_timer_callback_2, oneshot=True)
+
+    # elif (incomingString == "pinch_1"):
+    #     state = PRE_GRASP
+    #     cur_pwm_array[0:8] = [0, 0, 0, 0, 20, 0, 20, 0]
+    #     rospy.Timer(rospy.Duration(1.4), grasp_timer_callback_1, oneshot=True)
+    #
+    # elif (incomingString == "pinch_2"):
     #     state = GRASP_WIDE
-    #     cur_pwm_array[0:8] = [-10, 30, -10, 30, 20, 12, 20, 12]
-    #     rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_1, oneshot=True)
-
-    elif (incomingString == "pinch_1"):
-        state = PRE_GRASP
-        cur_pwm_array[0:8] = [0, 0, 0, 0, 20, 0, 20, 0]
-        rospy.Timer(rospy.Duration(1.4), grasp_timer_callback_1, oneshot=True)
-
-    elif (incomingString == "pinch_2"):
-        state = GRASP_WIDE
-        cur_pwm_array[0:8] = [20, 0, 25, 0, 20, 0, 25, 0]
-        rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_2, oneshot=True)
+    #     cur_pwm_array[0:8] = [20, 0, 25, 0, 20, 0, 25, 0]
+    #     rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_2, oneshot=True)
 
 
 
@@ -468,7 +473,6 @@ def motor_controller():
      
     # Global variables
     global cur_pwm_array, cur_des_pose, grasp_substate, grasp_start_time, w_p, w_c, w_f
-    global PRE_GRASP, GRASP_ONE, GRASP_TWO
     print("Start PWM ARRAY: " + str(cur_pwm_array))
     
     # Set loop speed
@@ -497,13 +501,6 @@ def motor_controller():
         elif (state == HOME):
             print("In HOME state")
             home_fingers()
-        
-        elif (state == PRE_GRASP):
-            print("In PRE_GRASP state")
-        
-        elif (state == ACTIVE_GRASPING):
-            print("Actively grasping object with some pwm command")
-            # cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
         
         elif (state == TIGHTEN):
             cur_pwm_array[:] = [10,10,10,10,10,10,10,10,10]
