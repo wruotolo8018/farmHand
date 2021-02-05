@@ -14,7 +14,7 @@ TIGHTEN = 3
 LOOSEN = 2
 STOPPED = 0
 HOME = 1
-GRASPING = 4
+OTHER = 4
 state = STOPPED
 
 # Useful saved motor values
@@ -355,32 +355,39 @@ def home_fingers():
 # Grasp timer callbacks for open loop grasp control
 def pregrasp_timer_callback(event):
     print("Stopping fingers after pregrasp command")
-    global cur_pwm_array, stop_motor_array, state, STOPPED
+    global cur_pwm_array, stop_motor_array, state, STOPPED, OTHER
     cur_pwm_array = stop_motor_array
     state = STOPPED
 
 def grasp_timer_callback_1(event):
     print("Setting to constant grasp force")
-    global cur_pwm_array, stop_motor_array, state, STOPPED
-    cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
-    state = ACTIVE_GRASPING
+    global cur_pwm_array, stop_motor_array, state, STOPPED, OTHER
+    cur_pwm_array[0:8] = [0, 0, 0, 0, 5, 0, 3, 0]
+    state = OTHER
+
+def grasp_timer_callback_1(event):
+    print("Setting to constant grasp force")
+    global cur_pwm_array, stop_motor_array, state, STOPPED, OTHER
+    cur_pwm_array[0:8] = [33, 0, 30, 0, 33, 0, 30, 0]
+    state = OTHER
+    # right half then left half of the hand (when cable is left)
 
 def grasp_timer_callback_2(event):
     print("Setting to constant grasp force")
-    global cur_pwm_array, stop_motor_array, state, STOPPED
-    cur_pwm_array[0:8] = [30, 5, 30, 5, 30, 5, 30, 5]
-    state = ACTIVE_GRASPING
+    global cur_pwm_array, stop_motor_array, state, STOPPED, OTHER
+    cur_pwm_array[0:8] = [15, 0, 15, 0, 5, 0, 3, 0]
+    state = OTHER
 
-def grasp_timer_callback_3(event):
-    print("Setting to constant grasp force")
-    global cur_pwm_array, stop_motor_array, state, STOPPED
-    cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
-    state = ACTIVE_GRASPING
+# def grasp_timer_callback_3(event):
+#     print("Setting to constant grasp force")
+#     global cur_pwm_array, stop_motor_array, state, STOPPED
+#     cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
+#     state = OTHER
 
 
 def state_callback(data):
     incomingString = str(data.data)
-    global state, grasp_substate
+    global state, TIGHTEN, LOOSEN, STOPPED, HOME, OTHER
 
     # All the general states for testing
     if (incomingString == "home_fingers"):
@@ -398,29 +405,40 @@ def state_callback(data):
 
     # Grasp specific callback conditions
     elif (incomingString == "pregrasp_wide"):
-        state = GRASPING
+        state = OTHER
         cur_pwm_array[0:8] = [-7, 24, -7, 24, -7, 20, -7, 24]
-        rospy.Timer(rospy.Duration(2.0), pregrasp_timer_callback, oneshot=True)
+        rospy.Timer(rospy.Duration(2.5), pregrasp_timer_callback, oneshot=True)
 
     elif (incomingString == "grasp_wide"):
-        state = GRASPING
-        cur_pwm_array[0:8] = [20, -25, 20, -25, 20, -25, 20, -25]
-        rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_1, oneshot=True)
+        state = OTHER
+        cur_pwm_array[0:8] = [25, -25, 20, -25, 25, -25, 20, -25]
+        rospy.Timer(rospy.Duration(2.8), grasp_timer_callback_1, oneshot=True)
 
     elif (incomingString == "grasp_pinch"):
         state = GRASP_PINCH
         cur_pwm_array[0:8] = [20, 5, 20, 5, 20, 5, 20, 5]
         rospy.Timer(rospy.Duration(1.5), grasp_timer_callback_2, oneshot=True)
 
-    # elif (incomingString == "pinch_1"):
-    #     state = PRE_GRASP
-    #     cur_pwm_array[0:8] = [0, 0, 0, 0, 20, 0, 20, 0]
-    #     rospy.Timer(rospy.Duration(1.4), grasp_timer_callback_1, oneshot=True)
-    #
-    # elif (incomingString == "pinch_2"):
-    #     state = GRASP_WIDE
-    #     cur_pwm_array[0:8] = [20, 0, 25, 0, 20, 0, 25, 0]
-    #     rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_2, oneshot=True)
+    elif (incomingString == "grasp_1"):
+        state = OTHER
+        cur_pwm_array[0:8] = [10, 0, 10, 0, 10, 0, 10, 0]
+        # rospy.Timer(rospy.Duration(1.4), grasp_timer_callback_1, oneshot=True)
+
+    elif (incomingString == "grasp_2"):
+        state = OTHER
+        cur_pwm_array[0:8] = [20, 0, -5, 0, -5, 0, 20, 0]
+        # rospy.Timer(rospy.Duration(1.0), grasp_timer_callback_2, oneshot=True)
+
+    elif (incomingString == "grasp_3"):
+        state = OTHER
+        cur_pwm_array[0:8] = [-5, 0, 20, 0, 20, 0, -5, 0]
+        # rospy.Timer(rospy.Duration(1.4), grasp_timer_callback_1, oneshot=True)
+
+    elif (incomingString == "grasp_4"):
+        state = OTHER
+        cur_pwm_array[0:8] = [-10, -10, -10, -10, -10, -10, -10, -10]
+        rospy.Timer(rospy.Duration(1.0), pregrasp_timer_callback(), oneshot=True)
+
 
 
 # Main loop

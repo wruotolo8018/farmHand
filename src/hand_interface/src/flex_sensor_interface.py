@@ -28,7 +28,7 @@ def arduino_map(val, inMin, inMax, outMin, outMax):
     return int((val-inMin)*(outMax-outMin)/(inMax-inMin)+outMin)
 def get_calibration_values():
     global low_vals, high_vals
-    low_vals = [470,322,198,427,306,140,490,190]
+    low_vals = [460,311,186,404,275,133,453,185]
     high_vals = [370,180,145,189,215,65,335,100]
     #
     # low_vals = [0,0,0,0,0,0,0,0]

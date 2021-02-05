@@ -58,7 +58,7 @@ def master_state_machine():
 
     # Instantiate the UR5 interface.
     ur5 = UR5Interface()
-    ur5.goto_home_down()
+    # ur5.goto_home_down()
     home_pose = ur5.get_pose()
     
     # Enter main control loop (this is blocking based on user input right now)
@@ -82,11 +82,14 @@ def master_state_machine():
         elif (input_string == '1'):
             state_string = "home_fingers"
             pub_master_state.publish(state_string)
-        elif (input_string == '2'):
-            state_string = "pregrasp_wide"
+        elif (input_string == 'q'):
+            state_string = "grasp_1"
             pub_master_state.publish(state_string)
-        elif (input_string == '3'):
-            state_string = "grasp_wide"
+        elif (input_string == 'w'):
+            state_string = "grasp_2"
+            pub_master_state.publish(state_string)
+        elif (input_string == 'e'):
+            state_string = "grasp_3"
             pub_master_state.publish(state_string)
         elif (input_string == '4'):
             state_string = "tighten"
@@ -140,7 +143,7 @@ def master_state_machine():
 
             print("\nTesting sequence started!\n")
 
-            num_steps = 6
+            num_steps = 15
             step = 0
             manual_stepping = True
             while (step <= num_steps):
@@ -181,20 +184,43 @@ def master_state_machine():
                 # Handle arm movement situation for each step
                 if (step == 1):
                     print("Going to start position")
-                    start_pose = relative_pose(home_pose, -0.05, 0.1, .1, 0, 0, 0)
+                    start_pose = relative_pose(home_pose, 0, 0, 0, 0, 0, -3.14159/2)
                     ur5.goto_pose_target(start_pose, wait=False)
-                elif(step == 2):
+                elif (step == 2):
+                    print("Pregrasping")
+                    pub_master_state.publish("pregrasp_wide")
+                elif (step == 3):
                     print("Going to second position")
-                    pose_2 = relative_pose(start_pose, 0, 0, -0.1, 0, 0, 0)
+                    pose_2 = relative_pose(start_pose, 0, 0, -0.14, 0, 0, 0)
                     ur5.goto_pose_target(pose_2, wait=False)
+                elif (step == 4):
+                    print("Grasping")
+                    pub_master_state.publish("grasp_wide")
+                elif (step == 5):
+                    print("Picking up")
+                    pose_3 = relative_pose(pose_2, 0, 0, 0.1, 0, 0, 0)
+                    ur5.goto_pose_target(pose_3, wait=False)
+                elif (step == 6):
+                    print("Rotating")
+                    pose_4 = relative_pose(pose_3, 0, 0, -.1, 0, 3.14159/2, 0)
+                    ur5.goto_pose_target(pose_4, wait=False)
+                elif (step == 7):
+                    print("Placing")
+                    pose_5 = relative_pose(pose_4, -.1, 0, -.12, 0, 0, 0)
+                    ur5.goto_pose_target(pose_5, wait=False)
+                elif (step == 8):
+                    print("Releasing")
+                    pub_master_state.publish('grasp_4')
+                elif (step == 9):
+                    print("Leaving")
+                    pose_6 = relative_pose(pose_5, 0, 0, .1, 0, 0, 0)
+                    ur5.goto_pose_target(pose_6, wait=False)
 
 
 
-
-
-        print("Test sequence ended. Halting fingers.")
-        state_string = "stop"
-        pub_master_state.publish(state_string)
+        # print("Test sequence ended. Halting fingers.")
+        # state_string = "stop"
+        # pub_master_state.publish(state_string)
 
 
 
