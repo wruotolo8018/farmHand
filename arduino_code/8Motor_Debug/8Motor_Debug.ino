@@ -9,6 +9,8 @@ int pwmArray[13];
 int digArray1[13];
 int digArray2[13];
 
+int curPWM = 255;
+
 int num_motors = 8;
 
 // Function prototypes
@@ -24,22 +26,22 @@ void setup() {
   }
 
     // Finger 1
-  pwmArray[1] = 8;   pwmArray[2] = 9;   
+  pwmArray[1] = 8;      pwmArray[2] = 9;   
   digArray1[1]  = 46;   digArray2[1]  = 48;
   digArray1[2]  = 50;   digArray2[2]  = 52;
 
   // Finger 2
-  pwmArray[3] = 2;   pwmArray[4] = 3;   
+  pwmArray[3] = 2;      pwmArray[4] = 3;   
   digArray1[3]  = 47;   digArray2[3]  = 49;
   digArray1[4]  = 51;   digArray2[4]  = 53;
 
   // Finger 3
-  pwmArray[5] = 4;   pwmArray[6] = 5;   
+  pwmArray[5] = 4;      pwmArray[6] = 5;   
   digArray1[5]  = 41;   digArray2[5]  = 43;
   digArray1[6]  = 37;   digArray2[6]  = 39;
 
   // Finger 4
-  pwmArray[7] = 6;   pwmArray[8] = 7;   
+  pwmArray[7] = 6;      pwmArray[8] = 7;   
   digArray1[7]  = 27;   digArray2[7]  = 29;
   digArray1[8]  = 31;   digArray2[8]  = 33;
 
@@ -77,12 +79,30 @@ void loop() {
       inDir = 0;
       Serial.println("Setting direction to backward");
     }
+    else if (inChar == '-'){
+      curPWM -= 25;
+      Serial.print("Current pwm: ");
+      Serial.print(curPWM);
+      Serial.print("\n");
+    }
+    else if (inChar == '+'){
+      curPWM += 25;
+      Serial.print("Current pwm: ");
+      Serial.print(curPWM);
+      Serial.print("\n");
+    }
     else if (inChar == 'g'){
+      int grabPWM = 130;
+      runMotor(1,1,grabPWM);
+      runMotor(3,1,grabPWM-30);
+      runMotor(5,1,grabPWM);
+      runMotor(7,1,grabPWM-30);
+      Serial.println("Grasping all agonist motors");
     }
     else{
       int motorNum = inChar - '0';
       int motorDir = inDir;
-      runMotor(motorNum, motorDir, 100);
+      runMotor(motorNum, motorDir, curPWM);
       
       Serial.print("Running motor ");
       Serial.print(inChar);
@@ -107,9 +127,11 @@ void runMotor(int motorSelect, int dir, int pwmVal) {
 void stopAll() {
   for (int i = 1; i<=num_motors; i++) {
     runMotor(i,0,0); 
-    Serial.print("Stopping motor ");
-    Serial.println(i);
+//    Serial.print("Stopping motor ");
+//    Serial.println(i);
   }
+
+//  runMotor(1,0,0);
   Serial.println("Stopping All Motors");
 
 //  analogWrite/(0, 0);
