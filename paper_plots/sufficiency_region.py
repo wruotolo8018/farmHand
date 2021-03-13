@@ -7,10 +7,9 @@ from matplotlib import cm
 fig = plt.figure()
 ax = plt.axes(projection='3d')
 
-# total_distance = 200
-num_r = 150
+num_r = 100
 num_l = 50
-r_offset = 20
+r_offset = 25
 l_offset = 35
 
 r0 = np.linspace(r_offset,num_r+r_offset,num_r)
@@ -56,6 +55,7 @@ for i in range(len(y)): # for each phalange size
 surf = ax.plot_surface(x,y,og_s, cmap=cm.get_cmap('viridis'), alpha=0.75)
 
 for i in range(0,len(s_lines),15):
+# for i in [45-l_offset,70-l_offset]:
     r_vec = r0
     lf_vec = np.ones(num_r)*lf[i]
     s_vec = s_lines[i]
