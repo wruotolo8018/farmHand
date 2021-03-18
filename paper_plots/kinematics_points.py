@@ -8,6 +8,9 @@ from scipy.optimize import curve_fit
 # plt.ion()
 fig = plt.figure()
 
+# High level parameters
+# w_0 = 10 # in mm
+
 
 #### FIT SHEAR VS NORM RELATIONSHIP ####
 norm_vec = [0, 10, 20, 100] #n_vs_s_data[:,0]
@@ -30,14 +33,14 @@ def calc_shear_from_norm(norm_stress):
 
 x_curve_fit = np.linspace(0,100,100)
 plt.plot(x_curve_fit, calc_shear_from_norm(x_curve_fit))
-# plt.show()
+plt.show()
 #### FIT SHEAR VS NORM RELATIONSHIP ####
 
 
 #### FIT NORM VS STRAIN RELATIONSHIP ####
 norm_vec_2 = [0,6,10,14,15,16]
 w_0 = 10
-displace_vec = np.asarray([0, 2, 4, 6, 8 ,10])
+displace_vec = np.asarray([0, 2, 4, 6, 8, 10])
 plt.scatter(displace_vec, norm_vec_2)
 def fit_func_2(x, a, b):
     return a * np.power(x, b)
@@ -53,7 +56,7 @@ def calc_norm_from_displace(displace_val):
 x_curve_fit = np.linspace(0,w_0,100)
 
 plt.plot(x_curve_fit, calc_norm_from_displace(x_curve_fit))
-# plt.show()
+plt.show()
 #### FIT NORM VS STRAIN RELATIONSHIP ####
 
 
@@ -66,20 +69,24 @@ def pad_force_to_stress(force_across_pad):
 print("1N to Stress: " + str(pad_force_to_stress(1)))
 
 
-ax = plt.axes(projection='3d')
+# ax = plt.axes(projection='3d')
 surf_x, surf_z = np.meshgrid(np.linspace(0,pad_x,pad_x), np.linspace(0,pad_z,pad_z))
 pad_height = surf_x * 0 + surf_z * 0 + w_0
-ax.set_box_aspect((2, 1, .5))
+# ax.set_box_aspect((2, 1, .5))
 
-def calc_max_shear_force(r_o, penetration):
+def calc_max_shear_force():
     # r_o = w_0*3
     # penetration = 3
 
-    object_height = w_0 + r_o - penetration - np.sqrt(r_o ** 2 - (surf_x - pad_x / 2) ** 2 - (surf_z - pad_z / 2) ** 2)
+    ob_center_x = cp_x
+    ob_center_z = cp_z
+    object_height = w_0 + r_o - penetration - np.sqrt(r_o ** 2 - (surf_x - pad_x / 2 - ob_center_x) ** 2 - (surf_z - pad_z / 2 - ob_center_z) ** 2)
 
     penetration_array = np.zeros((pad_z,pad_x))
     norm_stress_array = np.zeros((pad_z,pad_x))
     shear_stress_array = np.zeros((pad_z,pad_x))
+
+
     for i in range(pad_z):
         for j in range(pad_x):
             # calculate penetration
@@ -95,22 +102,46 @@ def calc_max_shear_force(r_o, penetration):
             if (penetration_array[i,j] <= 0):
                 shear_stress_array[i,j] = 0
 
-    fig = plt.figure()
-    plt.xlim([0, 110])
-    plt.ylim([0, 160])
-    ax = plt.axes(projection='3d')
-    ax.set_box_aspect((2, 1, .5))
 
-    ax.plot_surface(surf_x, surf_z, pad_height, alpha=0.75)
-    ax.plot_surface(surf_x, surf_z, object_height, alpha=0.75)
-    ax.plot_surface(surf_x,surf_z,shear_stress_array)
+    # fig = plt.figure()
+    # plt.xlim([0, 110])
+    # plt.ylim([0, 160])
+    # ax = plt.axes(projection='3d')
+    # ax.set_box_aspect((2, 1, .5))
+    #
+    # ax.plot_surface(surf_x, surf_z, pad_height, alpha=0.75)
+    # ax.plot_surface(surf_x, surf_z, object_height, alpha=0.75)
+    # ax.plot_surface(surf_x,surf_z,shear_stress_array)
 
-    plt.show()
+    # plt.show()
 
     stress_integral = np.sum(shear_stress_array)
     print("stress_integral: " + str(stress_integral))
 
-max_shear_vec = np.zeros(10)
-for i in range (w_0):
-    max_shear_vec[i] = calc_max_shear_force(w_0*4, i)
-    # plt.draw()
+    return stress_integral
+
+
+
+# Calculate max sustainable stress for range of cp
+cp_z = 0
+num_points = int(pad_x/2)
+max_shear_vec = np.zeros(num_points)
+for i in range(num_points):
+    cp_x = i
+    w_0 = 10
+    r_o = w_0 * 10
+    penetration = 10
+    max_shear_vec[i] = calc_max_shear_force()
+
+#
+#
+# max_shear_vec = np.zeros(10)
+# for i in range(w_0):
+#     w_0 = 10
+#     r_o = w_0*4
+#     penetration = i
+#     max_shear_vec[i] = calc_max_shear_force()
+#     # plt.draw()
+
+plt.plot(range(num_points), max_shear_vec)
+plt.show()
