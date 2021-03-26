@@ -126,6 +126,7 @@ def calc_max_shear_force_planar(penetration, slope):
 
 def cp_fn_to_fs_planar(cp, fn):
     # max_pen = w_0
+    cp = np.abs(cp)
     slope_increment = 0.01
     pen_increment = 0.05
     penetration = 0.01
@@ -316,6 +317,7 @@ if __name__ == '__main__':
     tp_plotting = []
     td_plotting = []
     fs_plotting = []
+    fs_coulomb_plotting = []
     cp_plotting = []
 
     for Tp in Tp_vec:
@@ -327,7 +329,7 @@ if __name__ == '__main__':
 
             if (Tp > Td):
 
-                cp = np.abs(Td*lp*np.cos(theta_p)/((Tp-Td)*np.cos(theta_p-theta_d)) - ld/2)
+                cp = Td*lp*np.cos(theta_p)/((Tp-Td)*np.cos(theta_p-theta_d)) - ld/2
                 # print(cp)
 
                 peelOffFlag = False
@@ -338,9 +340,12 @@ if __name__ == '__main__':
                     cp = -pad_x/2/2
                     peelOffFlag = True
                 fn = Td/(ld/2 + cp)*1000
+                # fn = Tp/(np.cos(theta_p)*lp + ld/2 + cp)
+
 
                 # Map cp and fn to shear force
                 if not peelOffFlag:
+                    # Calculate max shear force for adhesive condition
                     print("Input Fn: " + str(fn))
                     print("Input Cp: " + str(cp))
                     max_shear_force, output_fn, output_cp = cp_fn_to_fs_planar(cp, fn)
@@ -352,6 +357,11 @@ if __name__ == '__main__':
                     fs_plotting.append(max_shear_force)
                     cp_plotting.append(output_cp)
 
+                    # Calculate coulomb friction shear force max
+                    mu = 0.6
+                    fs_coulomb = fn * mu
+                    fs_coulomb_plotting.append(fs_coulomb)
+
     #### Plotting ####
     fig = plt.figure(figsize=(5, 5))
     ax = plt.axes(projection='3d')
@@ -361,8 +371,9 @@ if __name__ == '__main__':
     td_array = np.asarray(td_plotting)
     fs_array = np.asarray(fs_plotting)
     cp_array = np.asarray(cp_plotting)
+    fs_coulomb_array = np.asarray(fs_coulomb_plotting)
 
-    ax.scatter(np.asarray(tp_plotting), np.asarray(td_plotting), np.asarray(fs_plotting), marker='o')
+    # ax.scatter(np.asarray(tp_plotting), np.asarray(td_plotting), np.asarray(fs_plotting), marker='o')
     # ax.scatter(np.asarray(tp_plotting), np.asarray(td_plotting), np.asarray(cp_plotting), marker='x')
     ax.set_xlabel("Proximal Torque (Nm)")
     ax.set_ylabel("Distal Torque (Nm)")
@@ -375,16 +386,16 @@ if __name__ == '__main__':
                 Z[i,j] = 0
     ax.plot_surface(X,Y,Z, cmap=cm.get_cmap('viridis'), alpha=0.75)
 
-    # Z = interpolate.griddata((tp_array, td_array), cp_array, (X,Y), method='cubic')
-    # for i in range(len(Z)):
-    #     for j in range(len(Z[0])):
-    #         if math.isnan(Z[i,j]):
-    #             Z[i,j] = 0
-    # ax.plot_surface(X, Y, Z, cmap=cm.get_cmap('viridis'), alpha=0.75)
+
+    # ax.scatter(np.asarray(tp_plotting), np.asarray(td_plotting), np.asarray(fs_plotting), marker='o')
+    Z = interpolate.griddata((tp_array, td_array), fs_coulomb_array, (X,Y), method='linear')
+    for i in range(len(Z)):
+        for j in range(len(Z[0])):
+            if math.isnan(Z[i,j]):
+                Z[i,j] = 0
+    ax.plot_surface(X, Y, Z, cmap=cm.get_cmap('inferno'), alpha=0.75)
 
     plt.show()
 
     # cp_fn_to_fs_planar(2, 10)
 
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
