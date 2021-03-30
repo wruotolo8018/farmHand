@@ -308,8 +308,10 @@ if __name__ == '__main__':
 
     pad_x = 40
     pad_z = 20
-    Tp_vec = np.linspace(.1,.5,10)
-    Td_vec = np.linspace(0,.15,10)
+    Tp_range = [.1, .5]
+    Tp_vec = np.linspace(Tp_range[0],Tp_range[1],5)
+    Td_range = [.01, .1]
+    Td_vec = np.linspace(Td_range[0],Td_range[1],5)
     surf_x, surf_z = np.meshgrid(np.linspace(0, pad_x, pad_x), np.linspace(0, pad_z, pad_z))
     pad_height = surf_x * 0 + surf_z * 0 + w_0
     # surf_Td, surf_Tp = np.meshgrid(Td_vec,Tp_vec)
@@ -378,13 +380,16 @@ if __name__ == '__main__':
     ax.set_xlabel("Proximal Torque (Nm)")
     ax.set_ylabel("Distal Torque (Nm)")
 
-    X, Y = np.meshgrid(Tp_vec,Td_vec)
+    Tp_plotting = np.linspace(Tp_range[0], Tp_range[1], 100)
+    Td_plotting = np.linspace(Td_range[0], Td_range[1], 100)
+    X, Y = np.meshgrid(Tp_plotting,Td_plotting)
+
     Z = interpolate.griddata((tp_array, td_array), fs_array, (X,Y), method='cubic')
     for i in range(len(Z)):
         for j in range(len(Z[0])):
             if math.isnan(Z[i,j]):
                 Z[i,j] = 0
-    ax.plot_surface(X,Y,Z, cmap=cm.get_cmap('viridis'), alpha=0.75)
+    ax.plot_surface(X,Y,Z, cmap=cm.get_cmap('inferno'), alpha=0.75)
 
 
     # ax.scatter(np.asarray(tp_plotting), np.asarray(td_plotting), np.asarray(fs_plotting), marker='o')
@@ -395,6 +400,9 @@ if __name__ == '__main__':
                 Z[i,j] = 0
     ax.plot_surface(X, Y, Z, cmap=cm.get_cmap('inferno'), alpha=0.75)
 
+    # ax.axes.set_xlim3d()
+    # ax.axes.set_ylim3d(.01,.1)
+    ax.axes.set_zlim3d(0,30)
     plt.show()
 
     # cp_fn_to_fs_planar(2, 10)

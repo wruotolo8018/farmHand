@@ -166,7 +166,6 @@ def get_contact_geometry(r, h, plotting_visible, theta_inc):
             if (yf_interp[i] > yc_interp[i]):
                 # plt.scatter(x_master[i],0)
                 lp_eff = (x_master[i]-phw)/np.sin(np.deg2rad(cur_theta_p))
-                print(lp_eff)
                 return True, lp_eff
         return False, 0
 
@@ -207,7 +206,7 @@ def get_contact_geometry(r, h, plotting_visible, theta_inc):
         dist_intersect, ld_eff = check_dist_intersect(yf_interp, yc_interp, x_master)
     # print("Theta D for intercept: " + str(cur_theta_d))
 
-    print("Angle of distal phalange: " + str(cur_theta_p - cur_theta_d))
+    # print("Angle of distal phalange: " + str(cur_theta_p - cur_theta_d))
 
     if (plotting_visible):
         plt.plot(xc, yc)
@@ -312,20 +311,79 @@ if __name__ == '__main__':
     # print("Lp_eff: " + str(c))
     # print("Ld_eff: " + str(d))
 
-    num_values = 10
     coulomb_pullout_vec = []
     adhesive_pullout_vec = []
-    r = 100
     mu = 0.6
-    h_vec = np.linspace(0,12,20)
+    # h_vec = [4,6,8,10,12]
+    # r_vec = [90,100,110,120]
+    h_range = [0,12]
+    h_vec = np.linspace(h_range[0], h_range[1],3)
+    r_range = [90,120]
+    r_vec = np.linspace(r_range[0], r_range[1],3)
+
     phw = 32
 
-    for h in h_vec:
-        tp, td, lp_eff, ld_eff = get_contact_geometry(r, h, False, 0.2)  # input: r, h, show_plot, theta_increment
-        coulomb_pullout_vec.append(calc_coulomb_pullout(2,5,tp,td))
-        adhesive_pullout_vec.append(calc_adhesive_pullout(2,5,tp,td,lp_eff,ld_eff))
+    fig = plt.figure(figsize=(5, 5))
+    ax = plt.axes(projection='3d')
+    ax.set_box_aspect((1, 1, 1))
 
-    fig = plt.figure(figsize=(5,5))
-    plt.plot(h_vec, np.asarray(coulomb_pullout_vec))
-    plt.plot(h_vec, np.asarray(adhesive_pullout_vec))
+    fnp = 1
+    fnd_vec = [1,3,5]
+    coulomb_plotted = False
+
+    for fnd in fnd_vec:
+        coulomb_pullout_vec = []
+        adhesive_pullout_vec = []
+        r_plotting = []
+        h_plotting = []
+        print()
+        print("fnd = " + str(fnd))
+
+        for r in r_vec:
+            print("r = " + str(r))
+            r = int(r)
+
+            for h in h_vec:
+                tp, td, lp_eff, ld_eff = get_contact_geometry(r, h, False, .2)  # input: r, h, show_plot, theta_increment
+                coulomb_pullout_vec.append(calc_coulomb_pullout(fnp,fnd,tp,td))
+                adhesive_pullout_vec.append(calc_adhesive_pullout(fnp,fnd,tp,td,lp_eff,ld_eff))
+
+                r_plotting.append(r)
+                h_plotting.append(h)
+
+                print("h = " + str(h))
+
+        h_array = np.asarray(h_plotting)
+        r_array = np.asarray(r_plotting)
+        a_array = np.asarray(adhesive_pullout_vec)
+        c_array = np.asarray(coulomb_pullout_vec)
+
+        X, Y = np.meshgrid(h_array, r_array)
+        for i in range(len(a_array)):
+            if math.isnan((a_array[i])):
+                a_array[i] = 0
+
+        print(len(h_array))
+        print(len(r_array))
+        print(len(a_array))
+
+        plotting_h = np.linspace(h_range[0], h_range[1], 25)
+        plotting_r = np.linspace(r_range[0], r_range[1], 25)
+        X, Y = np.meshgrid(plotting_h, plotting_r)
+
+        Z = interpolate.griddata((h_array, r_array), a_array, (X, Y), method='cubic')
+        ax.plot_surface(X, Y, Z, cmap=cm.get_cmap('viridis'), alpha=0.75)
+        if fnd > 3:
+            if not coulomb_plotted:
+                Z = interpolate.griddata((h_array, r_array), c_array, (X, Y), method='cubic')
+                for i in range(len(Z)):
+                    for j in range(len(Z[0])):
+                        if Z[i,j] < 0:
+                            Z[i,j] = 0
+                ax.plot_surface(X, Y, Z, cmap=cm.get_cmap('inferno'), alpha=0.75)
+                coulomb_plotted = True
+
+    # Z = X*Y*0
+    # ax.plot_surface(X,Y,Z, alpha = 0.75)
+
     plt.show()
