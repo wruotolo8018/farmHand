@@ -6,20 +6,21 @@ from matplotlib import cm
 from scipy.optimize import curve_fit
 from scipy import interpolate
 from scipy.signal import bspline
+import itertools
 
 
 
 #### FIT SHEAR VS NORM RELATIONSHIP ####
-def fit_shear_vs_norm(norm_vec, shear_vec):
+def fit_shear_vs_norm(norm_vec, shear_vec, std_dev_vec):
 
-    global fit_func
+    global fit_func, color
     def fit_func(x, a, b):
-        return a * np.power(x, b) + shear_vec[0]
+        return a * np.power(x, b) # + shear_vec[0]   #(shear_vec[0] - norm_vec[0]*shear_vec[0])
         # return a*np.sqrt(x) + c
 
     # plt.scatter(norm_vec, shear_vec)
-    # plt.xlim([0,40])
-    # plt.ylim([0,70])
+    plt.xlim([0,5])
+    plt.ylim([0,25])
     pars, cov = curve_fit(f=fit_func, xdata=norm_vec, ydata=shear_vec,
                           p0=[0,0], bounds=(-np.inf,np.inf), maxfev=1000)
 
@@ -30,30 +31,38 @@ def fit_shear_vs_norm(norm_vec, shear_vec):
         return fit_func(norm_stress, pars[0], pars[1])
 
     x_curve_fit = np.linspace(0,100,1000)
-    # plt.plot(x_curve_fit, calc_shear_from_norm(x_curve_fit))
+    cur_color = next(color)
+    plt.plot(x_curve_fit, calc_shear_from_norm(x_curve_fit), cur_color + '--')
+    plt.errorbar(norm_vec, shear_vec, yerr=std_dev_vec, marker = 'o', color = cur_color, ls='none', capsize=3)
     # plt.show()
     #### FIT SHEAR VS NORM RELATIONSHIP ####
 
 #### FIT NORM VS STRAIN RELATIONSHIP ####
 def fit_norm_vs_strain(norm_vec, displace_vec):
 
-    # plt.scatter(displace_vec, norm_vec)
+    global color
+    cur_color = next(color)
+    plt.scatter(displace_vec/w_0, norm_vec, marker='o', color=cur_color)
+    plt.xlim([0,.6])
+    plt.ylim([0,15])
+
     global fit_func_2
-    def fit_func_2(x, a, b):
-        return a * np.power(x, b)
+    def fit_func_2(x, a, b, c):
+        # return a * np.power(x, b)
+        return a*x**3 + b*x**2 + c*x
 
     pars_2, cov = curve_fit(f=fit_func_2, xdata=displace_vec, ydata=norm_vec,
-                          p0=[0,0], bounds=(-np.inf,np.inf), maxfev=10000)
+                          p0=[0,0,0], bounds=(-np.inf,np.inf), maxfev=10000)
 
     print("Curve fit param results: " + str(pars_2))
 
     global calc_norm_from_displace
     def calc_norm_from_displace(displace_val):
-        return fit_func_2(displace_val, pars_2[0], pars_2[1])
+        return fit_func_2(displace_val, pars_2[0], pars_2[1], pars_2[2])
 
     x_curve_fit = np.linspace(0,w_0,100)
 
-    # plt.plot(x_curve_fit, calc_norm_from_displace(x_curve_fit))
+    plt.plot(x_curve_fit/w_0, calc_norm_from_displace(x_curve_fit), '--', color=cur_color, label = next(label))
 
 def calc_max_shear_force_convex(lf, l_eff, penetration, show_plot):
     r_o = r
@@ -267,38 +276,46 @@ if __name__ == '__main__':
 
     print("Starting Main Method...\n")
 
+    color = itertools.cycle(('r', 'g', 'b', 'y'))
+
     #### Setup shear vs normal stress mapping ####
     show3DPlots_planar = False
     show3DPlots_convex = False
 
-    norm_vec_acrylic = [0, 10, 20, 30]  # n_vs_s_data[:,0]
-    shear_vec_acrylic = [20, 35, 45, 50]  # n_vs_s_data[:,1]
+    norm_vec_acrylic = [.2333, .4666, 1.1666, 2.333, 4.666]  # n_vs_s_data[:,0]
+    shear_vec_acrylic = [5.62, 8, 14.14, 16.86, 22.5]  # n_vs_s_data[:,1]
+    std_dev_vec_acrylic = [.57, .43, .95, .43, 1.6]
 
-    norm_vec_wood = [0, 5, 10, 20, 30]  # n_vs_s_data[:,0]
-    shear_vec_wood = [10, 13, 15, 16, 16]  # n_vs_s_data[:,1]
+    norm_vec_paper = [.2333, .4666, 1.1666, 2.333, 4.666]  # n_vs_s_data[:,0]
+    shear_vec_paper = [1.1, 1.4, 2.5, 4.4, 7.3]  # n_vs_s_data[:,1]
+    std_dev_vec_paper = [.32, .60, .21, .40, .46]
 
-    norm_vec_metal = [0, 10, 20, 30]  # n_vs_s_data[:,0]
-    shear_vec_metal = [12, 18, 23, 25]  # n_vs_s_data[:,1]
+    norm_vec_metal = [.2333, .4666, 1.1666, 2.333, 4.666]  # n_vs_s_data[:,0]
+    shear_vec_metal = [5, 7.3, 11.6, 15.4, 18]  # n_vs_s_data[:,1]
+    std_dev_vec_metal = [.38, .39, 1.45, .74, 1.40]
 
-    fit_shear_vs_norm(norm_vec_wood, shear_vec_wood)
-    fit_shear_vs_norm(norm_vec_metal, shear_vec_metal)
-    fit_shear_vs_norm(norm_vec_acrylic, shear_vec_acrylic)
-    # plt.show()
-    # fig = plt.figure(figsize=(3, 3))
+    fit_shear_vs_norm(norm_vec_paper, shear_vec_paper, std_dev_vec_paper)
+    fit_shear_vs_norm(norm_vec_metal, shear_vec_metal, std_dev_vec_metal)
+    fit_shear_vs_norm(norm_vec_acrylic, shear_vec_acrylic, std_dev_vec_acrylic)
+    plt.show()
+
 
 
     #### Setup normal stress vs strain mapping ####
     w_0 = 10
-    norm_vec_distInner = [0, 7, 11, 13, 16, 17]
-    norm_vec_distOuter = [0, 5, 12, 13, 14.5, 15]
-    norm_vec_proxInner = [0, 6.5, 10.5, 13.5, 14, 17]
-    norm_vec_proxOuter = [0, 6, 10, 14, 15, 16]
-    displace_vec = np.asarray([0, 2, 4, 6, 8, 10])
-    fit_norm_vs_strain(norm_vec_distInner, displace_vec)
+    norm_vec_distInner = [0, 1.5, 2.75, 3.5, 6.5, 13.25]
+    norm_vec_distOuter = [0, 1.8, 2.85, 3.57, 5.7, 14.6]
+    norm_vec_proxInner = [0, .83, 1.66, 2.66, 4.5, 8.33]
+    norm_vec_proxOuter = [0, 1.6, 2.2, 2.4, 3.8, 8.8]
+    displace_vec = np.asarray([0, 1, 2, 3, 4, 5])
+    label = itertools.cycle(('dist in', 'dist out', 'prox in', 'prox out'))
     fit_norm_vs_strain(norm_vec_distOuter, displace_vec)
     fit_norm_vs_strain(norm_vec_proxInner, displace_vec)
     fit_norm_vs_strain(norm_vec_proxOuter, displace_vec)
-    # plt.show()
+    fit_norm_vs_strain(norm_vec_distInner, displace_vec)
+    plt.legend()
+    plt.show()
+
 
     #### Variable Setup ####
     lp = 70
@@ -323,7 +340,7 @@ if __name__ == '__main__':
 
     phw = 32
 
-    fig = plt.figure(figsize=(5, 5))
+    fig = plt.figure(figsize=(4, 4))
     ax = plt.axes(projection='3d')
     ax.set_box_aspect((1, 1, 1))
 
