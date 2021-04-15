@@ -15,7 +15,7 @@ def fit_shear_vs_norm(norm_vec, shear_vec, std_dev_vec):
 
     global fit_func, color
     def fit_func(x, a, b):
-        return a * np.power(x, b) # + shear_vec[0]   #(shear_vec[0] - norm_vec[0]*shear_vec[0])
+        return a * np.power(x, b) + shear_vec[0]   #(shear_vec[0] - norm_vec[0]*shear_vec[0])
         # return a*np.sqrt(x) + c
 
     # plt.scatter(norm_vec, shear_vec)
@@ -109,7 +109,7 @@ def calc_max_shear_force_convex(lf, l_eff, penetration, show_plot):
         ax.plot_surface(surf_x, surf_z, object_height, alpha=0.75)
         ax.plot_surface(surf_x, surf_z, shear_stress_array, alpha=0.75)
 
-        plt.show()
+        # plt.show()
 
     shear_force = np.sum(shear_stress_array)/1000
     normal_force = np.sum(norm_stress_array)/1000
@@ -220,6 +220,7 @@ def get_contact_geometry(r, h, plotting_visible, theta_inc):
     if (plotting_visible):
         plt.plot(xc, yc)
         plt.plot(xf, yf)
+        plt.show()
 
     return cur_theta_p, cur_theta_d, lp_eff, ld_eff
 
@@ -282,22 +283,23 @@ if __name__ == '__main__':
     show3DPlots_planar = False
     show3DPlots_convex = False
 
-    norm_vec_acrylic = [.2333, .4666, 1.1666, 2.333, 4.666]  # n_vs_s_data[:,0]
+    norm_vec_acrylic = np.asarray([.2333, .4666, 1.1666, 2.333, 4.666])  # n_vs_s_data[:,0]
+    norm_vec_acrylic = norm_vec_acrylic - norm_vec_acrylic[0]
     shear_vec_acrylic = [5.62, 8, 14.14, 16.86, 22.5]  # n_vs_s_data[:,1]
     std_dev_vec_acrylic = [.57, .43, .95, .43, 1.6]
 
-    norm_vec_paper = [.2333, .4666, 1.1666, 2.333, 4.666]  # n_vs_s_data[:,0]
+    norm_vec_paper = norm_vec_acrylic  # n_vs_s_data[:,0]
     shear_vec_paper = [1.1, 1.4, 2.5, 4.4, 7.3]  # n_vs_s_data[:,1]
     std_dev_vec_paper = [.32, .60, .21, .40, .46]
 
-    norm_vec_metal = [.2333, .4666, 1.1666, 2.333, 4.666]  # n_vs_s_data[:,0]
+    norm_vec_metal = norm_vec_acrylic  # n_vs_s_data[:,0]
     shear_vec_metal = [5, 7.3, 11.6, 15.4, 18]  # n_vs_s_data[:,1]
     std_dev_vec_metal = [.38, .39, 1.45, .74, 1.40]
 
     fit_shear_vs_norm(norm_vec_paper, shear_vec_paper, std_dev_vec_paper)
     fit_shear_vs_norm(norm_vec_metal, shear_vec_metal, std_dev_vec_metal)
     fit_shear_vs_norm(norm_vec_acrylic, shear_vec_acrylic, std_dev_vec_acrylic)
-    plt.show()
+    # plt.show()
 
 
 
@@ -314,7 +316,7 @@ if __name__ == '__main__':
     fit_norm_vs_strain(norm_vec_proxOuter, displace_vec)
     fit_norm_vs_strain(norm_vec_distInner, displace_vec)
     plt.legend()
-    plt.show()
+    # plt.show()
 
 
     #### Variable Setup ####

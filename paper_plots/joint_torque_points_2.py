@@ -1,11 +1,9 @@
-from mpl_toolkits import mplot3d
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 from matplotlib import cm
 from scipy.optimize import curve_fit
 from scipy import interpolate
-from scipy.signal import bspline
 import itertools
 
 
@@ -15,7 +13,7 @@ def fit_shear_vs_norm(norm_vec, shear_vec, std_dev_vec):
 
     global fit_func, color
     def fit_func(x, a, b):
-        return a * np.power(x, b) # + shear_vec[0]   #(shear_vec[0] - norm_vec[0]*shear_vec[0])
+        return a * np.power(x, b) + shear_vec[0]  #(shear_vec[0] - norm_vec[0]*shear_vec[0])
         # return a*np.sqrt(x) + c
 
     # plt.scatter(norm_vec, shear_vec)
@@ -243,34 +241,7 @@ def calc_max_shear_force_convex():
 
     return stress_integral, c_p
 
-# fig = plt.figure(figsize=(3,5))
-# ax = plt.axes(projection='2d')
-# ax.set_box_aspect((1,1))
 
-# # Calculate max sustainable stress for range of cp
-# cp_z = 0
-# for r in [20*w_0, 15*w_0, 10*w_0, 7*w_0, 6*w_0]:
-#     num_points = 50
-#     max_shear_vec = np.zeros(num_points)
-#     cp_vec = np.zeros(num_points)
-#     for i in range(num_points):
-#         tip_x = i  #*((r/2)/num_points)
-#         w_0 = 10
-#         cp_z = 0
-#         r_o = r
-#         penetration = 5
-#         slope = i*.05
-#         max_shear_vec[i], cp_vec[i] = calc_max_shear_force_convex()
-#
-#     plt.plot(cp_vec, max_shear_vec)
-#
-# plt.xlim([0,10])
-# plt.ylim([15,30])
-# plt.show()
-
-
-
-# Press the green button in the gutter to run the script.
 
 if __name__ == '__main__':
 
@@ -282,15 +253,16 @@ if __name__ == '__main__':
     show3DPlots_planar = False
     show3DPlots_convex = False
 
-    norm_vec_acrylic = [.2333, .4666, 1.1666, 2.333, 4.666]  # n_vs_s_data[:,0]
+    norm_vec_acrylic = np.asarray([.2333, .4666, 1.1666, 2.333, 4.666])  # n_vs_s_data[:,0]
+    norm_vec_acrylic = norm_vec_acrylic - norm_vec_acrylic[0]
     shear_vec_acrylic = [5.62, 8, 14.14, 16.86, 22.5]  # n_vs_s_data[:,1]
     std_dev_vec_acrylic = [.57, .43, .95, .43, 1.6]
 
-    norm_vec_paper = [.2333, .4666, 1.1666, 2.333, 4.666]  # n_vs_s_data[:,0]
+    norm_vec_paper = norm_vec_acrylic  # n_vs_s_data[:,0]
     shear_vec_paper = [1.1, 1.4, 2.5, 4.4, 7.3]  # n_vs_s_data[:,1]
     std_dev_vec_paper = [.32, .60, .21, .40, .46]
 
-    norm_vec_metal = [.2333, .4666, 1.1666, 2.333, 4.666]  # n_vs_s_data[:,0]
+    norm_vec_metal = norm_vec_acrylic  # n_vs_s_data[:,0]
     shear_vec_metal = [5, 7.3, 11.6, 15.4, 18]  # n_vs_s_data[:,1]
     std_dev_vec_metal = [.38, .39, 1.45, .74, 1.40]
 
@@ -428,6 +400,8 @@ if __name__ == '__main__':
     # ax.axes.set_xlim3d()
     # ax.axes.set_ylim3d(.01,.1)
     ax.axes.set_zlim3d(0,4)
+    ax.set_xlabel("Proximal Torque (Nm)")
+    ax.set_ylabel("Distal Torque (Nm)")
     plt.show()
 
     # cp_fn_to_fs_planar(2, 10)

@@ -11,14 +11,15 @@ fig = plt.figure(figsize=(3,3))
 show3DPlots_planar = False
 show3DPlots_convex = True
 
-color = itertools.cycle(('r', 'g', 'b', 'y'))
+color = itertools.cycle(('k', 'y'))
+# color = itertools.cycle(('r', 'g', 'b', 'y'))
 
 #### FIT SHEAR VS NORM RELATIONSHIP ####
 def fit_shear_vs_norm(norm_vec, shear_vec, std_dev_vec):
 
     global fit_func, color
     def fit_func(x, a, b):
-        return a * np.power(x, b) # + shear_vec[0]   #(shear_vec[0] - norm_vec[0]*shear_vec[0])
+        return a * np.power(x, b) + shear_vec[0]   #(shear_vec[0] - norm_vec[0]*shear_vec[0])
         # return a*np.sqrt(x) + c
 
     # plt.scatter(norm_vec, shear_vec)
@@ -40,21 +41,23 @@ def fit_shear_vs_norm(norm_vec, shear_vec, std_dev_vec):
     # plt.show()
     #### FIT SHEAR VS NORM RELATIONSHIP ####
 
-norm_vec_acrylic = [.2333, .4666, 1.1666, 2.333, 4.666] #n_vs_s_data[:,0]
-shear_vec_acrylic = [5.62, 8, 14.14, 16.86, 22.5] #n_vs_s_data[:,1]
+norm_vec_acrylic = np.asarray([.2333, .4666, 1.1666, 2.333, 4.666])  # n_vs_s_data[:,0]
+norm_vec_acrylic = norm_vec_acrylic - norm_vec_acrylic[0]
+shear_vec_acrylic = [5.62, 8, 14.14, 16.86, 22.5]  # n_vs_s_data[:,1]
 std_dev_vec_acrylic = [.57, .43, .95, .43, 1.6]
 
-norm_vec_paper = [.2333, .4666, 1.1666, 2.333, 4.666] #n_vs_s_data[:,0]
-shear_vec_paper = [1.1, 1.4, 2.5, 4.4, 7.3] #n_vs_s_data[:,1]
+norm_vec_paper = norm_vec_acrylic  # n_vs_s_data[:,0]
+shear_vec_paper = [1.1, 1.4, 2.5, 4.4, 7.3]  # n_vs_s_data[:,1]
 std_dev_vec_paper = [.32, .60, .21, .40, .46]
 
-norm_vec_metal = [.2333, .4666, 1.1666, 2.333, 4.666] #n_vs_s_data[:,0]
-shear_vec_metal = [5, 7.3, 11.6, 15.4, 18] #n_vs_s_data[:,1]
+norm_vec_metal = norm_vec_acrylic  # n_vs_s_data[:,0]
+shear_vec_metal = [5, 7.3, 11.6, 15.4, 18]  # n_vs_s_data[:,1]
 std_dev_vec_metal = [.38, .39, 1.45, .74, 1.40]
 
 fit_shear_vs_norm(norm_vec_paper, shear_vec_paper, std_dev_vec_paper)
 fit_shear_vs_norm(norm_vec_metal, shear_vec_metal, std_dev_vec_metal)
 fit_shear_vs_norm(norm_vec_acrylic, shear_vec_acrylic, std_dev_vec_acrylic)
+plt.show()
 
 # plt.show()
 
@@ -100,9 +103,9 @@ fit_norm_vs_strain(norm_vec_distInner, displace_vec)
 fit_norm_vs_strain(norm_vec_distOuter, displace_vec)
 fit_norm_vs_strain(norm_vec_proxInner, displace_vec)
 fit_norm_vs_strain(norm_vec_proxOuter, displace_vec)
-plt.legend()
+# plt.legend()
 
-plt.show()
+# plt.show()
 #### FIT NORM VS STRAIN RELATIONSHIP ####
 
 
@@ -246,11 +249,11 @@ Z = interpolate.griddata((cp_array, fn_array), fs_array, (X,Y), method='cubic')
 
 # print(Y[:,0])
 for i in range(1,num_points_2,int(num_points_2/7)):
-    plt.plot(X[i],  Z[i], label = "fn=" + str(Y[i,0]), color='g')
+    plt.plot(X[i],  Z[i], label = "fn=" + str(Y[i,0]), color=next(color))
     # plt.plot(X[i], Z[i])
 
 # plt.ylim(8,17.5)
-plt.legend()
+# plt.legend()
 # ax.scatter(cp_vec, fn_vec, fs_vec)
 
 # plt.show()
@@ -331,9 +334,10 @@ for r in [20*w_0, 15*w_0, 10*w_0, 7*w_0, 6*w_0]:
         slope = i*.05
         max_shear_vec[i], cp_vec[i] = calc_max_shear_force_convex()
 
-    plt.plot(cp_vec, max_shear_vec)
+    plt.plot(cp_vec, max_shear_vec, label = 'r=' + str(r), color = next(color))
 
 plt.title("Convex Object Shear Force")
 # plt.xlim([0,10])
 # plt.ylim([15,30])
+# plt.legend()
 plt.show()
